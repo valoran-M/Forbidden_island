@@ -1,5 +1,6 @@
 package views;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -20,5 +21,9 @@ public class Window extends JFrame {
     this.pack();
     this.setVisible(true);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+
+  public void addElem(JComponent element) {
+    elements.add(element);
   }
 }
