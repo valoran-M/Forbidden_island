@@ -3,9 +3,13 @@ package views;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.border.Border;
 
-public class ViewCase extends JPanel {
+public class ViewCase extends JButton {
+    static private Border lineborder = BorderFactory.createLineBorder(Color.RED, 1);
+    
     public ViewCase(int x, int y, boolean empty) {
         setPreferredSize(new Dimension(x, y));
         if (empty) {
@@ -13,9 +17,18 @@ public class ViewCase extends JPanel {
         } else {
             setBackground(new Color(200, 200, 200));
         }
+        setBorder(lineborder);
     }
 
     public ViewCase(int x, int y) {
         this(x, y, false);
+    }
+
+    public void setBorder(){
+        setBorder(lineborder);
+    }
+
+    public void removeBorder(){
+        setBorder(null);
     }
 }

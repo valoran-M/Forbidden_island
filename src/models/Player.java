@@ -7,14 +7,14 @@ import java.util.ArrayList;
 /**
  * Players
  */
-public class Players {
+public class Player {
     private ViewCase position;
     private String name;
     private ArrayList<Integer> card;
     private final int nbActions;
 
     // Constructeur
-    public Players(String name) {
+    public Player(String name) {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;

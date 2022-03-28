@@ -3,7 +3,7 @@ package controllers;
 import java.util.ArrayList;
 
 import models.Isle;
-import models.Players;
+import models.Player;
 import views.ViewGame;
 import views.ViewSetup;
 
@@ -11,13 +11,13 @@ import views.ViewSetup;
  * Controllers
  */
 public class Controller{
-    private ArrayList<Players> players;
+    private ArrayList<Player> players;
     private ViewSetup setup;
     private ViewGame game;
     private Isle isle;
 
     public Controller() {
-        players = new ArrayList<Players>();
+        players = new ArrayList<Player>();
         setup = new ViewSetup();
         game = new ViewGame();
         isle = new Isle(6);
@@ -39,7 +39,7 @@ public class Controller{
      */
     public void initPlayer(ArrayList<String> names) {
         for (String name : names) {
-            players.add(new Players(name));
+            players.add(new Player(name));
         }
     }
 }
