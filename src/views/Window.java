@@ -10,13 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
 import controllers.Controller;
 
@@ -24,14 +22,36 @@ import controllers.Controller;
  * Window
  */
 public class Window extends JFrame {
+	private JSlider slider;
 
-	private JPanel elements;
+	private int widthSetup = 500;
+	private int heightSetup = 400;
+
+	private boolean isSetup;
+
+	private ArrayList<String> names;
 
 	/**
 	 * 
 	 */
 	public Window() {
 		super("Ile Interdite");
+	}
+
+	/**
+	 * 
+	 * @return isSetup
+	 */
+	public boolean isSetup() {
+		return isSetup;
+	}
+
+	/**
+	 * 
+	 * @return ArrayList<String> names
+	 */
+	public ArrayList<String> getNames() {
+		return names;
 	}
 
 	/**
@@ -43,24 +63,9 @@ public class Window extends JFrame {
 	}
 
 	/**
-	 * @param JComponent component
-	 */
-	public void addElem(JComponent element) {
-		elements.add(element);
-	}
-
-	private JSlider slider;
-
-	private int widthSetup = 500;
-	private int heightSetup = 400;
-
-	private boolean isSetup;
-
-	/**
 	 * 
 	 */
 	public void setUpMenu(Controller controller) {
-		elements = new JPanel(new SpringLayout());
 		isSetup = false;
 		setSize(widthSetup, heightSetup);
 		setTitle("Players Selection");
@@ -112,11 +117,10 @@ public class Window extends JFrame {
 		start.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<String> names = new ArrayList<String>();
+				names = new ArrayList<String>();
 				for (int i = 0; i < slider.getValue(); i++) {
 					names.add(texts.get(i).getText());
 				}
-				controller.initPlayer(names);
 				isSetup = true;
 			}
 		});
@@ -136,9 +140,5 @@ public class Window extends JFrame {
 			namePlayers.add(texts.get(i), constraints);
 		}
 		namePlayers.repaint();
-	}
-
-	public boolean isSetup() {
-		return isSetup;
 	}
 }

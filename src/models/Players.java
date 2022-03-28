@@ -18,6 +18,7 @@ public class Players {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
+        this.position = new Case(0, 0); 
     }
 
     // Setter
@@ -48,5 +49,9 @@ public class Players {
 
     public ArrayList<Integer> getAllCards() {
         return this.card;
+    }
+
+    public int getNbActions() {
+        return this.nbActions;
     }
 }

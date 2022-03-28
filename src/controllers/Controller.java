@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 
-import models.Ile;
 import models.Players;
 import views.Window;
 
@@ -12,7 +11,6 @@ import views.Window;
 public class Controller {
     private ArrayList<Players> players;
     private Window win;
-    private Ile ile;
 
     public Controller() {
         win = new Window();
@@ -26,10 +24,11 @@ public class Controller {
         while (!win.isSetup()) {
         }
 
+        initPlayer(win.getNames());
+
     }
 
     public void start() {
-        ile = new Ile(10);
         win.drawWin();
     }
 
