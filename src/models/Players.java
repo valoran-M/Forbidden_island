@@ -14,8 +14,7 @@ public class Players {
     private final int nbActions;
 
     // Constructeur
-    public Players(String name, int x, int y) {
-        this.position = new Case(x, y);
+    public Players(String name) {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
