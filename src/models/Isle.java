@@ -2,17 +2,17 @@ package models;
 
 import java.util.ArrayList;
 
-import views.Case;
+import views.ViewCase;
 import views.ViewGrid;
 
 /**
  * Ile
  */
-public class Ile extends ViewGrid {
+public class Isle extends ViewGrid {
 
     private ArrayList<ArrayList<Zone>> grid;
 
-    public Ile(int size) {
+    public Isle(int size) {
         super(size, size);
 
         grid = new ArrayList<ArrayList<Zone>>();
@@ -22,10 +22,10 @@ public class Ile extends ViewGrid {
                 if (Math.abs(i - (size - 1) / 2.) +
                         Math.abs(j - (size - 1) / 2.) <= size / 2.) {
                     line.add(new Zone(50, 50));
-                    this.addElem(line.get(i));
+                    addElem(line.get(i));
                 } else {
                     line.add(null);
-                    this.addElem(new Case(50, 50, true));
+                    addElem(new ViewCase(50, 50, true));
                 }
             }
             grid.add(line);

@@ -1,6 +1,6 @@
 package models;
 
-import views.Case;
+import views.ViewCase;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Players
  */
 public class Players {
-    private Case position;
+    private ViewCase position;
     private String name;
     private ArrayList<Integer> card;
     private final int nbActions;
@@ -18,12 +18,12 @@ public class Players {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
-        this.position = new Case(0, 0); 
+        this.position = new ViewCase(0, 0); 
     }
 
     // Setter
     public void setPosition(int x, int y) {
-        this.position = new Case(x, y);
+        this.position = new ViewCase(x, y);
     }
 
     public void setName(String name) {
@@ -35,7 +35,7 @@ public class Players {
     }
 
     // Getter
-    public Case getPosition() {
+    public ViewCase getPosition() {
         return this.position;
     }
 

@@ -1,35 +1,36 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
+import models.Isle;
 import models.Players;
+import views.ViewGame;
 import views.ViewSetup;
 
 /**
  * Controllers
  */
-public class Controller {
+public class Controller{
     private ArrayList<Players> players;
-    private ViewSetup win;
+    private ViewSetup setup;
+    private ViewGame game;
+    private Isle isle;
 
     public Controller() {
-        win = new ViewSetup();
+        players = new ArrayList<Players>();
+        setup = new ViewSetup();
+        game = new ViewGame();
+        isle = new Isle(6);
     }
 
     public void setup() {
-        win.setUpMenu(this);
-
-        win.drawWin();
-
-        while (!win.isSetup()) {
-        }
-
-        initPlayer(win.getNames());
-
+        setup.setUpMenu(this);
+        setup.drawWin();
     }
 
-    public void start() {
-        win.drawWin();
+    public void run() {
+
     }
 
     /**

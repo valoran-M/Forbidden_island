@@ -1,11 +1,11 @@
 package models;
 
-import views.Case;
+import views.ViewCase;
 
 /**
  * Zone
  */
-public class Zone extends Case {
+public class Zone extends ViewCase {
     public Zone(int height, int width){
         super(height, width);
     }    

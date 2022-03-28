@@ -5,8 +5,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-public class Case extends JPanel {
-    public Case(int x, int y, boolean empty) {
+public class ViewCase extends JPanel {
+    public ViewCase(int x, int y, boolean empty) {
         setPreferredSize(new Dimension(x, y));
         if (empty) {
             setBackground(new Color(0, 0, 0, 0));
@@ -15,7 +15,7 @@ public class Case extends JPanel {
         }
     }
 
-    public Case(int x, int y) {
+    public ViewCase(int x, int y) {
         this(x, y, false);
     }
 }

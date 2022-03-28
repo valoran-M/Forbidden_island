@@ -27,30 +27,16 @@ public class ViewSetup extends JFrame {
 	private int widthSetup = 500;
 	private int heightSetup = 400;
 
-	private boolean isSetup;
-
 	private ArrayList<String> names;
+	private ArrayList<JLabel> labels;
+	private ArrayList<JTextField> texts;
+	private JPanel namePlayers;
 
 	/**
 	 * 
 	 */
 	public ViewSetup() {
-	}
-
-	/**
-	 * 
-	 * @return isSetup
-	 */
-	public boolean isSetup() {
-		return isSetup;
-	}
-
-	/**
-	 * 
-	 * @return ArrayList<String> names
-	 */
-	public ArrayList<String> getNames() {
-		return names;
+		super("Players Selection");
 	}
 
 	/**
@@ -65,9 +51,7 @@ public class ViewSetup extends JFrame {
 	 * 
 	 */
 	public void setUpMenu(Controller controller) {
-		isSetup = false;
 		setSize(widthSetup, heightSetup);
-		setTitle("Players Selection");
 
 		// Add the elements for number of players
 		JPanel nbPlayers = new JPanel();
@@ -83,9 +67,9 @@ public class ViewSetup extends JFrame {
 		slider.setLabelTable(slider.createStandardLabels(1));
 
 		// Add the name input for players
-		JPanel namePlayers = new JPanel(new GridBagLayout());
-		ArrayList<JTextField> texts = new ArrayList<JTextField>();
-		ArrayList<JLabel> labels = new ArrayList<JLabel>();
+		namePlayers = new JPanel(new GridBagLayout());
+		texts = new ArrayList<JTextField>();
+		labels = new ArrayList<JLabel>();
 		for (int i = 0; i < 4; i++) {
 			JLabel label = new JLabel("Player " + (i + 1) + " name : ");
 			JTextField text = new JTextField(10);
@@ -94,12 +78,12 @@ public class ViewSetup extends JFrame {
 
 		}
 
-		drawInName(labels, texts, namePlayers, slider.getValue());
+		drawInName(slider.getValue());
 
 		add(namePlayers, BorderLayout.CENTER);
 
 		slider.addChangeListener(l -> {
-			drawInName(labels, texts, namePlayers, slider.getValue());
+			drawInName(slider.getValue());
 		});
 
 		JLabel playerNumber = new JLabel("Number of players : ");
@@ -120,13 +104,21 @@ public class ViewSetup extends JFrame {
 				for (int i = 0; i < slider.getValue(); i++) {
 					names.add(texts.get(i).getText());
 				}
-				isSetup = true;
+				closeWin();
+				Thread run = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						controller.initPlayer(names);
+						controller.run();
+					}
+				});
+				run.start();
 			}
 		});
 		StartB.add(start);
 	}
 
-	private void drawInName(ArrayList<JLabel> labels, ArrayList<JTextField> texts, JPanel namePlayers, int nb) {
+	private void drawInName(int nb) {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.anchor = GridBagConstraints.WEST;
 		constraints.insets = new Insets(10, 10, 10, 10);
@@ -139,5 +131,10 @@ public class ViewSetup extends JFrame {
 			namePlayers.add(texts.get(i), constraints);
 		}
 		namePlayers.repaint();
+	}
+
+	public void closeWin() {
+		setVisible(false);
+		dispose();
 	}
 }
