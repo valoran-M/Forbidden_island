@@ -10,7 +10,7 @@ import views.ViewSetup;
 /**
  * Controllers
  */
-public class Controller{
+public class Controller {
     private ArrayList<Player> players;
     private ViewSetup setup;
     private ViewGame game;

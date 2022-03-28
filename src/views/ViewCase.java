@@ -17,7 +17,6 @@ public class ViewCase extends JButton {
         } else {
             setBackground(new Color(200, 200, 200));
         }
-        setBorder(lineborder);
     }
 
     public ViewCase(int x, int y) {
