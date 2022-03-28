@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Observer;
 
 import models.Isle;
 import models.Players;
@@ -22,6 +21,8 @@ public class Controller{
         setup = new ViewSetup();
         game = new ViewGame();
         isle = new Isle(6);
+
+        game.addElem(isle);
     }
 
     public void setup() {
@@ -30,21 +31,15 @@ public class Controller{
     }
 
     public void run() {
-
+        game.drawWin();
     }
 
     /**
      * @param players
      */
     public void initPlayer(ArrayList<String> names) {
-        int i = 1;
         for (String name : names) {
-            if (name == "") {
-                players.add(new Players("Player " + i));
-            } else {
-                players.add(new Players(name));
-            }
-            i++;
+            players.add(new Players(name));
         }
     }
 }

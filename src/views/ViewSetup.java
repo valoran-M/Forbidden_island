@@ -102,7 +102,10 @@ public class ViewSetup extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				names = new ArrayList<String>();
 				for (int i = 0; i < slider.getValue(); i++) {
-					names.add(texts.get(i).getText());
+					if (texts.get(i).getText().isEmpty()) {
+						texts.get(i).setText("Player " + (i + 1));
+					}
+					names.add(texts.get(i).getText().toString());
 				}
 				closeWin();
 				Thread run = new Thread(new Runnable() {

@@ -12,6 +12,7 @@ public class ViewGame extends JFrame {
     }
 
     public void drawWin() {
+        pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
