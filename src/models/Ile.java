@@ -3,12 +3,12 @@ package models;
 import java.util.ArrayList;
 
 import views.Case;
-import views.Grid;
+import views.ViewGrid;
 
 /**
  * Ile
  */
-public class Ile extends Grid {
+public class Ile extends ViewGrid {
 
     private ArrayList<ArrayList<Zone>> grid;
 

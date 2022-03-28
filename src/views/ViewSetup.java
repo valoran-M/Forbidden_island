@@ -21,7 +21,7 @@ import controllers.Controller;
 /**
  * Window
  */
-public class WindowSetup extends JFrame {
+public class ViewSetup extends JFrame {
 	private JSlider slider;
 
 	private int widthSetup = 500;
@@ -34,7 +34,7 @@ public class WindowSetup extends JFrame {
 	/**
 	 * 
 	 */
-	public WindowSetup() {
+	public ViewSetup() {
 	}
 
 	/**

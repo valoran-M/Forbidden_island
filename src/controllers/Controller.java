@@ -3,17 +3,17 @@ package controllers;
 import java.util.ArrayList;
 
 import models.Players;
-import views.WindowSetup;
+import views.ViewSetup;
 
 /**
  * Controllers
  */
 public class Controller {
     private ArrayList<Players> players;
-    private WindowSetup win;
+    private ViewSetup win;
 
     public Controller() {
-        win = new WindowSetup();
+        win = new ViewSetup();
     }
 
     public void setup() {
