@@ -2,6 +2,7 @@ package views;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -9,7 +10,7 @@ import javax.swing.border.Border;
 
 public class ViewCase extends JButton {
     static private Border lineborder = BorderFactory.createLineBorder(Color.RED, 1);
-    
+
     public ViewCase(int x, int y, boolean empty) {
         setPreferredSize(new Dimension(x, y));
         if (empty) {
@@ -17,17 +18,23 @@ public class ViewCase extends JButton {
         } else {
             setBackground(new Color(200, 200, 200));
         }
+        removeBorder();
     }
 
     public ViewCase(int x, int y) {
         this(x, y, false);
     }
 
-    public void setBorder(){
+    public void setBorder() {
         setBorder(lineborder);
     }
 
-    public void removeBorder(){
+    public void removeBorder() {
         setBorder(null);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
     }
 }

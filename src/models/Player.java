@@ -1,29 +1,28 @@
 package models;
 
-import views.ViewCase;
-
 import java.util.ArrayList;
 
 /**
  * Players
  */
 public class Player {
-    private ViewCase position;
-    private String name;
-    private ArrayList<Integer> card;
     private final int nbActions;
 
+    private Zone position;
+    private String name;
+    private ArrayList<Integer> card;
+
     // Constructeur
-    public Player(String name) {
+    public Player(String name, Zone zone) {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
-        this.position = new ViewCase(0, 0); 
+        position = zone;
     }
 
     // Setter
-    public void setPosition(int x, int y) {
-        this.position = new ViewCase(x, y);
+    public void setPosition(Zone z) {
+        this.position = z;
     }
 
     public void setName(String name) {
@@ -35,7 +34,7 @@ public class Player {
     }
 
     // Getter
-    public ViewCase getPosition() {
+    public Zone getPosition() {
         return this.position;
     }
 

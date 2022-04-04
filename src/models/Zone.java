@@ -6,7 +6,8 @@ import views.ViewCase;
  * Zone
  */
 public class Zone extends ViewCase {
-    public Zone(int height, int width){
+    int x, y;
+    public Zone(int height, int width, int x, int y){
         super(height, width);
     }    
 }
