@@ -1,13 +1,18 @@
 package models;
 
-import views.ViewCase;
+import java.awt.Point;
 
 /**
  * Zone
  */
-public class Zone extends ViewCase {
-    int x, y;
-    public Zone(int height, int width, int x, int y){
-        super(height, width);
-    }    
+public class Zone {
+    private Point c;
+
+    public Zone(int x, int y){
+        this.c = new Point(x, y);
+    }
+
+    public Point getCoord(){
+        return this.c;
+    }
 }

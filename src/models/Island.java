@@ -2,30 +2,23 @@ package models;
 
 import java.util.ArrayList;
 
-import views.ViewCase;
-import views.ViewGrid;
-
 /**
  * Ile
  */
-public class Island extends ViewGrid {
+public class Island {
 
     private ArrayList<ArrayList<Zone>> grid;
 
     public Island(int size) {
-        super(size, size);
-
         grid = new ArrayList<ArrayList<Zone>>();
         for (int j = 0; j < size; j++) {
             ArrayList<Zone> line = new ArrayList<Zone>();
             for (int i = 0; i < size; i++) {
                 if (Math.abs(i - (size - 1) / 2.) +
                         Math.abs(j - (size - 1) / 2.) <= size / 2.) {
-                    line.add(new Zone(50, 50, i, j));
-                    addElem(line.get(i));
+                    line.add(new Zone(i, j));
                 } else {
                     line.add(null);
-                    addElem(new ViewCase(50, 50, true));
                 }
             }
             grid.add(line);

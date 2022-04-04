@@ -16,7 +16,7 @@ public class View extends JFrame {
 		super("Players Selection");
         this.m = m;
         setSize(500, 400);
-        this.setup = new ViewSetup(m, this);
+        this.setup = new ViewSetup(this.m, this);
 
         setResizable(false);
         setLocationRelativeTo(null);

@@ -11,4 +11,8 @@ public abstract class Controller {
     public Controller(Model model) {
         this.model = model;
     }
+
+    public Model getModel() {
+        return model;
+    }
 }

@@ -9,4 +9,8 @@ public class Model {
     public Model(int size) {
         island = new Island(size);
     }
+
+    public Island getIsland() {
+        return island;
+    }
 }
