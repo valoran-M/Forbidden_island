@@ -4,28 +4,25 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
-import controllers.Controller;
+import controllers.ContrSetup;
+import models.Model;
 
 /**
  * Window
  */
-public class ViewSetup extends JFrame {
-	private JSlider slider;
+public class ViewSetup extends JPanel {
+	private ContrSetup control;
 
-	private int widthSetup = 500;
-	private int heightSetup = 400;
+	private JSlider slider;
 
 	private ArrayList<String> names;
 	private ArrayList<JLabel> labels;
@@ -35,23 +32,16 @@ public class ViewSetup extends JFrame {
 	/**
 	 * 
 	 */
-	public ViewSetup() {
-		super("Players Selection");
+	public ViewSetup(Model model, View view) {
+		this.control = new ContrSetup(model, view);
+
+		setUpMenu();
 	}
 
 	/**
 	 * 
 	 */
-	public void drawWin() {
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-	/**
-	 * 
-	 */
-	public void setUpMenu(Controller controller) {
-		setSize(widthSetup, heightSetup);
+	private void setUpMenu() {
 
 		// Add the elements for number of players
 		JPanel nbPlayers = new JPanel();
@@ -97,27 +87,7 @@ public class ViewSetup extends JFrame {
 
 		add(StartB, BorderLayout.SOUTH);
 		JButton start = new JButton("Start");
-		start.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				names = new ArrayList<String>();
-				for (int i = 0; i < slider.getValue(); i++) {
-					if (texts.get(i).getText().isEmpty()) {
-						texts.get(i).setText("Player " + (i + 1));
-					}
-					names.add(texts.get(i).getText().toString());
-				}
-				closeWin();
-				Thread run = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						controller.initPlayer(names);
-						controller.run();
-					}
-				});
-				run.start();
-			}
-		});
+		start.addActionListener(control);
 		StartB.add(start);
 	}
 
@@ -136,8 +106,14 @@ public class ViewSetup extends JFrame {
 		namePlayers.repaint();
 	}
 
-	public void closeWin() {
-		setVisible(false);
-		dispose();
+	public ArrayList<String> getNamePlayer() {
+		names = new ArrayList<String>();
+		for (int i = 0; i < slider.getValue(); i++) {
+			if (texts.get(i).getText().isEmpty()) {
+				texts.get(i).setText("Player " + (i + 1));
+			}
+			names.add(texts.get(i).getText().toString());
+		}
+		return names;
 	}
 }

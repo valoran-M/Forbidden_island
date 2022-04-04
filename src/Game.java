@@ -1,8 +1,10 @@
-import controllers.Controller;
+import models.Model;
+import views.View;
 
 public class Game {
     public static void main(String[] args) {
-        Controller controller = new Controller();
-        controller.setup();
+        Model m = new Model(6);
+        View v = new View(m);
+        v.setup();
     }
 }
