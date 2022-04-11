@@ -11,7 +11,6 @@ public class Island {
 
     private ArrayList<ArrayList<Zone>> grid;
     private ArrayList<Zone> temple;
-    private ArrayList<Player> player;
     private Point heliZone;
 
     final int size;
@@ -19,6 +18,7 @@ public class Island {
     public Island(int size) {
         this.size = size;
         Random rand = new Random();
+        temple = new ArrayList<Zone>();
         int x, y;
         grid = new ArrayList<ArrayList<Zone>>();
         for (int j = 0; j < size; j++) {

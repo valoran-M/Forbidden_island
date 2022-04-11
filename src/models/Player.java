@@ -13,6 +13,7 @@ public class Player {
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
+    private ArrayList<Player> player;
 
     // Constructeur
     public Player(String name, Zone zone) {

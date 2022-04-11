@@ -43,6 +43,8 @@ public class View extends JFrame {
         game = new JPanel();
         game.setLayout(null);
         game.setBounds(0, 0, width, height);
+        this.grid.setLayout(null);
+        this.grid.setBounds(30, 30, this.grid.sizeJpanel, this.grid.sizeJpanel);
         game.add(this.grid);
         add(game);
         repaint();
