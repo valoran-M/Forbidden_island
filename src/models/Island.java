@@ -14,7 +14,10 @@ public class Island {
     private ArrayList<Player> player;
     private Point heliZone;
 
+    final int size;
+
     public Island(int size) {
+        this.size = size;
         Random rand = new Random();
         int x, y;
         grid = new ArrayList<ArrayList<Zone>>();
@@ -53,7 +56,7 @@ public class Island {
     }
 
     public int getGridSize() {
-        return grid.size();
+        return size;
     }
 
     public ArrayList<Integer> getCoordLine(int y) {
