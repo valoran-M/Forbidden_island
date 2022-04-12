@@ -21,6 +21,7 @@ public class ContrSetup extends Controller implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> names = view.setup.getNamePlayer();
+        
         view.start();
     }
 }

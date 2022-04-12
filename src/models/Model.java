@@ -9,6 +9,7 @@ import java.util.Random;
 public class Model {
     private Island island;
     private ArrayList<Zone> temple;
+    private ArrayList<Player> players;
     private Zone heliZone;
 
     public Model(int size) {
@@ -25,6 +26,13 @@ public class Model {
 
     public Island getIsland() {
         return this.island;
+    }
+
+    public void setPlayer(ArrayList<String> names){
+        for(String name : names){
+            Player joueur = new Player(name, this.getRandomCase());
+            this.players.add(joueur);
+        }
     }
 
     public Zone getRandomCase() {
