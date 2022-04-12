@@ -26,7 +26,7 @@ public class View extends JFrame {
         setSize(500, 400);
         this.setup = new ViewSetup(this.m, this);
         this.grid = new ViewGrid(this.m);
-        
+
         setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);

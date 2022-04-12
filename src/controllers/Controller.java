@@ -6,7 +6,7 @@ import models.Model;
  * Controllers
  */
 public abstract class Controller {
-    private Model model;
+    protected Model model;
 
     public Controller(Model model) {
         this.model = model;
