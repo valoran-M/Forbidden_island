@@ -9,11 +9,13 @@ public class Model {
     private Island island;
     private ArrayList<Zone> temple;
     private ArrayList<Player> players;
+    private int actPlayer;
     private Zone heliZone;
 
     public Model(int size) {
         this.island = new Island(size);
         this.temple = new ArrayList<Zone>();
+        this.actPlayer = 0;
 
         for (int i = 0; i < 4; i++) {
 
@@ -35,8 +37,12 @@ public class Model {
         return this.heliZone;
     }
 
-    public void setPlayer(ArrayList<String> names){
-        for(String name : names){
+    public void nextPlayer() {
+        this.actPlayer = (this.actPlayer + 1) % this.players.size();
+    }
+
+    public void setPlayer(ArrayList<String> names) {
+        for (String name : names) {
             Player joueur = new Player(name, this.island.getRandomCase());
             this.players.add(joueur);
         }
