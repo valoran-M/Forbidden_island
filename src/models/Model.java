@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Models
@@ -18,34 +17,35 @@ public class Model {
 
         for (int i = 0; i < 4; i++) {
 
-            this.temple.add(this.getRandomCase());
+            this.temple.add(this.getRandomValideCase());
         }
 
-        this.heliZone = this.getRandomCase();
+        this.heliZone = this.getRandomValideCase();
     }
 
     public Island getIsland() {
         return this.island;
     }
 
-    public void setPlayer(ArrayList<String> names){
-        for(String name : names){
-            Player joueur = new Player(name, this.getRandomCase());
-            this.players.add(joueur);
-        }
+    public ArrayList<Zone> getTemple() {
+        return this.temple;
     }
 
-    public Zone getRandomCase() {
-        Random rand = new Random();
-        int y = rand.nextInt(this.island.getGridSize());
-        int x = this.island.getCoordLine(y).get(rand.nextInt(this.island.getCoordLine(y).size()));
-        return this.island.getZone(x, y);
+    public Zone getHeliZone() {
+        return this.heliZone;
+    }
+
+    public void setPlayer(ArrayList<String> names){
+        for(String name : names){
+            Player joueur = new Player(name, this.island.getRandomCase());
+            this.players.add(joueur);
+        }
     }
 
     public Zone getRandomValideCase() {
         Zone pos;
         do {
-            pos = this.getRandomCase();
+            pos = this.island.getRandomCase();
         } while (this.temple.contains(pos));
         return pos;
     }

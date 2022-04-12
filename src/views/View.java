@@ -1,5 +1,7 @@
 package views;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,6 +44,8 @@ public class View extends JFrame {
         setSize(width, height);
         elements = new JPanel();
         elements.setLayout(null);
+        elements.setBackground(new Color(55, 55, 55));
+
         add(elements);
 
         JButton next = new JButton("End of turn");

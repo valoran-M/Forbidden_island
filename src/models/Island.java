@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Ile
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class Island {
 
     private ArrayList<ArrayList<Zone>> grid;
+    private Random rand;
 
     final int size;
 
@@ -26,6 +28,7 @@ public class Island {
             }
             grid.add(line);
         }
+        rand = new Random();
     }
 
     public Zone getZone(int x, int y) {
@@ -36,7 +39,7 @@ public class Island {
         return size;
     }
 
-    public ArrayList<Integer> getCoordLine(int y) {
+    private ArrayList<Integer> getCoordLine(int y) {
         ArrayList<Integer> s = new ArrayList<Integer>();
         for (int index = 0; index < grid.size(); index++) {
             if (grid.get(y).get(index) != null) {
@@ -44,5 +47,11 @@ public class Island {
             }
         }
         return s;
+    }
+
+    public Zone getRandomCase() {
+        int y = rand.nextInt(this.getGridSize());
+        int x = this.getCoordLine(y).get(rand.nextInt(this.getCoordLine(y).size()));
+        return this.getZone(x, y);
     }
 }
