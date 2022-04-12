@@ -16,6 +16,7 @@ public class Model {
         this.island = new Island(size);
         this.temple = new ArrayList<Zone>();
         this.actPlayer = 0;
+        this.players = new ArrayList<Player>();
 
         for (int i = 0; i < 4; i++) {
 
