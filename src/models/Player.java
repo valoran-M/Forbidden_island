@@ -13,7 +13,6 @@ public class Player {
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
-    private ArrayList<Player> player;
 
     // Constructeur
     public Player(String name, Zone zone) {
@@ -36,11 +35,11 @@ public class Player {
         this.card.add(x);
     }
 
-    public void addArtefact(int x){
+    public void addArtefact(int x) {
         this.artefact.add(x);
     }
 
-    public void setAction(){
+    public void setAction() {
         this.nbActions = 3;
     }
 
@@ -65,27 +64,32 @@ public class Player {
         return this.nbActions;
     }
 
-    //méthode
-    public void move(int x, int y){
+    // méthode
+    public void move(int x, int y) {
         this.position.modifie(x, y);
         this.nbActions -= 1;
     }
 
-    public void dig(){
+    public void dig() {
         Random rand = new Random();
         int val = rand.nextInt(10);
-        if(val <= 3){
+        if (val <= 3) {
             this.getcard(rand.nextInt(4));
-        } else if (val > 7){
+        } else if (val > 7) {
             this.position.drown();
         }
         this.nbActions -= 1;
     }
 
-    public void takeArtefact(int x){
-        for(int i  = 0; i < 2; i++){
+    public void takeArtefact(int x) {
+        for (int i = 0; i < 2; i++) {
             this.card.remove(x);
         }
         this.addArtefact(x);
+    }
+
+    public void dryUp() {
+        this.nbActions -= 1;
+        this.position.dry();
     }
 }

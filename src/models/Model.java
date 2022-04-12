@@ -27,7 +27,7 @@ public class Model {
         return this.island;
     }
 
-    public Zone getRandomCase(){
+    public Zone getRandomCase() {
         Random rand = new Random();
         int y = rand.nextInt(this.island.getGridSize());
         int x = this.island.getCoordLine(y).get(rand.nextInt(this.island.getCoordLine(y).size()));
