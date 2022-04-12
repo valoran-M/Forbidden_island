@@ -36,6 +36,10 @@ public class Player {
         this.card.add(x);
     }
 
+    public void addArtefact(int x){
+        this.artefact.add(x);
+    }
+
     public void setAction(){
         this.nbActions = 3;
     }
@@ -78,6 +82,10 @@ public class Player {
         this.nbActions -= 1;
     }
 
-    public void takeArtefact(){
+    public void takeArtefact(int x){
+        for(int i  = 0; i < 2; i++){
+            this.card.remove(x);
+        }
+        this.addArtefact(x);
     }
 }
