@@ -2,15 +2,21 @@ package views;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
+
+import controllers.ContrGrid;
 import models.Island;
 import models.Model;
 
 /**
  * Grid
  */
-public class ViewGrid extends JPanel {
+public class ViewGrid extends JPanel implements MouseListener{
+    private ContrGrid control;
+
     private Model model;
 
     final public int sizeJpanel;
@@ -23,9 +29,12 @@ public class ViewGrid extends JPanel {
         sizeJpanel = sizeGrid * sizeCase + (sizeGrid + 1) * sizeBorder;
         this.setPreferredSize(new java.awt.Dimension(
                 sizeJpanel, sizeJpanel));
-        System.out.println(sizeJpanel);
-        this.setBounds(0, 0, sizeJpanel, sizeJpanel);
+        
+        this.setLayout(null);
+        this.setBounds(30, 30, sizeJpanel, sizeJpanel);
         this.setBackground(new Color(0, 0, 128));
+
+        this.control = new ContrGrid(m);
     }
 
     @Override
@@ -50,5 +59,23 @@ public class ViewGrid extends JPanel {
     @Override
     public void repaint() {
         super.repaint();
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        System.out.println(e);
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void mousePressed(MouseEvent e) {
+        System.out.println(e);
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        System.out.println(e);
     }
 }

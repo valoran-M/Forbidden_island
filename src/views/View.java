@@ -15,7 +15,7 @@ public class View extends JFrame {
     public ViewSetup setup;
     public ViewGrid grid;
 
-    public JPanel game;
+    public JPanel elements;
 
     final int height = 600;
     final int width = 800;
@@ -40,13 +40,15 @@ public class View extends JFrame {
     public void start() {
         getContentPane().removeAll();
         setSize(width, height);
-        game = new JPanel();
-        game.setLayout(null);
-        game.setBounds(0, 0, width, height);
-        this.grid.setLayout(null);
-        this.grid.setBounds(30, 30, this.grid.sizeJpanel, this.grid.sizeJpanel);
-        game.add(this.grid);
-        add(game);
+        elements = new JPanel();
+        elements.setLayout(null);
+        add(elements);
+
+        JButton next = new JButton("End of turn");
+        next.setLayout(null);
+        next.setBounds(300, 300, 100, 50);
+        elements.add(this.grid);
+        elements.add(next);
         repaint();
     }
 }
