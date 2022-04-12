@@ -26,7 +26,8 @@ public class View extends JFrame {
         setSize(500, 400);
         this.setup = new ViewSetup(this.m, this);
         this.grid = new ViewGrid(this.m);
-
+        
+        setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +35,6 @@ public class View extends JFrame {
 
     public void setup() {
         add(this.setup);
-        setVisible(true);
     }
 
     public void start() {

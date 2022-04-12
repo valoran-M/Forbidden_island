@@ -33,6 +33,7 @@ public class ViewGrid extends JPanel implements MouseListener{
         this.setLayout(null);
         this.setBounds(30, 30, sizeJpanel, sizeJpanel);
         this.setBackground(new Color(0, 0, 128));
+        this.addMouseListener(this);
 
         this.control = new ContrGrid(m);
     }
@@ -62,7 +63,11 @@ public class ViewGrid extends JPanel implements MouseListener{
     }
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println(e);
+        int x = e.getX();
+        int y = e.getY();
+        int x_case = x / (sizeCase + sizeBorder);
+        int y_case = y / (sizeCase + sizeBorder);
+        this.control.click(x_case, y_case);
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -72,10 +77,8 @@ public class ViewGrid extends JPanel implements MouseListener{
     }
 
     public void mousePressed(MouseEvent e) {
-        System.out.println(e);
     }
 
     public void mouseReleased(MouseEvent e) {
-        System.out.println(e);
     }
 }
