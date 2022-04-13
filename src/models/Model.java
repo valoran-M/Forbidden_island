@@ -31,10 +31,8 @@ public class Model {
         this.actPlayer = 0;
 
         for (int i = 0; i < 4; i++) {
-
             this.temple.add(this.getRandomValideCase());
         }
-
         this.heliZone = this.getRandomValideCase();
     }
 
