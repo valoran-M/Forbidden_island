@@ -1,9 +1,14 @@
 package views;
 
+import java.util.ArrayList;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import controllers.ContrGrid;
@@ -18,16 +23,20 @@ public class ViewGrid extends JPanel implements MouseListener {
 
     private Model model;
 
+    Image pawn;
+    //x²private ArrayList<Image> pawns;
+
     final public int sizeJpanel;
     final public int sizeCase = 60;
     final public int sizeBorder = 5;
+    final private int pawnHeight = 60 / 2;
 
     public ViewGrid(Model m) {
         this.model = m;
         int sizeGrid = m.getIsland().getGridSize();
         sizeJpanel = sizeGrid * sizeCase + (sizeGrid + 1) * sizeBorder;
         this.setPreferredSize(new java.awt.Dimension(
-                sizeJpanel, sizeJpanel));
+            sizeJpanel, sizeJpanel));
 
         this.setLayout(null);
         this.setBounds(30, 30, sizeJpanel, sizeJpanel);
@@ -35,6 +44,14 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.addMouseListener(this);
 
         this.control = new ContrGrid(m);
+        
+        Image img = new ImageIcon("utils/pawn.png").getImage();
+        int width = img.getWidth(null);
+        int height = img.getHeight(null);
+        double coef = (double)height / (double)width;
+        pawn = img.getScaledInstance((int)(pawnHeight / coef), pawnHeight, Image.SCALE_DEFAULT);
+        pawn.getWidth(null);
+        pawn.getHeight(null);
     }
 
     @Override
