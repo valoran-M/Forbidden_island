@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Point;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Ile
  */
@@ -14,14 +18,16 @@ public class Island {
 
     final int size;
 
-    public Island(int size) {
-        this.size = size;
+    public Island(String map) throws IOException {
+        BufferedReader lecteur = new BufferedReader(new FileReader(map));
+
+        this.size = Integer.parseInt(lecteur.readLine());
         grid = new ArrayList<ArrayList<Zone>>();
         for (int j = 0; j < size; j++) {
             ArrayList<Zone> line = new ArrayList<Zone>();
+            String lineMap = lecteur.readLine();
             for (int i = 0; i < size; i++) {
-                if (Math.abs(i - (size - 1) / 2.) +
-                        Math.abs(j - (size - 1) / 2.) <= size / 2.) {
+                if (lineMap.charAt(i) == '#') {
                     line.add(new Zone(i, j));
                 } else {
                     line.add(null);
@@ -29,6 +35,9 @@ public class Island {
             }
             grid.add(line);
         }
+
+        lecteur.close();
+
         rand = new Random();
     }
 
@@ -66,6 +75,8 @@ public class Island {
     }
 
     public boolean inMap(Point pos) {
-        return (Math.abs(pos.getX() - (size - 1) / 2.) + Math.abs(pos.getY() - (size - 1) / 2.) <= size / 2.);
+        return pos.y >= 0 && pos.y < this.getGridSize() && pos.x >= 0 &&
+                pos.x < this.grid.get(pos.y).size() &&
+                this.grid.get(pos.y).get(pos.x) != null;
     }
 }

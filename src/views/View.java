@@ -19,8 +19,8 @@ public class View extends JFrame {
 
     public JPanel elements;
 
-    final int height = 600;
-    final int width = 800;
+    final int height = 800;
+    final int width = 1000;
 
     public View(Model m) {
         super("Players Selection");
@@ -43,16 +43,14 @@ public class View extends JFrame {
         getContentPane().removeAll();
         setSize(width, height);
         elements = new JPanel();
-        elements.setLayout(null);
         elements.setBackground(new Color(55, 55, 55));
 
         add(elements);
 
         JButton next = new JButton("End of turn");
-        next.setLayout(null);
-        next.setBounds(300, 300, 100, 50);
         elements.add(this.grid);
         elements.add(next);
+        
         repaint();
     }
 }

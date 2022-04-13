@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.awt.Point;
+import java.io.IOException;
 
 
 /**
@@ -14,8 +15,8 @@ public class Model {
     private int actPlayer;
     private Zone heliZone;
 
-    public Model(int size) {
-        this.island = new Island(size);
+    public Model(String map) throws IOException {
+        this.island = new Island(map);
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
 
