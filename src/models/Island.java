@@ -41,6 +41,24 @@ public class Island {
         rand = new Random();
     }
 
+    public Island() {
+        this.size = 6;
+        grid = new ArrayList<ArrayList<Zone>>();
+        for (int j = 0; j < size; j++) {
+            ArrayList<Zone> line = new ArrayList<Zone>();
+            for (int i = 0; i < size; i++) {
+                if (Math.abs(i - (size - 1) / 2.) +
+                        Math.abs(j - (size - 1) / 2.) <= size / 2.) {
+                    line.add(new Zone(i, j));
+                } else {
+                    line.add(null);
+                }
+            }
+            grid.add(line);
+        }
+        rand = new Random();
+    }
+
     public Zone getZone(int x, int y) {
         return grid.get(y).get(x);
     }

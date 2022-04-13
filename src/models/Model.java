@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.awt.Point;
 import java.io.IOException;
-
+import java.util.logging.*;
 
 /**
  * Models
@@ -15,8 +15,16 @@ public class Model {
     private int actPlayer;
     private Zone heliZone;
 
-    public Model(String map) throws IOException {
-        this.island = new Island(map);
+    public Model(String map) {
+        try {
+            this.island = new Island(map);
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(
+                    Model.class.getName());
+            logger.setLevel(Level.WARNING);
+            logger.warning(map + " not found default map used");
+            this.island = new Island();
+        }
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
 
@@ -30,7 +38,7 @@ public class Model {
         this.heliZone = this.getRandomValideCase();
     }
 
-    //Getter
+    // Getter
     public Island getIsland() {
         return this.island;
     }
@@ -51,7 +59,7 @@ public class Model {
         return this.actPlayer;
     }
 
-    //Setter
+    // Setter
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
             Player joueur = new Player(name, this.island.getRandomCase());
@@ -62,7 +70,7 @@ public class Model {
     public void nextPlayer() {
         this.actPlayer = (this.actPlayer + 1) % this.players.size();
     }
-    
+
     public Zone getRandomValideCase() {
         Zone pos;
         do {
@@ -71,10 +79,10 @@ public class Model {
         return pos;
     }
 
-    public ArrayList<Zone> accessiblZones(Player joueur){
+    public ArrayList<Zone> accessiblZones(Player joueur) {
         ArrayList<Zone> Case = new ArrayList<Zone>();
         for (Point position : joueur.surroundingZone()) {
-            if(this.island.inMap(position)){
+            if (this.island.inMap(position)) {
                 Case.add(this.island.getZone((int) position.getX(), (int) position.getY()));
             }
         }
