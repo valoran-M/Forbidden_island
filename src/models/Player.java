@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.awt.Point;
 
 /**
  * Players
@@ -86,10 +87,22 @@ public class Player {
             this.card.remove(x);
         }
         this.addArtefact(x);
+        this.nbActions -= 1;
     }
 
     public void dryUp() {
         this.nbActions -= 1;
         this.position.dry();
+    }
+
+    public ArrayList<Point> surroundingZone() {
+        ArrayList<Point> cord = new ArrayList<Point>();
+        for (int i = 0; i < this.getNbActions(); i++) {
+            for (int j = 0; j < this.getNbActions(); j++) {
+                Point p = new Point(i,j);
+                cord.add(p);
+            }
+        }
+        return cord;
     }
 }

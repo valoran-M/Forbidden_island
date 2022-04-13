@@ -1,6 +1,8 @@
 package models;
 
 import java.util.ArrayList;
+import java.awt.Point;
+
 
 /**
  * Models
@@ -15,8 +17,9 @@ public class Model {
     public Model(int size) {
         this.island = new Island(size);
         this.temple = new ArrayList<Zone>();
-        this.actPlayer = 0;
         this.players = new ArrayList<Player>();
+
+        this.actPlayer = 0;
 
         for (int i = 0; i < 4; i++) {
 
@@ -26,6 +29,7 @@ public class Model {
         this.heliZone = this.getRandomValideCase();
     }
 
+    //Getter
     public Island getIsland() {
         return this.island;
     }
@@ -34,14 +38,19 @@ public class Model {
         return this.temple;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
+
     public Zone getHeliZone() {
         return this.heliZone;
     }
 
-    public void nextPlayer() {
-        this.actPlayer = (this.actPlayer + 1) % this.players.size();
+    public int getActPlayer() {
+        return this.actPlayer;
     }
 
+    //Setter
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
             Player joueur = new Player(name, this.island.getRandomCase());
@@ -49,6 +58,10 @@ public class Model {
         }
     }
 
+    public void nextPlayer() {
+        this.actPlayer = (this.actPlayer + 1) % this.players.size();
+    }
+    
     public Zone getRandomValideCase() {
         Zone pos;
         do {
@@ -57,12 +70,13 @@ public class Model {
         return pos;
     }
 
-    public ArrayList<Zone> neighbours(Zone p) {
-        ArrayList<Zone> neighbor = new ArrayList<Zone>();
-        for (int i = 0; i < 2; i++) {
-            neighbor.add(this.island.getZone(p.getCoord().x + i, p.getCoord().y));
-            neighbor.add(this.island.getZone(p.getCoord().x + i, p.getCoord().y + 1));
+    public ArrayList<Zone> accessiblZones(Player joueur){
+        ArrayList<Zone> Case = new ArrayList<Zone>();
+        for (Point position : joueur.surroundingZone()) {
+            if(this.island.inMap(position)){
+                Case.add(this.island.getZone((int) position.getX(), (int) position.getY()));
+            }
         }
-        return neighbor;
+        return Case;
     }
 }

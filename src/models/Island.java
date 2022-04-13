@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.awt.Point;
 
 /**
  * Ile
@@ -53,5 +54,18 @@ public class Island {
         int y = rand.nextInt(this.getGridSize());
         int x = this.getCoordLine(y).get(rand.nextInt(this.getCoordLine(y).size()));
         return this.getZone(x, y);
+    }
+
+    public ArrayList<Zone> neighbours(Zone p) {
+        ArrayList<Zone> neighbor = new ArrayList<Zone>();
+        for (int i = 0; i < 2; i++) {
+            neighbor.add(this.getZone(p.getCoord().x + i, p.getCoord().y));
+            neighbor.add(this.getZone(p.getCoord().x + i, p.getCoord().y + 1));
+        }
+        return neighbor;
+    }
+
+    public boolean inMap(Point pos) {
+        return (Math.abs(pos.getX() - (size - 1) / 2.) + Math.abs(pos.getY() - (size - 1) / 2.) <= size / 2.);
     }
 }
