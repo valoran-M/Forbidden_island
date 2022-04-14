@@ -101,10 +101,21 @@ public class Player {
         ArrayList<Point> cord = new ArrayList<Point>();
         for (int i = 0; i < this.getNbActions(); i++) {
             for (int j = 0; j < this.getNbActions(); j++) {
-                Point p = new Point(i,j);
+                Point p = new Point(i, j);
                 cord.add(p);
             }
         }
         return cord;
+    }
+
+    public String getComment() {
+        String comment = name + " :\n\n";
+
+        comment += " - move a space\n\n";
+        comment += " - dig a space\n\n";
+        comment += " - win treasure\n\n";
+        comment += "\n\n   "+ this.getNbActions() + " remaining action\n";
+
+        return comment;
     }
 }

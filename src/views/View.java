@@ -56,9 +56,10 @@ public class View extends JFrame {
         add(elements);
 
         comment = new JTextArea();
+        comment.setFont(comment.getFont().deriveFont(20f));
         comment.setPreferredSize(new Dimension(300, this.grid.sizeJpanel - 40));
         comment.setBackground(new Color(100, 100, 100));
-        comment.setText("Salut");
+        changeText();
 
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
@@ -73,11 +74,12 @@ public class View extends JFrame {
         elements.add(next);
         elements.add(dig);
         elements.add(pick);
-        
+
         repaint();
     }
 
-    public void changeText(String text) {
+    public void changeText() {
+        String text = model.getActPlayer().getComment();
         this.comment.setText(text);
         this.comment.repaint();
     }
