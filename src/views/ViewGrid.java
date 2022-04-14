@@ -1,7 +1,7 @@
 package views;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseListener;
@@ -48,23 +48,22 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.control = new ContrGrid(m, this);
     }
 
-    public void initPawn(){
+    public void initPawn() {
         Image pawn;
         String path = "images/pawns/";
-        String pawnsPath[] = new String[]{path + "greenPawn.png", path + "bluePawn.png", path + "redPawn.png", path + "yellowPawn.png"};
+        String pawnsPath[] = new String[] { path + "greenPawn.png", path + "bluePawn.png", path + "redPawn.png",
+                path + "yellowPawn.png" };
         pawns = new ArrayList<Image>();
         for (int i = 0; i < model.getPlayers().size(); i++) {
             Image img = new ImageIcon(pawnsPath[i]).getImage();
             int width = img.getWidth(null);
             int height = img.getHeight(null);
             double coef = (double) height / (double) width;
-            pawn = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_DEFAULT);
+            pawn = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_SMOOTH);
             pawn.getWidth(null);
             pawn.getHeight(null);
             pawns.add(pawn);
         }
-        System.out.println(pawns.size());
-
     }
 
     @Override
@@ -76,25 +75,24 @@ public class ViewGrid extends JPanel implements MouseListener {
             for (int x = 0; x < island.getGridSize(); x++) {
                 if (island.inMap(new Point(x, y))) {
                     setColor(g, island.getZone(x, y));
-
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
-
-                    int pos = 0;
-                    for (Player player : model.getPlayers()) {
-                        if (player.getPosition() == island.getZone(x, y)) {
-                            draw_pawn(g, x_case, y_case, pos, model.getPlayers().indexOf(player));
-                            pos++;
-                        }
-                    }
                 }
             }
+        }
+        int playerIter = 0;
+        for (Player player : model.getPlayers()) {
+            Point pos = player.getPosition().getCoord();
+            draw_pawn(g, (int) pos.getX(), (int) pos.getY(), playerIter, model.getPlayers().indexOf(player));
+            playerIter++;
         }
         colorMove(g);
     }
 
     private void draw_pawn(Graphics g, int x, int y, int i, int player) {
+        x = x * (sizeCase + sizeBorder) + sizeBorder;
+        y = y * (sizeCase + sizeBorder) + sizeBorder;
         switch (i) {
             case 0:
                 x += sizeBorder;
@@ -122,12 +120,12 @@ public class ViewGrid extends JPanel implements MouseListener {
         g.drawImage(pawns.get(player), x, y, null);
     }
 
-    private void setColor(Graphics g, Zone zone){
+    private void setColor(Graphics g, Zone zone) {
         g.setColor(new Color(200, 200, 200));
         if (zone == model.getHeliZone()) {
             g.setColor(Color.YELLOW);
         }
-        
+
         int i = model.getTemple().indexOf(zone);
         setColorTemple(g, i);
     }

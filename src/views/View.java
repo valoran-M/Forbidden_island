@@ -53,8 +53,6 @@ public class View extends JFrame {
         elements = new JPanel();
         elements.setBackground(new Color(55, 55, 55));
 
-        add(elements);
-
         this.grid.initPawn();
 
         comment = new JTextArea();
@@ -77,6 +75,7 @@ public class View extends JFrame {
         elements.add(dig);
         elements.add(pick);
 
+        add(elements);
         repaint();
     }
 
