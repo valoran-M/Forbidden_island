@@ -10,16 +10,18 @@ import java.awt.Point;
 public class Player {
     private int nbActions;
 
+    private Island island;
     private Zone position;
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
 
     // Constructeur
-    public Player(String name, Zone zone) {
+    public Player(String name, Zone zone, Island island) {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
+        this.island = island;
         position = zone;
     }
 
@@ -67,7 +69,7 @@ public class Player {
 
     // méthode
     public void move(int x, int y) {
-        this.position.modifie(x, y);
+        this.position = island.getZone(x, y);
         this.nbActions -= 1;
     }
 

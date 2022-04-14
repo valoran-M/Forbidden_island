@@ -53,14 +53,18 @@ public class Model {
         return this.heliZone;
     }
 
-    public int getActPlayer() {
+    public int getActPlayerId() {
         return this.actPlayer;
+    }
+
+    public Player getActPlayer(){
+        return this.players.get(actPlayer);
     }
 
     // Setter
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
-            Player joueur = new Player(name, this.island.getRandomCase());
+            Player joueur = new Player(name, this.island.getRandomCase(), this.island);
             this.players.add(joueur);
         }
     }

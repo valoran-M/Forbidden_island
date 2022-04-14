@@ -45,7 +45,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.setBackground(new Color(1, 138, 204));
         this.addMouseListener(this);
 
-        this.control = new ContrGrid(m);
+        this.control = new ContrGrid(m, this);
 
         Image img = new ImageIcon("utils/pawn.png").getImage();
         int width = img.getWidth(null);

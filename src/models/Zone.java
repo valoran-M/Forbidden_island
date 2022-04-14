@@ -17,10 +17,6 @@ public class Zone {
         this.maxWaterLvl = 3;
     }
 
-    public void modifie(int x, int y) {
-        this.c.move((int) this.c.getX() + x, (int) this.c.getY() + y);
-    }
-
     public Point getCoord() {
         return this.c;
     }

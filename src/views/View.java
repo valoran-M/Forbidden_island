@@ -1,33 +1,41 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
+import controllers.ContrEndTurn;
 import models.Model;
 
 /**
  * View
  */
 public class View extends JFrame {
-    private Model m;
+    private Model model;
 
-    public ViewSetup setup;
-    public ViewGrid grid;
+    private ViewSetup setup;
+    private ViewGrid grid;
 
-    public JPanel elements;
+    private ContrEndTurn contrEndTurn;
+
+    private JPanel elements;
+    private JTextArea comment;
 
     final int height = 800;
     final int width = 1000;
 
     public View(Model m) {
         super("Players Selection");
-        this.m = m;
+        this.model = m;
         setSize(500, 400);
-        this.setup = new ViewSetup(this.m, this);
-        this.grid = new ViewGrid(this.m);
+        this.setup = new ViewSetup(this.model, this);
+        this.grid = new ViewGrid(this.model);
+
+        contrEndTurn = new ContrEndTurn(model);
 
         setVisible(true);
         setResizable(false);
@@ -47,10 +55,34 @@ public class View extends JFrame {
 
         add(elements);
 
+        comment = new JTextArea();
+        comment.setPreferredSize(new Dimension(300, this.grid.sizeJpanel - 40));
+        comment.setBackground(new Color(100, 100, 100));
+        comment.setText("Salut");
+
         JButton next = new JButton("End of turn");
+        next.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
+        next.addActionListener(contrEndTurn);
+        JButton dig = new JButton("Dig");
+        dig.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
+        JButton pick = new JButton("Pick");
+        pick.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
+
         elements.add(this.grid);
+        elements.add(this.comment);
         elements.add(next);
+        elements.add(dig);
+        elements.add(pick);
         
         repaint();
+    }
+
+    public void changeText(String text) {
+        this.comment.setText(text);
+        this.comment.repaint();
+    }
+
+    public ViewSetup getViewSetup() {
+        return this.setup;
     }
 }
