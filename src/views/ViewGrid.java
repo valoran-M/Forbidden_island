@@ -16,6 +16,7 @@ import controllers.ContrGrid;
 import models.Island;
 import models.Model;
 import models.Player;
+import models.Zone;
 
 /**
  * Grid
@@ -25,7 +26,6 @@ public class ViewGrid extends JPanel implements MouseListener {
 
     private Model model;
 
-    Image pawn;
     private ArrayList<Image> pawns;
 
     final public int sizeJpanel;
@@ -46,14 +46,25 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.addMouseListener(this);
 
         this.control = new ContrGrid(m, this);
+    }
 
-        Image img = new ImageIcon("utils/pawn.png").getImage();
-        int width = img.getWidth(null);
-        int height = img.getHeight(null);
-        double coef = (double) height / (double) width;
-        pawn = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_DEFAULT);
-        pawn.getWidth(null);
-        pawn.getHeight(null);
+    public void initPawn(){
+        Image pawn;
+        String path = "images/pawns/";
+        String pawnsPath[] = new String[]{path + "greenPawn.png", path + "bluePawn.png", path + "redPawn.png", path + "yellowPawn.png"};
+        pawns = new ArrayList<Image>();
+        for (int i = 0; i < model.getPlayers().size(); i++) {
+            Image img = new ImageIcon(pawnsPath[i]).getImage();
+            int width = img.getWidth(null);
+            int height = img.getHeight(null);
+            double coef = (double) height / (double) width;
+            pawn = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_DEFAULT);
+            pawn.getWidth(null);
+            pawn.getHeight(null);
+            pawns.add(pawn);
+        }
+        System.out.println(pawns.size());
+
     }
 
     @Override
@@ -64,12 +75,8 @@ public class ViewGrid extends JPanel implements MouseListener {
         for (int y = 0; y < island.getGridSize(); y++) {
             for (int x = 0; x < island.getGridSize(); x++) {
                 if (island.inMap(new Point(x, y))) {
-                    g.setColor(new Color(200, 200, 200));
-                    if (island.getZone(x, y) == model.getHeliZone()) {
-                        g.setColor(Color.YELLOW);
-                    }
-                    int i = model.getTemple().indexOf(island.getZone(x, y));
-                    setColorTemple(g, i);
+                    setColor(g, island.getZone(x, y));
+
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
@@ -77,7 +84,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                     int pos = 0;
                     for (Player player : model.getPlayers()) {
                         if (player.getPosition() == island.getZone(x, y)) {
-                            draw_pawn(g, x_case, y_case, pos);
+                            draw_pawn(g, x_case, y_case, pos, model.getPlayers().indexOf(player));
                             pos++;
                         }
                     }
@@ -87,32 +94,42 @@ public class ViewGrid extends JPanel implements MouseListener {
         colorMove(g);
     }
 
-    private void draw_pawn(Graphics g, int x, int y, int i) {
+    private void draw_pawn(Graphics g, int x, int y, int i, int player) {
         switch (i) {
             case 0:
                 x += sizeBorder;
                 y += sizeBorder;
                 break;
             case 1:
-                x += sizeCase - sizeBorder - pawn.getWidth(null);
+                x += sizeCase - sizeBorder - pawns.get(player).getWidth(null);
                 y += sizeBorder;
                 break;
 
             case 2:
                 x += sizeBorder;
-                y += sizeCase - sizeBorder - pawn.getHeight(null);
+                y += sizeCase - sizeBorder - pawns.get(player).getHeight(null);
                 break;
 
             case 3:
-                x += sizeCase - sizeBorder - pawn.getWidth(null);
-                y += sizeCase - sizeBorder - pawn.getHeight(null);
+                x += sizeCase - sizeBorder - pawns.get(player).getWidth(null);
+                y += sizeCase - sizeBorder - pawns.get(player).getHeight(null);
                 break;
-        
+
             default:
                 break;
         }
 
-        g.drawImage(pawn, x, y, null);
+        g.drawImage(pawns.get(player), x, y, null);
+    }
+
+    private void setColor(Graphics g, Zone zone){
+        g.setColor(new Color(200, 200, 200));
+        if (zone == model.getHeliZone()) {
+            g.setColor(Color.YELLOW);
+        }
+        
+        int i = model.getTemple().indexOf(zone);
+        setColorTemple(g, i);
     }
 
     private void setColorTemple(Graphics g, int i) {

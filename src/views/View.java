@@ -55,6 +55,8 @@ public class View extends JFrame {
 
         add(elements);
 
+        this.grid.initPawn();
+
         comment = new JTextArea();
         comment.setFont(comment.getFont().deriveFont(20f));
         comment.setPreferredSize(new Dimension(300, this.grid.sizeJpanel - 40));
