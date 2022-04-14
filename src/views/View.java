@@ -25,8 +25,8 @@ public class View extends JFrame {
     private JPanel elements;
     private JTextArea comment;
 
-    final int height = 800;
-    final int width = 1000;
+    private int height;
+    private int width;
 
     public View(Model m) {
         super("Players Selection");
@@ -49,7 +49,6 @@ public class View extends JFrame {
 
     public void start() {
         getContentPane().removeAll();
-        setSize(width, height);
         elements = new JPanel();
         elements.setBackground(new Color(55, 55, 55));
 
@@ -57,26 +56,30 @@ public class View extends JFrame {
 
         comment = new JTextArea();
         comment.setFont(comment.getFont().deriveFont(20f));
-        comment.setPreferredSize(new Dimension(300, this.grid.sizeJpanel - 40));
+        comment.setPreferredSize(new Dimension(300, this.grid.heightJpanel - 40));
         comment.setBackground(new Color(100, 100, 100));
         changeText();
 
         JButton next = new JButton("End of turn");
-        next.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
+        next.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
         next.addActionListener(contrEndTurn);
         JButton dig = new JButton("Dig");
-        dig.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
+        dig.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
         JButton pick = new JButton("Pick");
-        pick.setPreferredSize(new Dimension(this.grid.sizeJpanel / 3, 50));
+        pick.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
 
         elements.add(this.grid);
         elements.add(this.comment);
         elements.add(next);
         elements.add(dig);
         elements.add(pick);
-
         add(elements);
-        repaint();
+
+        this.width = this.grid.widthJpanel + this.comment.getPreferredSize().width + 50;
+        this.height = this.grid.heightJpanel + 300;
+        setSize(width, height);
+        this.grid.repaint();
+        this.repaint();
     }
 
     public void changeText() {

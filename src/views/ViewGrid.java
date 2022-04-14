@@ -28,20 +28,24 @@ public class ViewGrid extends JPanel implements MouseListener {
 
     private ArrayList<Image> pawns;
 
-    final public int sizeJpanel;
+    final public int widthJpanel;
+    final public int heightJpanel;
     final public int sizeCase = 80;
     final public int sizeBorder = 5;
     final private int pawnHeight = 60 / 2;
 
     public ViewGrid(Model m) {
         this.model = m;
-        int sizeGrid = m.getIsland().getGridSize();
-        sizeJpanel = sizeGrid * sizeCase + (sizeGrid + 1) * sizeBorder;
+        int width = m.getIsland().getGridSize().x;
+        int height = m.getIsland().getGridSize().y;
+        this.widthJpanel = width * sizeCase + (width + 1) * sizeBorder;
+        this.heightJpanel = height * sizeCase + (height + 1) * sizeBorder;
+
         this.setPreferredSize(new java.awt.Dimension(
-                sizeJpanel, sizeJpanel));
+                widthJpanel, heightJpanel));
 
         this.setLayout(null);
-        this.setBounds(30, 30, sizeJpanel, sizeJpanel);
+        this.setBounds(30, 30, widthJpanel, heightJpanel);
         this.setBackground(new Color(1, 138, 204));
         this.addMouseListener(this);
 
@@ -49,7 +53,6 @@ public class ViewGrid extends JPanel implements MouseListener {
     }
 
     public void initPawn() {
-        Image pawn;
         String path = "images/pawns/";
         String pawnsPath[] = new String[] { path + "greenPawn.png", path + "bluePawn.png", path + "redPawn.png",
                 path + "yellowPawn.png" };
@@ -59,10 +62,10 @@ public class ViewGrid extends JPanel implements MouseListener {
             int width = img.getWidth(null);
             int height = img.getHeight(null);
             double coef = (double) height / (double) width;
-            pawn = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_SMOOTH);
-            pawn.getWidth(null);
-            pawn.getHeight(null);
-            pawns.add(pawn);
+            img = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_SMOOTH);
+            img.getWidth(null);
+            img.getHeight(null);
+            pawns.add(img);
         }
     }
 
@@ -71,8 +74,8 @@ public class ViewGrid extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.setColor(Color.RED);
         Island island = this.model.getIsland();
-        for (int y = 0; y < island.getGridSize(); y++) {
-            for (int x = 0; x < island.getGridSize(); x++) {
+        for (int y = 0; y < island.getGridSize().y; y++) {
+            for (int x = 0; x < island.getGridSize().x; x++) {
                 if (island.inMap(new Point(x, y))) {
                     setColor(g, island.getZone(x, y));
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
