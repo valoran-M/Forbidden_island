@@ -29,12 +29,15 @@ public class ContrGrid extends Controller {
                     model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
                 }
                 view.repaint();
-            }else if (model.getActPlayer().getState() == Player.State.DIGGING && model.getActPlayer().getNbActions() > 0) {
+            } else if (model.getActPlayer().getState() == Player.State.DIGGING
+                    && model.getActPlayer().getNbActions() > 0) {
                 Zone digZ = model.getIsland().getZone(x, y);
                 Zone actZ = model.getActPlayer().getPosition();
                 ArrayList<Zone> digZones = model.getIsland().neighbours(actZ);
+                digZones.add(model.getActPlayer().getPosition());
                 if (digZ.getWaterLvl() == 1 && digZones.contains(digZ)) {
                     digZ.dry();
+                    model.getActPlayer().dryUp();
                     view.repaint();
                 }
             }

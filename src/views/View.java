@@ -64,7 +64,7 @@ public class View extends JFrame {
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
         next.addActionListener(contrEndTurn);
-        JButton dig = new JButton("Dig");
+        JButton dig = new JButton("Dry up");
         dig.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
         dig.addActionListener(contrDig);
         JButton pick = new JButton("Exchange");

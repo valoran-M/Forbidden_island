@@ -100,7 +100,7 @@ public class ViewGrid extends JPanel implements MouseListener {
             }
         }
         if (model.getActPlayer().getState() == Player.State.DIGGING && model.getActPlayer().getNbActions() > 0) {
-            drawDiging(g);
+            drawDry(g);
         }
         draw_images(g);
         int playerIter = 0;
@@ -111,12 +111,12 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
-    private void drawDiging(Graphics g) {
+    private void drawDry(Graphics g) {
         ArrayList<Point> neigbours = model.getActPlayer().neigbours();
         neigbours.add(new Point(model.getActPlayer().getPosition().getX(), model.getActPlayer().getPosition().getY()));
         for (Point p : neigbours) {
             Zone zone = model.getIsland().getZone(p.x, p.y);
-            if(zone != null && zone.getWaterLvl() > 0) {
+            if(zone != null && zone.getWaterLvl() == 1) {
                 int x_case = (int) p.getX() * (sizeCase + sizeBorder) + sizeBorder;
                 int y_case = (int) p.getY() * (sizeCase + sizeBorder) + sizeBorder;
                 drawOutline(g, x_case, y_case, new Color(124, 78, 40));

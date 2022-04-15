@@ -3,7 +3,6 @@ package models;
 import java.awt.Point;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.lang.Math;
 
 /**
@@ -94,17 +93,6 @@ public class Player {
         this.position = z;
     }
 
-    public void dig() {
-        Random rand = new Random();
-        int val = rand.nextInt(10);
-        if (val <= 3) {
-            this.getcard(rand.nextInt(4));
-        } else if (val > 7) {
-            this.position.drown();
-        }
-        this.nbActions -= 1;
-    }
-
     public void takeArtefact(int x) {
         for (int i = 0; i < 2; i++) {
             this.card.remove(x);
@@ -115,7 +103,6 @@ public class Player {
 
     public void dryUp() {
         this.nbActions -= 1;
-        this.position.dry();
     }
 
     public int getWeight(int x, int y, int xbase, int ybase) {
