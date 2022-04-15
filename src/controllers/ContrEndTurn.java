@@ -1,11 +1,10 @@
 package controllers;
 
 import java.awt.event.ActionListener;
-
-
 import java.awt.event.ActionEvent;
 
 import models.Model;
+import models.Player;
 import views.View;
 
 /**
@@ -21,10 +20,12 @@ public class ContrEndTurn extends Controller implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         model.nextPlayer();
+        model.getActPlayer().setState(Player.State.MOVING);
+        flooding();
         view.repaint();
     }
 
-    public void flooding(ActionEvent e) {
+    public void flooding() {
         for(int i = 0; i < 3; i++){
             model.getIsland().getRandomCase().drown();
         }

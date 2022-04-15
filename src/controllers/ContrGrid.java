@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import models.Model;
 import models.Zone;
+import models.Player;
 import views.ViewGrid;
 
 /**
@@ -19,13 +20,15 @@ public class ContrGrid extends Controller {
 
     public void click(int x, int y) {
         if (model.getIsland().inMap(new Point(x, y))) {
-            int[][] action = model.nbActionMove();
-            if (action[y][x] <= model.getActPlayer().getNbActions()) {
-                Zone moveZ = model.getIsland().getZone(x, y);
-                model.getActPlayer().changePosition(moveZ);
-                model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
+            if (model.getActPlayer().getState() == Player.State.MOVING) {
+                int[][] action = model.nbActionMove();
+                if (action[y][x] <= model.getActPlayer().getNbActions()) {
+                    Zone moveZ = model.getIsland().getZone(x, y);
+                    model.getActPlayer().changePosition(moveZ);
+                    model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
+                }
+                view.repaint();
             }
-            view.repaint();
         }
     }
 }

@@ -8,20 +8,29 @@ import java.lang.Math;
  * Players
  */
 public class Player {
-    private int nbActions;
+    public static enum State {
+        MOVING,
+        DIGGING,
+        EXCHANGE
+    }
 
     private Zone position;
 
+    private int nbActions;
+    private Model model;
+    private State state;
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
 
     // Constructeur
-    public Player(String name, Zone zone, Island island) {
+    public Player(String name, Zone zone, Model model) {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
+        this.model = model;
         position = zone;
+        this.state = State.MOVING;
     }
 
     // Setter
@@ -47,6 +56,14 @@ public class Player {
 
     public void setAction(int n) {
         this.nbActions = n;
+    }
+
+    public void setState(State s) {
+        this.state = s;
+    }
+
+    public State getState() {
+        return this.state;
     }
 
     // Getter
@@ -99,10 +116,14 @@ public class Player {
         this.position.dry();
     }
 
-    public int getWeight(int x, int y) {
+    public int getWeight(int x, int y, int xbase, int ybase) {
         if (Math.abs(x) + Math.abs(y) == 2) {
             return 999;
         } else {
+            if (this.model.getIsland().getZone(x + xbase, y + ybase).getWaterLvl() >= this.model.getIsland()
+                    .getZone(x + xbase, y + ybase).getMaxWaterLvl()) {
+                return 999;
+            }
             return 1;
         }
     }

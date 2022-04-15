@@ -14,7 +14,7 @@ public class Zone {
     public Zone(int x, int y) {
         this.c = new Point(x, y);
         this.waterLvl = 0;
-        this.maxWaterLvl = 3;
+        this.maxWaterLvl = 2;
     }
 
     public Point getCoord() {

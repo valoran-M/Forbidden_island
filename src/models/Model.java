@@ -65,7 +65,7 @@ public class Model {
     // Setter
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
-            Player joueur = new Player(name, this.island.getRandomCase(), this.island);
+            Player joueur = new Player(name, this.island.getRandomCase(), this);
             this.players.add(joueur);
         }
     }
@@ -129,7 +129,7 @@ public class Model {
             for (int j = -1; j <= 1; j++) {
                 for (int i = -1; i <= 1; i++) {
                     if (island.getZone(p.x + i, p.y + j) != null) {
-                        int weight = getActPlayer().getWeight(i, j);
+                        int weight = getActPlayer().getWeight(i, j, p.x, p.y);
                         if (action[p.y + j][p.x + i] > action[p.y][p.x] + weight) {
                             action[p.y + j][p.x + i] = action[p.y][p.x] + weight;
                         }
