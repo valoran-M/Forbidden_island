@@ -16,8 +16,8 @@ public class Island {
     private ArrayList<ArrayList<Zone>> grid;
     private Random rand;
 
-    final int width;
-    final int height;
+    private final int width;
+    private final int height;
 
     public Island(String map) throws IOException {
         BufferedReader lecteur = new BufferedReader(new FileReader(map));
@@ -73,11 +73,11 @@ public class Island {
         return new Point(this.width, this.height);
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return this.height;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.width;
     }
 
@@ -98,12 +98,12 @@ public class Island {
     }
 
     public ArrayList<Zone> neighbours(Zone p) {
-        ArrayList<Zone> neighbor = new ArrayList<Zone>();
-        for (int i = 0; i < 2; i++) {
-            neighbor.add(this.getZone(p.getCoord().x + i, p.getCoord().y));
-            neighbor.add(this.getZone(p.getCoord().x + i, p.getCoord().y + 1));
-        }
-        return neighbor;
+        ArrayList<Zone> neighbours = new ArrayList<Zone>();
+        neighbours.add(this.getZone(p.getCoord().x, p.getCoord().y + 1));
+        neighbours.add(this.getZone(p.getCoord().x, p.getCoord().y - 1));
+        neighbours.add(this.getZone(p.getCoord().x + 1, p.getCoord().y));
+        neighbours.add(this.getZone(p.getCoord().x - 1, p.getCoord().y));
+        return neighbours;
     }
 
     public boolean inMap(Point pos) {

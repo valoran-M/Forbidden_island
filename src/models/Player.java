@@ -1,5 +1,7 @@
 package models;
 
+import java.awt.Point;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.lang.Math;
@@ -126,5 +128,14 @@ public class Player {
             }
             return 1;
         }
+    }
+
+    public ArrayList<Point> neigbours(){
+        ArrayList<Point> neigbours = new ArrayList<Point>();
+        neigbours.add(new Point(getPosition().getX() - 1, getPosition().getY()));
+        neigbours.add(new Point(getPosition().getX() + 1, getPosition().getY()));
+        neigbours.add(new Point(getPosition().getX(), getPosition().getY() - 1));
+        neigbours.add(new Point(getPosition().getX(), getPosition().getY() + 1));
+        return neigbours;
     }
 }

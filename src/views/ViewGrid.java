@@ -94,10 +94,13 @@ public class ViewGrid extends JPanel implements MouseListener {
 
                     if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
                             model.getActPlayer().getState() == Player.State.MOVING) {
-                        drawOutline(g, x_case, y_case);
+                        drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
                 }
             }
+        }
+        if (model.getActPlayer().getState() == Player.State.DIGGING && model.getActPlayer().getNbActions() > 0) {
+            drawDiging(g);
         }
         draw_images(g);
         int playerIter = 0;
@@ -108,8 +111,21 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
-    private void drawOutline(Graphics g, int x, int y) {
-        g.setColor(new Color(176, 242, 182));
+    private void drawDiging(Graphics g) {
+        ArrayList<Point> neigbours = model.getActPlayer().neigbours();
+        neigbours.add(new Point(model.getActPlayer().getPosition().getX(), model.getActPlayer().getPosition().getY()));
+        for (Point p : neigbours) {
+            Zone zone = model.getIsland().getZone(p.x, p.y);
+            if(zone != null && zone.getWaterLvl() > 0) {
+                int x_case = (int) p.getX() * (sizeCase + sizeBorder) + sizeBorder;
+                int y_case = (int) p.getY() * (sizeCase + sizeBorder) + sizeBorder;
+                drawOutline(g, x_case, y_case, new Color(124, 78, 40));
+            }
+        }
+    }
+
+    private void drawOutline(Graphics g, int x, int y, Color color) {
+        g.setColor(color);
         for (int i = 0; i < 3; i++) {
             g.drawRect(x + i, y + i, this.sizeCase - i * 2, this.sizeCase - i * 2);
         }
