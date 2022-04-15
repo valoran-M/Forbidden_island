@@ -65,6 +65,7 @@ public class ContrGrid extends ContrEscape {
                 model.setEscape();
                 if (model.getEscape() == null && flooding(nbInondation)) {
                     view.gameOver();
+                    nbInondation = 3;
                     return;
                 }
                 view.repaint();

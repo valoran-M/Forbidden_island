@@ -49,10 +49,6 @@ public abstract class ContrEscape extends Controller {
             }
             if (escape) {
                 model.setEscape();
-                System.out.println(i);
-                if (i == 2) {
-                    nbInondation = 3;
-                }
                 return gameOver;
             }
             if (gameOver) {
