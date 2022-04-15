@@ -27,6 +27,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     private Model model;
 
     private ArrayList<Image> pawns;
+    private ArrayList<Image> temples;
 
     final public int widthJpanel;
     final public int heightJpanel;
