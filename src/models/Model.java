@@ -13,6 +13,7 @@ public class Model {
     private Island island;
     private ArrayList<Zone> temple;
     private ArrayList<Player> players;
+    private Pioche pioche;
     private int actPlayer;
     private Zone heliZone;
 
@@ -28,6 +29,7 @@ public class Model {
         }
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
+        this.pioche = new Pioche(this.pileOfZone());
 
         this.actPlayer = 0;
 
@@ -58,8 +60,12 @@ public class Model {
         return this.actPlayer;
     }
 
-    public Player getActPlayer(){
+    public Player getActPlayer() {
         return this.players.get(actPlayer);
+    }
+
+    public Pioche getPioche() {
+        return this.pioche;
     }
 
     // Setter
@@ -139,5 +145,15 @@ public class Model {
             }
         }
         return action;
+    }
+
+    public ArrayList<Zone> pileOfZone() {
+        ArrayList<Zone> cards = new ArrayList<Zone>();
+        for (int y = 0; y < this.getIsland().getHeight(); y++) {
+            for (int x : this.getIsland().getCoordLine(y)) {
+                cards.add(this.getIsland().getZone(x, y));
+            }
+        }
+        return cards;
     }
 }

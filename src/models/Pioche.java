@@ -10,6 +10,7 @@ public class Pioche {
 
     public Pioche(ArrayList<Zone> p) {
         this.pioche = p;
+        Collections.shuffle(this.pioche);
         this.defausse = new ArrayList<Zone>();
         this.nbCartePioche = this.pioche.size();
     }
@@ -38,14 +39,17 @@ public class Pioche {
     // Méthode
     public Zone draw() {
         Zone z = this.getPioche().get(0);
+        if (z.getWaterLvl() != z.getMaxWaterLvl()) {
+            this.addCardDefausse(z);
+        }
         this.pioche.remove(0);
-        this.addCardDefausse(z);
-        this.nbCartePioche --;
+        this.nbCartePioche--;
         return z;
     }
 
-    public void resetPioche(){
-        this.setPioche(this.getDefausse());
+    public void resetPioche() {
+        this.setPioche(new ArrayList<Zone>(defausse));
+        System.out.println(pioche.size());
         Collections.shuffle(this.pioche);
         this.nbCartePioche = this.getNbCarte();
         this.defausse.removeAll(this.defausse);

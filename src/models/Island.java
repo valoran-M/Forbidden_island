@@ -73,6 +73,10 @@ public class Island {
         return new Point(this.width, this.height);
     }
 
+    public ArrayList<ArrayList<Zone>> getGrid() {
+        return this.grid;
+    }
+
     public int getHeight() {
         return this.height;
     }
@@ -81,7 +85,7 @@ public class Island {
         return this.width;
     }
 
-    private ArrayList<Integer> getCoordLine(int y) {
+    public ArrayList<Integer> getCoordLine(int y) {
         ArrayList<Integer> s = new ArrayList<Integer>();
         for (int index = 0; index < grid.get(y).size(); index++) {
             if (grid.get(y).get(index) != null) {

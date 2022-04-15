@@ -27,7 +27,10 @@ public class ContrEndTurn extends Controller implements ActionListener{
 
     public void flooding() {
         for(int i = 0; i < 3; i++){
-            model.getIsland().getRandomCase().drown();
+            if(model.getPioche().getNbCarte() == 0){
+                model.getPioche().resetPioche();
+            }
+            model.getPioche().draw().drown();
         }
     }
 }
