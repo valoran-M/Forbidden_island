@@ -23,4 +23,10 @@ public class ContrEndTurn extends Controller implements ActionListener{
         model.nextPlayer();
         view.repaint();
     }
+
+    public void flooding(ActionEvent e) {
+        for(int i = 0; i < 3; i++){
+            model.getIsland().getRandomCase().drown();
+        }
+    }
 }
