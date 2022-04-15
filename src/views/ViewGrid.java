@@ -48,6 +48,18 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.addMouseListener(this);
 
         this.control = new ContrGrid(m, this);
+
+        String path = "images/elements/";
+        String pawnsPath[] = new String[] { path + "air.png", path + "earth.png", path + "fire.png",
+                path + "water.png" };
+        temples = new ArrayList<Image>();
+        for (int i = 0; i < 4; i++) {
+            Image img = new ImageIcon(pawnsPath[i]).getImage();
+            img = img.getScaledInstance(sizeCase - 10, sizeCase - 10, Image.SCALE_DEFAULT);
+            img.getHeight(null);
+            temples.add(img);
+        }
+
     }
 
     public void initPawn() {
@@ -84,6 +96,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                 }
             }
         }
+        draw_temple(g);
         int playerIter = 0;
         for (Player player : model.getPlayers()) {
             Point pos = player.getPosition().getCoord();
@@ -91,6 +104,16 @@ public class ViewGrid extends JPanel implements MouseListener {
             playerIter++;
         }
         colorMove(g);
+    }
+
+    private void draw_temple(Graphics g){
+        int i = 0;
+        for (Zone temple : model.getTemple()) {
+            int x = temple.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
+            int y = temple.getCoord().y * (sizeCase + sizeBorder) + sizeBorder;
+            g.drawImage(temples.get(i), x + 5, y + 5, null);
+            i++;
+        }
     }
 
     private void draw_pawn(Graphics g, int x, int y, int i, int player) {
@@ -135,27 +158,6 @@ public class ViewGrid extends JPanel implements MouseListener {
         g.setColor(new Color(200, 200, 200, alpha));
         if (zone == model.getHeliZone()) {
             g.setColor(new Color(255, 255, 0, alpha));
-        }
-        int i = model.getTemple().indexOf(zone);
-        setColorTemple(g, i, alpha);
-    }
-
-    private void setColorTemple(Graphics g, int i, int alpha) {
-        switch (i) {
-            case 0:
-                g.setColor(new Color(0, 0, 255, alpha));
-                break;
-            case 1:
-                g.setColor(new Color(0, 255, 0, alpha));
-                break;
-            case 2:
-                g.setColor(new Color(84, 47, 38, alpha));
-                break;
-            case 3:
-                g.setColor(new Color(255, 0, 0, alpha));
-                break;
-            default:
-                break;
         }
     }
 
