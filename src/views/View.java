@@ -37,9 +37,9 @@ public class View extends JFrame {
         contrEndTurn = new ContrEndTurn(model, this);
         this.background = new Color(55, 55, 55);
 
-        setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
