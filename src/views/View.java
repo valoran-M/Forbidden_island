@@ -17,7 +17,7 @@ public class View extends JFrame {
     private Model model;
 
     private ViewSetup setup;
-    private ViewGrid grid;
+    public ViewGrid grid;
 
     private ContrEndTurn contrEndTurn;
     private ContrDig contrDig;
@@ -33,7 +33,7 @@ public class View extends JFrame {
         this.model = m;
         setSize(500, 400);
         this.setup = new ViewSetup(this.model, this);
-        this.grid = new ViewGrid(this.model);
+        this.grid = new ViewGrid(this.model, this);
 
         this.contrEndTurn = new ContrEndTurn(model, this);
         this.contrDig = new ContrDig(model, this);
@@ -83,6 +83,11 @@ public class View extends JFrame {
         setSize(width, height);
 
         this.repaint();
+    }
+
+    public void gameOver(){
+        setVisible(false);
+        dispose();
     }
 
     public ViewSetup getViewSetup() {

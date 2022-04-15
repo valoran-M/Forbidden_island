@@ -12,7 +12,8 @@ public class Player {
     public static enum State {
         MOVING,
         DIGGING,
-        EXCHANGE
+        EXCHANGE,
+        ESCAPE
     }
 
     private Zone position;

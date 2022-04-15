@@ -15,6 +15,8 @@ public class Model {
     private ArrayList<Player> players;
     private Pioche pioche;
     private int actPlayer;
+    private int nbInondation;
+    private Player escape;
     private Zone heliZone;
 
     public Model(String map) {
@@ -30,6 +32,8 @@ public class Model {
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
         this.pioche = new Pioche(this.pileOfZone());
+        this.escape = null;
+        this.nbInondation = 3;
 
         this.actPlayer = 0;
 
@@ -60,6 +64,10 @@ public class Model {
         return this.actPlayer;
     }
 
+    public Player getEscape() {
+        return this.escape;
+    }
+
     public Player getActPlayer() {
         return this.players.get(actPlayer);
     }
@@ -68,7 +76,30 @@ public class Model {
         return this.pioche;
     }
 
+    public int getNbInondation() {
+        return this.nbInondation;
+    }
+
     // Setter
+
+    public void pick() {
+        this.nbInondation--;
+    }
+
+    public void resetNbInondation() {
+        this.nbInondation = 3;
+    }
+
+    public void setEscape() {
+        Player escape = null;
+        for (Player player : players) {
+            if (player.getState() == Player.State.ESCAPE) {
+                escape = player;
+            }
+        }
+        this.escape = escape;
+    }
+
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
             Player joueur = new Player(name, this.island.getRandomCase(), this);

@@ -35,7 +35,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     final public int sizeCase = 80;
     final public int sizeBorder = 5;
 
-    public ViewGrid(Model m) {
+    public ViewGrid(Model m, View view) {
         this.model = m;
         int width = m.getIsland().getGridSize().x;
         int height = m.getIsland().getGridSize().y;
@@ -48,7 +48,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.setBackground(new Color(1, 138, 204));
         this.addMouseListener(this);
 
-        this.control = new ContrGrid(m, this);
+        this.control = new ContrGrid(m, view);
 
         String path = "images/elements/";
         String pawnsPath[] = new String[] { path + "air.png", path + "earth.png", path + "fire.png",
@@ -93,7 +93,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
 
                     if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
-                            model.getActPlayer().getState() == Player.State.MOVING) {
+                            model.getActPlayer().getState() == Player.State.MOVING && model.getEscape() == null) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
                 }
@@ -102,13 +102,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         if (model.getActPlayer().getState() == Player.State.DIGGING && model.getActPlayer().getNbActions() > 0) {
             drawDry(g);
         }
-        draw_images(g);
-        int playerIter = 0;
-        for (Player player : model.getPlayers()) {
-            Point pos = player.getPosition().getCoord();
-            draw_pawn(g, (int) pos.getX(), (int) pos.getY(), playerIter, model.getPlayers().indexOf(player));
-            playerIter++;
+        if (model.getEscape() != null) {
+            drawEscape(g);
         }
+        drawImages(g);
+        drawPlayers(g);
     }
 
     private void drawDry(Graphics g) {
@@ -116,7 +114,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         neigbours.add(new Point(model.getActPlayer().getPosition().getX(), model.getActPlayer().getPosition().getY()));
         for (Point p : neigbours) {
             Zone zone = model.getIsland().getZone(p.x, p.y);
-            if(zone != null && zone.getWaterLvl() == 1) {
+            if (zone != null && zone.getWaterLvl() == 1) {
                 int x_case = (int) p.getX() * (sizeCase + sizeBorder) + sizeBorder;
                 int y_case = (int) p.getY() * (sizeCase + sizeBorder) + sizeBorder;
                 drawOutline(g, x_case, y_case, new Color(124, 78, 40));
@@ -131,7 +129,19 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
-    private void draw_images(Graphics g) {
+    private void drawEscape(Graphics g) {
+        ArrayList<Point> neigbours = model.getEscape().neigbours();
+        for (Point point : neigbours) {
+            Zone zone = model.getIsland().getZone(point.x, point.y);
+            if (zone != null && zone.getWaterLvl() != zone.getMaxWaterLvl()) {
+                int x_case = point.x * (sizeCase + sizeBorder) + sizeBorder;
+                int y_case = point.y * (sizeCase + sizeBorder) + sizeBorder;
+                drawOutline(g, x_case, y_case, new Color(124, 29, 20));
+            }
+        }
+    }
+
+    private void drawImages(Graphics g) {
         int i = 0;
         for (Zone temple : model.getTemple()) {
             int x = temple.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
@@ -143,6 +153,15 @@ public class ViewGrid extends JPanel implements MouseListener {
         int x = heliport.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
         int y = heliport.getCoord().y * (sizeCase + sizeBorder) + sizeBorder;
         g.drawImage(this.heliport, x, y, null);
+    }
+
+    private void drawPlayers(Graphics g) {
+        int playerIter = 0;
+        for (Player player : model.getPlayers()) {
+            Point pos = player.getPosition().getCoord();
+            draw_pawn(g, (int) pos.getX(), (int) pos.getY(), playerIter, model.getPlayers().indexOf(player));
+            playerIter++;
+        }
     }
 
     private void draw_pawn(Graphics g, int x, int y, int i, int player) {

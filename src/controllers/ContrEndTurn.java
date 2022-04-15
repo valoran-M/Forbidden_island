@@ -10,7 +10,7 @@ import views.View;
 /**
  * ContrEndTurn
  */
-public class ContrEndTurn extends Controller implements ActionListener{
+public class ContrEndTurn extends Controller implements ActionListener {
     private View view;
 
     public ContrEndTurn(Model model, View view) {
@@ -19,18 +19,17 @@ public class ContrEndTurn extends Controller implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        model.nextPlayer();
-        model.getActPlayer().setState(Player.State.MOVING);
-        flooding();
-        view.repaint();
-    }
-
-    public void flooding() {
-        for(int i = 0; i < 3; i++){
-            if(model.getPioche().getNbCarte() == 0){
-                model.getPioche().resetPioche();
+        if (model.getNbInondation() != 3) {
+            if (flooding(this.model.getNbInondation())) {
+                view.gameOver();
             }
-            model.getPioche().draw().drown();
+        } else if (model.getEscape() == null) {
+            model.nextPlayer();
+            model.getActPlayer().setState(Player.State.MOVING);
+            if (flooding(3)) {
+                view.gameOver();
+            }
+            view.repaint();
         }
     }
 }

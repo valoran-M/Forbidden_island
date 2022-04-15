@@ -9,12 +9,11 @@ public class Zone {
 
     private Point c;
     private int waterLvl;
-    private final int maxWaterLvl;
+    private static int maxWaterLvl = 2;
 
     public Zone(int x, int y) {
         this.c = new Point(x, y);
         this.waterLvl = 0;
-        this.maxWaterLvl = 2;
     }
 
     public Point getCoord() {
@@ -34,7 +33,7 @@ public class Zone {
     }
 
     public int getMaxWaterLvl(){
-        return this.maxWaterLvl;
+        return maxWaterLvl;
     }
 
     public void dry() {

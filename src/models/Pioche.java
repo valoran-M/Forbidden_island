@@ -49,7 +49,6 @@ public class Pioche {
 
     public void resetPioche() {
         this.setPioche(new ArrayList<Zone>(defausse));
-        System.out.println(pioche.size());
         Collections.shuffle(this.pioche);
         this.nbCartePioche = this.getNbCarte();
         this.defausse.removeAll(this.defausse);
