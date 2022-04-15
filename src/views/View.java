@@ -34,7 +34,7 @@ public class View extends JFrame {
         this.setup = new ViewSetup(this.model, this);
         this.grid = new ViewGrid(this.model);
 
-        contrEndTurn = new ContrEndTurn(model);
+        contrEndTurn = new ContrEndTurn(model, this);
         this.background = new Color(55, 55, 55);
 
         setVisible(true);

@@ -29,6 +29,14 @@ public class Zone {
         return this.c.y;
     }
 
+    public int getWaterLvl() {
+        return this.waterLvl;
+    }
+
+    public int getMaxWaterLvl(){
+        return this.maxWaterLvl;
+    }
+
     public void dry() {
         if (waterLvl > 0)
             this.waterLvl -= 1;

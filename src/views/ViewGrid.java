@@ -43,8 +43,6 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.setPreferredSize(new java.awt.Dimension(
                 widthJpanel, heightJpanel));
 
-        //this.setLayout(null);
-        //this.setBounds(30, 30, widthJpanel, heightJpanel);
         this.setBackground(new Color(1, 138, 204));
         this.addMouseListener(this);
 
@@ -67,6 +65,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.setColor(Color.RED);
         Island island = this.model.getIsland();
+        int[][] actionMove = model.nbActionMove();
         for (int y = 0; y < island.getGridSize().y; y++) {
             for (int x = 0; x < island.getGridSize().x; x++) {
                 if (island.inMap(new Point(x, y))) {
@@ -74,6 +73,13 @@ public class ViewGrid extends JPanel implements MouseListener {
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
+
+                    if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0) {
+                        g.setColor(new Color(176, 242, 182));
+                        for (int i = 0; i < 3; i++) {
+                            g.drawRect(x_case + i, y_case + i, sizeCase - i * 2, sizeCase - i * 2);
+                        }
+                    }
                 }
             }
         }
@@ -116,29 +122,36 @@ public class ViewGrid extends JPanel implements MouseListener {
         g.drawImage(pawns.get(player), x, y, null);
     }
 
-    private void setColor(Graphics g, Zone zone) {
-        g.setColor(new Color(200, 200, 200));
-        if (zone == model.getHeliZone()) {
-            g.setColor(Color.YELLOW);
-        }
-
-        int i = model.getTemple().indexOf(zone);
-        setColorTemple(g, i);
+    private int getAlpha(Zone zone) {
+        int max = zone.getMaxWaterLvl();
+        int act = zone.getWaterLvl();
+        int alpha = (int) (255 * (double) (max - act) / max);
+        return alpha;
     }
 
-    private void setColorTemple(Graphics g, int i) {
+    private void setColor(Graphics g, Zone zone) {
+        int alpha = getAlpha(zone);
+        g.setColor(new Color(200, 200, 200, alpha));
+        if (zone == model.getHeliZone()) {
+            g.setColor(new Color(255, 255, 0, alpha));
+        }
+        int i = model.getTemple().indexOf(zone);
+        setColorTemple(g, i, alpha);
+    }
+
+    private void setColorTemple(Graphics g, int i, int alpha) {
         switch (i) {
             case 0:
-                g.setColor(Color.BLUE);
+                g.setColor(new Color(0, 0, 255, alpha));
                 break;
             case 1:
-                g.setColor(Color.GREEN);
+                g.setColor(new Color(0, 255, 0, alpha));
                 break;
             case 2:
-                g.setColor(new Color(84, 47, 38));
+                g.setColor(new Color(84, 47, 38, alpha));
                 break;
             case 3:
-                g.setColor(Color.RED);
+                g.setColor(new Color(255, 0, 0, alpha));
                 break;
             default:
                 break;
