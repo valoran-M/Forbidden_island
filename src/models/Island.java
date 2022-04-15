@@ -63,11 +63,22 @@ public class Island {
     }
 
     public Zone getZone(int x, int y) {
+        if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
+            return null;
+        }
         return grid.get(y).get(x);
     }
 
     public Point getGridSize() {
         return new Point(this.width, this.height);
+    }
+
+    public int getHeight(){
+        return this.height;
+    }
+
+    public int getWidth(){
+        return this.width;
     }
 
     private ArrayList<Integer> getCoordLine(int y) {

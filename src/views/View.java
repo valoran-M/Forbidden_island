@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import controllers.ContrEndTurn;
 import models.Model;
@@ -23,7 +22,7 @@ public class View extends JFrame {
     private ContrEndTurn contrEndTurn;
 
     private JPanel elements;
-    private JTextArea comment;
+    private Color background;
 
     private int height;
     private int width;
@@ -36,6 +35,7 @@ public class View extends JFrame {
         this.grid = new ViewGrid(this.model);
 
         contrEndTurn = new ContrEndTurn(model);
+        this.background = new Color(55, 55, 55);
 
         setVisible(true);
         setResizable(false);
@@ -49,16 +49,15 @@ public class View extends JFrame {
 
     public void start() {
         getContentPane().removeAll();
+        setBackground(background);
         elements = new JPanel();
-        elements.setBackground(new Color(55, 55, 55));
+        elements.setBackground(background);
 
         this.grid.initPawn();
 
-        comment = new JTextArea();
-        comment.setFont(comment.getFont().deriveFont(20f));
-        comment.setPreferredSize(new Dimension(300, this.grid.heightJpanel - 40));
-        comment.setBackground(new Color(100, 100, 100));
-        changeText();
+        JPanel buttons = new JPanel();
+        buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + 100, 100));
+        buttons.setBackground(background);
 
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
@@ -68,24 +67,19 @@ public class View extends JFrame {
         JButton pick = new JButton("Pick");
         pick.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
 
+        buttons.add(next);
+        buttons.add(dig);
+        buttons.add(pick);
         elements.add(this.grid);
-        elements.add(this.comment);
-        elements.add(next);
-        elements.add(dig);
-        elements.add(pick);
+        elements.add(buttons);
+
         add(elements);
 
-        this.width = this.grid.widthJpanel + this.comment.getPreferredSize().width + 50;
+        this.width = this.grid.widthJpanel + 100;
         this.height = this.grid.heightJpanel + 300;
         setSize(width, height);
-        this.grid.repaint();
-        this.repaint();
-    }
 
-    public void changeText() {
-        String text = model.getActPlayer().getComment();
-        this.comment.setText(text);
-        this.comment.repaint();
+        this.repaint();
     }
 
     public ViewSetup getViewSetup() {

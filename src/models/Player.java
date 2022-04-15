@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.Point;
+import java.lang.Math;
 
 /**
  * Players
@@ -10,8 +10,8 @@ import java.awt.Point;
 public class Player {
     private int nbActions;
 
-    private Island island;
     private Zone position;
+
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
@@ -21,7 +21,6 @@ public class Player {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
-        this.island = island;
         position = zone;
     }
 
@@ -42,8 +41,12 @@ public class Player {
         this.artefact.add(x);
     }
 
-    public void setAction() {
+    public void resetAction() {
         this.nbActions = 3;
+    }
+
+    public void setAction(int n) {
+        this.nbActions = n;
     }
 
     // Getter
@@ -68,9 +71,8 @@ public class Player {
     }
 
     // méthode
-    public void move(int x, int y) {
-        this.position = island.getZone(x, y);
-        this.nbActions -= 1;
+    public void changePosition(Zone z) {
+        this.position = z;
     }
 
     public void dig() {
@@ -97,25 +99,11 @@ public class Player {
         this.position.dry();
     }
 
-    public ArrayList<Point> surroundingZone() {
-        ArrayList<Point> cord = new ArrayList<Point>();
-        for (int i = 0; i < this.getNbActions(); i++) {
-            for (int j = 0; j < this.getNbActions(); j++) {
-                Point p = new Point(i, j);
-                cord.add(p);
-            }
+    public int getWeight(int x, int y) {
+        if (Math.abs(x) + Math.abs(y) == 2) {
+            return 999;
+        } else {
+            return 1;
         }
-        return cord;
-    }
-
-    public String getComment() {
-        String comment = name + " :\n\n";
-
-        comment += " - move a space\n\n";
-        comment += " - dig a space\n\n";
-        comment += " - win treasure\n\n";
-        comment += "\n\n   "+ this.getNbActions() + " remaining action\n";
-
-        return comment;
     }
 }

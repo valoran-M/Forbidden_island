@@ -1,9 +1,10 @@
 package models;
 
 import java.util.ArrayList;
-import java.awt.Point;
 import java.io.IOException;
 import java.util.logging.*;
+
+import java.awt.Point;
 
 /**
  * Models
@@ -71,6 +72,7 @@ public class Model {
 
     public void nextPlayer() {
         this.actPlayer = (this.actPlayer + 1) % this.players.size();
+        getActPlayer().resetAction();
     }
 
     public Zone getRandomValideCase() {
@@ -81,13 +83,61 @@ public class Model {
         return pos;
     }
 
-    public ArrayList<Zone> accessiblZones(Player joueur) {
-        ArrayList<Zone> Case = new ArrayList<Zone>();
-        for (Point position : joueur.surroundingZone()) {
-            if (this.island.inMap(position)) {
-                Case.add(this.island.getZone((int) position.getX(), (int) position.getY()));
+    private Boolean allTraveled(Boolean[][] visitedCase) {
+        for (int i = 0; i < visitedCase.length; i++) {
+            for (int j = 0; j < visitedCase[i].length; j++) {
+                if (!visitedCase[i][j]) {
+                    return false;
+                }
             }
         }
-        return Case;
+        return true;
+    }
+
+    private Point getMinCase(Boolean[][] visitedCase, int[][] action) {
+        Point p = new Point(0, 0);
+        int min = 999;
+        for (int j = 0; j < action.length; j++) {
+            for (int i = 0; i < action[j].length; i++) {
+                if (!visitedCase[j][i] && action[j][i] < min) {
+                    min = action[j][i];
+                    p = new Point(i, j);
+                }
+            }
+        }
+        return p;
+    }
+
+    public int[][] nbActionMove() {
+        Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
+        int[][] action = new int[island.getHeight()][island.getWidth()];
+        for (int j = 0; j < action.length; j++) {
+            for (int i = 0; i < action[j].length; i++) {
+                action[j][i] = 999;
+                if (island.getZone(i, j) == null) {
+                    visitedCase[j][i] = true;
+                } else {
+                    visitedCase[j][i] = false;
+                }
+            }
+        }
+
+        action[getActPlayer().getPosition().getY()][getActPlayer().getPosition().getX()] = 0;
+        while (!allTraveled(visitedCase)) {
+            Point p = getMinCase(visitedCase, action);
+            visitedCase[p.y][p.x] = true;
+            for (int j = -1; j <= 1; j++) {
+                for (int i = -1; i <= 1; i++) {
+                    if (island.getZone(p.x + i, p.y + j) != null) {
+                        int weight = getActPlayer().getWeight(i, j);
+                        if (action[p.y + j][p.x + i] > action[p.y][p.x] + weight) {
+                            action[p.y + j][p.x + i] = action[p.y][p.x] + weight;
+                        }
+                    }
+                }
+
+            }
+        }
+        return action;
     }
 }

@@ -32,7 +32,6 @@ public class ViewGrid extends JPanel implements MouseListener {
     final public int heightJpanel;
     final public int sizeCase = 80;
     final public int sizeBorder = 5;
-    final private int pawnHeight = 60 / 2;
 
     public ViewGrid(Model m) {
         this.model = m;
@@ -44,8 +43,8 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.setPreferredSize(new java.awt.Dimension(
                 widthJpanel, heightJpanel));
 
-        this.setLayout(null);
-        this.setBounds(30, 30, widthJpanel, heightJpanel);
+        //this.setLayout(null);
+        //this.setBounds(30, 30, widthJpanel, heightJpanel);
         this.setBackground(new Color(1, 138, 204));
         this.addMouseListener(this);
 
@@ -59,12 +58,6 @@ public class ViewGrid extends JPanel implements MouseListener {
         pawns = new ArrayList<Image>();
         for (int i = 0; i < model.getPlayers().size(); i++) {
             Image img = new ImageIcon(pawnsPath[i]).getImage();
-            int width = img.getWidth(null);
-            int height = img.getHeight(null);
-            double coef = (double) height / (double) width;
-            img = img.getScaledInstance((int) (pawnHeight / coef), pawnHeight, Image.SCALE_SMOOTH);
-            img.getWidth(null);
-            img.getHeight(null);
             pawns.add(img);
         }
     }

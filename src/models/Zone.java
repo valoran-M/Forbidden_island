@@ -21,6 +21,14 @@ public class Zone {
         return this.c;
     }
 
+    public int getX() {
+        return this.c.x;
+    }
+
+    public int getY() {
+        return this.c.y;
+    }
+
     public void dry() {
         if (waterLvl > 0)
             this.waterLvl -= 1;
