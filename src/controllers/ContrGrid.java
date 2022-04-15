@@ -11,8 +11,8 @@ import views.View;
 /**
  * ContrGrid
  */
-public class ContrGrid extends Controller {
-    View view;
+public class ContrGrid extends ContrEscape {
+    private View view;
 
     public ContrGrid(Model model, View view) {
         super(model);
@@ -63,7 +63,7 @@ public class ContrGrid extends Controller {
                 model.getEscape().setState(Player.State.MOVING);
                 model.getEscape().changePosition(zone);
                 model.setEscape();
-                if(model.getEscape() == null && flooding(model.getNbInondation())) {
+                if (model.getEscape() == null && flooding(model.getNbInondation())) {
                     view.gameOver();
                     return;
                 }

@@ -10,7 +10,7 @@ import views.View;
 /**
  * ContrEndTurn
  */
-public class ContrEndTurn extends Controller implements ActionListener {
+public class ContrEndTurn extends ContrEscape implements ActionListener {
     private View view;
 
     public ContrEndTurn(Model model, View view) {
