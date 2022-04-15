@@ -63,7 +63,7 @@ public class ContrGrid extends ContrEscape {
                 model.getEscape().setState(Player.State.MOVING);
                 model.getEscape().changePosition(zone);
                 model.setEscape();
-                if (model.getEscape() == null && flooding(model.getNbInondation())) {
+                if (model.getEscape() == null && flooding(nbInondation)) {
                     view.gameOver();
                     return;
                 }

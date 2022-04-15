@@ -7,8 +7,11 @@ import models.Player;
 import models.Zone;
 
 public abstract class ContrEscape extends Controller {
+    protected static int nbInondation;
+
     public ContrEscape(Model model) {
         super(model);
+        nbInondation = 3;
     }
 
     private Boolean escape(Zone zone) {
@@ -30,7 +33,7 @@ public abstract class ContrEscape extends Controller {
             }
             Zone drownZ = model.getPioche().draw();
             drownZ.drown();
-            model.pick();
+            nbInondation--;
             Boolean escape = false;
             for (Player p : model.getPlayers()) {
                 if (drownZ == p.getPosition()) {
@@ -46,13 +49,17 @@ public abstract class ContrEscape extends Controller {
             }
             if (escape) {
                 model.setEscape();
+                System.out.println(i);
+                if (i == 2) {
+                    nbInondation = 3;
+                }
                 return gameOver;
             }
             if (gameOver) {
                 return gameOver;
             }
         }
-        model.resetNbInondation();
+        nbInondation = 3;
         return gameOver;
     }
 }

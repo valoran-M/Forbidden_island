@@ -19,13 +19,14 @@ public class ContrEndTurn extends ContrEscape implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (model.getNbInondation() != 3) {
-            if (flooding(this.model.getNbInondation())) {
+        if (nbInondation != 3) {
+            if (flooding(nbInondation)) {
                 view.gameOver();
             }
         } else if (model.getEscape() == null) {
             model.nextPlayer();
             model.getActPlayer().setState(Player.State.MOVING);
+            model.getActPlayer().setAction(3);
             if (flooding(3)) {
                 view.gameOver();
             }
