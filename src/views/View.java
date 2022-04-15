@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controllers.ContrEndTurn;
+import controllers.*;
 import models.Model;
 
 /**
@@ -20,6 +20,7 @@ public class View extends JFrame {
     private ViewGrid grid;
 
     private ContrEndTurn contrEndTurn;
+    private ContrDig contrDig;
 
     private JPanel elements;
     private Color background;
@@ -34,7 +35,8 @@ public class View extends JFrame {
         this.setup = new ViewSetup(this.model, this);
         this.grid = new ViewGrid(this.model);
 
-        contrEndTurn = new ContrEndTurn(model, this);
+        this.contrEndTurn = new ContrEndTurn(model, this);
+        this.contrDig = new ContrDig(model, this);
         this.background = new Color(55, 55, 55);
 
         setResizable(false);
@@ -62,9 +64,10 @@ public class View extends JFrame {
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
         next.addActionListener(contrEndTurn);
-        JButton dig = new JButton("Dry");
+        JButton dig = new JButton("Dig");
         dig.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
-        JButton pick = new JButton("Pick");
+        dig.addActionListener(contrDig);
+        JButton pick = new JButton("Exchange");
         pick.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
 
         buttons.add(next);

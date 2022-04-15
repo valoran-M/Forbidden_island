@@ -99,7 +99,7 @@ public class Model {
         int min = 999;
         for (int j = 0; j < action.length; j++) {
             for (int i = 0; i < action[j].length; i++) {
-                if (!visitedCase[j][i] && action[j][i] < min) {
+                if (!visitedCase[j][i] && action[j][i] <= min) {
                     min = action[j][i];
                     p = new Point(i, j);
                 }

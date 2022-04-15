@@ -28,6 +28,7 @@ public class ViewGrid extends JPanel implements MouseListener {
 
     private ArrayList<Image> pawns;
     private ArrayList<Image> temples;
+    private Image heliport;
 
     final public int widthJpanel;
     final public int heightJpanel;
@@ -60,6 +61,10 @@ public class ViewGrid extends JPanel implements MouseListener {
             temples.add(img);
         }
 
+        this.heliport = new ImageIcon("images/heliport.png").getImage();
+        this.heliport = heliport.getScaledInstance(sizeCase + 5, sizeCase + 5, Image.SCALE_DEFAULT);
+        this.heliport.getHeight(null);
+
     }
 
     public void initPawn() {
@@ -82,32 +87,35 @@ public class ViewGrid extends JPanel implements MouseListener {
         for (int y = 0; y < island.getGridSize().y; y++) {
             for (int x = 0; x < island.getGridSize().x; x++) {
                 if (island.inMap(new Point(x, y))) {
-                    setColor(g, island.getZone(x, y));
+                    g.setColor(new Color(200, 200, 200, getAlpha(island.getZone(x, y))));
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
 
                     if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
                             model.getActPlayer().getState() == Player.State.MOVING) {
-                        g.setColor(new Color(176, 242, 182));
-                        for (int i = 0; i < 3; i++) {
-                            g.drawRect(x_case + i, y_case + i, sizeCase - i * 2, sizeCase - i * 2);
-                        }
+                        drawOutline(g, x_case, y_case);
                     }
                 }
             }
         }
-        draw_temple(g);
+        draw_images(g);
         int playerIter = 0;
         for (Player player : model.getPlayers()) {
             Point pos = player.getPosition().getCoord();
             draw_pawn(g, (int) pos.getX(), (int) pos.getY(), playerIter, model.getPlayers().indexOf(player));
             playerIter++;
         }
-
     }
 
-    private void draw_temple(Graphics g) {
+    private void drawOutline(Graphics g, int x, int y) {
+        g.setColor(new Color(176, 242, 182));
+        for (int i = 0; i < 3; i++) {
+            g.drawRect(x + i, y + i, this.sizeCase - i * 2, this.sizeCase - i * 2);
+        }
+    }
+
+    private void draw_images(Graphics g) {
         int i = 0;
         for (Zone temple : model.getTemple()) {
             int x = temple.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
@@ -115,6 +123,10 @@ public class ViewGrid extends JPanel implements MouseListener {
             g.drawImage(temples.get(i), x + 5, y + 5, null);
             i++;
         }
+        Zone heliport = model.getHeliZone();
+        int x = heliport.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
+        int y = heliport.getCoord().y * (sizeCase + sizeBorder) + sizeBorder;
+        g.drawImage(this.heliport, x, y, null);
     }
 
     private void draw_pawn(Graphics g, int x, int y, int i, int player) {
@@ -152,14 +164,6 @@ public class ViewGrid extends JPanel implements MouseListener {
         int act = zone.getWaterLvl();
         int alpha = (int) (255 * (double) (max - act) / max);
         return alpha;
-    }
-
-    private void setColor(Graphics g, Zone zone) {
-        int alpha = getAlpha(zone);
-        g.setColor(new Color(200, 200, 200, alpha));
-        if (zone == model.getHeliZone()) {
-            g.setColor(new Color(255, 255, 0, alpha));
-        }
     }
 
     @Override
