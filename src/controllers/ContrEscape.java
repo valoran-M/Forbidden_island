@@ -6,7 +6,7 @@ import models.Model;
 import models.Player;
 import models.Zone;
 
-public class ContrEscape extends Controller {
+public abstract class ContrEscape extends Controller {
     public ContrEscape(Model model) {
         super(model);
     }
