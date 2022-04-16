@@ -23,6 +23,7 @@ public class View extends JFrame {
     private ContrEndTurn contrEndTurn;
     private ContrFlooding contrFlooding;
     private ContrDig contrDig;
+    private ContrExchange contrExchange;
 
     private JPanel elements;
     public Color background;
@@ -38,6 +39,7 @@ public class View extends JFrame {
         this.contrFlooding = new ContrFlooding(this.model, this);
         this.contrEndTurn = new ContrEndTurn(this.model, this, this.contrFlooding);
         this.contrDig = new ContrDig(this.model, this);
+        this.contrExchange = new ContrExchange(this.model, this);
         this.background = new Color(55, 55, 55);
 
         this.setup = new ViewSetup(this.model, this);
@@ -60,28 +62,34 @@ public class View extends JFrame {
         elements.setBackground(background);
 
         this.grid.initPawn();
-        this.player = new ViewPlayer(this.model, this);
+        this.player = new ViewPlayer(this.model, this, this.contrExchange);
 
         this.width = this.grid.widthJpanel + +this.player.width + 100;
         this.height = this.grid.heightJpanel + 300;
         setSize(width, height);
 
         JPanel buttons = new JPanel();
-        buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + 100, 100));
+        buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width + 30, 100));
         buttons.setBackground(background);
 
-        JButton next = new JButton("End of turn");
-        next.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
-        next.addActionListener(contrEndTurn);
+        JButton search = new JButton("Search");
+        search.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
+        search.addActionListener(contrDig);
         JButton dig = new JButton("Dry up");
         dig.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
         dig.addActionListener(contrDig);
-        JButton pick = new JButton("Exchange");
-        pick.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
+        JButton exchange = new JButton("Exchange");
+        exchange.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
+        exchange.addActionListener(contrExchange);
+        JButton next = new JButton("End of turn");
+        next.setPreferredSize(new Dimension(this.player.width, 50));
+        next.addActionListener(contrEndTurn);
 
-        buttons.add(next);
+        buttons.add(search);
         buttons.add(dig);
-        buttons.add(pick);
+        buttons.add(exchange);
+        buttons.add(next);
+
         elements.add(this.grid);
         elements.add(this.player);
         elements.add(buttons);
