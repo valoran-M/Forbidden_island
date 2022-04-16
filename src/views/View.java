@@ -28,6 +28,7 @@ public class View extends JFrame {
     private ContrFlooding contrFlooding;
     private ContrExchange contrExchange;
     private ContrDig contrDig;
+    private ContrSearch contrSearch;
 
     private JPanel elements;
     public Color background;
@@ -48,6 +49,7 @@ public class View extends JFrame {
         this.contrEndTurn = new ContrEndTurn(this.model, this, this.contrFlooding);
         this.contrDig = new ContrDig(this.model, this);
         this.contrExchange = new ContrExchange(this.model, this);
+        this.contrSearch = new ContrSearch(model, this);
 
         this.setup = new ViewSetup(this.model, this);
         this.grid = new ViewGrid(this.model, this, this.contrFlooding);
@@ -59,16 +61,16 @@ public class View extends JFrame {
         this.buttons.setBackground(background);
         JButton search = new JButton("Search");
         search.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
-        search.addActionListener(contrDig);
+        search.addActionListener(this.contrSearch);
         JButton dig = new JButton("Dry up");
         dig.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
-        dig.addActionListener(contrDig);
+        dig.addActionListener(this.contrDig);
         JButton exchange = new JButton("Exchange");
         exchange.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
-        exchange.addActionListener(contrExchange);
+        exchange.addActionListener(this.contrExchange);
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.player.width, 50));
-        next.addActionListener(contrEndTurn);
+        next.addActionListener(this.contrEndTurn);
         buttons.add(search);
         buttons.add(dig);
         buttons.add(exchange);
@@ -135,6 +137,7 @@ public class View extends JFrame {
         elements.remove(this.buttons);
         elements.remove(this.treasure);
         elements.add(this.gameOverButtons);
+        elements.add(this.treasure);
 
         elements.updateUI();
         this.repaint();

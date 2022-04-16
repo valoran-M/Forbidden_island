@@ -163,8 +163,8 @@ public class ViewGrid extends JPanel implements MouseListener {
                 int x = temple.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
                 int y = temple.getCoord().y * (sizeCase + sizeBorder) + sizeBorder;
                 g.drawImage(temples.get(i), x + 5, y + 5, null);
-                i++;
             }
+            i++;
         }
         Zone heliport = model.getHeliZone();
         int x = heliport.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
