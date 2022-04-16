@@ -32,7 +32,7 @@ public class ContrGrid extends Controller {
         this.view.repaint();
     }
 
-    private Boolean victoryCheck(){
+    private Boolean victoryCheck() {
         for (Player p : model.getPlayers()) {
             if (p.getPosition() != model.getHeliZone()) {
                 return false;
@@ -40,7 +40,6 @@ public class ContrGrid extends Controller {
         }
         return !model.getTreasureState().contains(false);
     }
-    
 
     private void clickMove(int x, int y) {
         int[][] action = model.nbActionMove();
@@ -48,7 +47,7 @@ public class ContrGrid extends Controller {
             Zone moveZ = model.getIsland().getZone(x, y);
             model.getActPlayer().changePosition(moveZ);
             model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
-            if(victoryCheck()){
+            if (victoryCheck()) {
                 model.setState(Model.State.VICTORY);
                 view.gameOver();
             }
