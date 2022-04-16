@@ -38,7 +38,6 @@ public class ContrGrid extends Controller {
                 return false;
             }
         }
-        System.out.println("OK");
         return !model.getTreasureState().contains(false);
     }
 
