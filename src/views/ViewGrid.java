@@ -28,9 +28,9 @@ public class ViewGrid extends JPanel implements MouseListener {
 
     private Model model;
 
-    private ArrayList<Image> pawns;
-    private ArrayList<Image> temples;
-    private Image heliport;
+    public ArrayList<Image> pawns;
+    public ArrayList<Image> temples;
+    public Image heliport;
 
     final public int widthJpanel;
     final public int heightJpanel;
@@ -44,11 +44,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.widthJpanel = width * sizeCase + (width + 1) * sizeBorder;
         this.heightJpanel = height * sizeCase + (height + 1) * sizeBorder;
 
-        this.setPreferredSize(new java.awt.Dimension(
+        setPreferredSize(new java.awt.Dimension(
                 widthJpanel, heightJpanel));
 
-        this.setBackground(new Color(1, 138, 204));
-        this.addMouseListener(this);
+        setBackground(new Color(1, 138, 204));
+        addMouseListener(this);
 
         this.control = new ContrGrid(m, view, contrFlooding);
         this.contrFlooding = contrFlooding;

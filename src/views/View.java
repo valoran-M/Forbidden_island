@@ -18,19 +18,20 @@ public class View extends JFrame {
 
     private ViewSetup setup;
     public ViewGrid grid;
+    public ViewPlayer player;
 
     private ContrEndTurn contrEndTurn;
     private ContrFlooding contrFlooding;
     private ContrDig contrDig;
 
     private JPanel elements;
-    private Color background;
+    public Color background;
 
     private int height;
     private int width;
 
     public View(Model m) {
-        super("Players Selection");
+        super();
         this.model = m;
         setSize(500, 400);
 
@@ -59,6 +60,11 @@ public class View extends JFrame {
         elements.setBackground(background);
 
         this.grid.initPawn();
+        this.player = new ViewPlayer(this.model, this);
+
+        this.width = this.grid.widthJpanel + +this.player.width + 100;
+        this.height = this.grid.heightJpanel + 300;
+        setSize(width, height);
 
         JPanel buttons = new JPanel();
         buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + 100, 100));
@@ -77,13 +83,10 @@ public class View extends JFrame {
         buttons.add(dig);
         buttons.add(pick);
         elements.add(this.grid);
+        elements.add(this.player);
         elements.add(buttons);
 
         add(elements);
-
-        this.width = this.grid.widthJpanel + 100;
-        this.height = this.grid.heightJpanel + 300;
-        setSize(width, height);
 
         this.repaint();
     }
