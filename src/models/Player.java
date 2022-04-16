@@ -19,18 +19,16 @@ public class Player {
     private Zone position;
 
     private int nbActions;
-    private Model model;
     private State state;
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
 
     // Constructeur
-    public Player(String name, Zone zone, Model model) {
+    public Player(String name, Zone zone) {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
-        this.model = model;
         position = zone;
         this.state = State.MOVING;
     }
@@ -106,19 +104,12 @@ public class Player {
         this.nbActions -= 1;
     }
 
-    public int getWeight(int x, int y, int xbase, int ybase) {
-        if (Math.abs(x) + Math.abs(y) == 2) {
-            return 999;
-        } else {
-            if (this.model.getIsland().getZone(x + xbase, y + ybase).getWaterLvl() >= this.model.getIsland()
-                    .getZone(x + xbase, y + ybase).getMaxWaterLvl()) {
-                return 999;
-            }
-            return 1;
-        }
+    public Boolean isNeight(Zone move, Zone base) {
+        return move.getWaterLvl() < move.getMaxWaterLvl() && Math.abs(move.getX() - base.getX()) +
+                Math.abs(move.getY() - base.getY()) < 2;
     }
 
-    public ArrayList<Point> neigbours(){
+    public ArrayList<Point> neigbours() {
         ArrayList<Point> neigbours = new ArrayList<Point>();
         neigbours.add(new Point(getPosition().getX() - 1, getPosition().getY()));
         neigbours.add(new Point(getPosition().getX() + 1, getPosition().getY()));
