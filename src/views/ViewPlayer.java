@@ -52,7 +52,9 @@ public class ViewPlayer extends JPanel implements MouseListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawOutline(g, 0, 0, this.width, this.height, new Color(124, 78, 40));
-        drawPlayer(g);
+        if (this.pawns != null) {
+            drawPlayer(g);
+        }
         if (model.getActPlayer().getState() == Player.State.EXCHANGE) {
             drawExchange(g);
         }

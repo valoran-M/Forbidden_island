@@ -10,6 +10,14 @@ import java.awt.Point;
  * Models
  */
 public class Model {
+    public static enum State {
+        SETUP,
+        RUNNING,
+        GAMEOVER
+    }
+
+    private String map;
+    private State state;
     private Island island;
     private ArrayList<Zone> temple;
     private ArrayList<Player> players;
@@ -27,6 +35,8 @@ public class Model {
             logger.warning(map + " not found default map used");
             this.island = new Island();
         }
+        this.map = map;
+        this.state = State.SETUP;
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
         this.pioche = new Pioche(this.pileOfZone());
@@ -40,6 +50,10 @@ public class Model {
     }
 
     // Getter
+    public State getState() {
+        return this.state;
+    }
+
     public Island getIsland() {
         return this.island;
     }
@@ -69,6 +83,10 @@ public class Model {
     }
 
     // Setter
+    public void setState(State state) {
+        this.state = state;
+    }
+
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
             Player joueur = new Player(name, this.island.getRandomCase());
@@ -156,5 +174,28 @@ public class Model {
             }
         }
         return cards;
+    }
+
+    public void reset(){
+        this.state = State.SETUP;
+        try {
+            this.island = new Island(map);
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(
+                    Model.class.getName());
+            logger.setLevel(Level.WARNING);
+            logger.warning(map + " not found default map used");
+            this.island = new Island();
+        }
+        this.temple.clear();
+        this.players.clear();
+        this.pioche = new Pioche(this.pileOfZone());
+
+        this.actPlayer = 0;
+
+        for (int i = 0; i < 4; i++) {
+            this.temple.add(this.getRandomValideCase());
+        }
+        this.heliZone = this.getRandomValideCase();
     }
 }

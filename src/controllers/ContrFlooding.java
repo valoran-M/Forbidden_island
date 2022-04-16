@@ -34,11 +34,10 @@ public class ContrFlooding extends Controller {
     private Boolean escape(Zone zone) {
         ArrayList<Zone> neighbours = model.getIsland().neighbours(zone);
         for (Zone neigZ : neighbours) {
-            if (neigZ != null && neigZ.getWaterLvl() != neigZ.getMaxWaterLvl()) {
+            if (neigZ != null && neigZ.getWaterLvl() < neigZ.getMaxWaterLvl()) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -58,14 +57,16 @@ public class ContrFlooding extends Controller {
                             escape = true;
                             p.setState(Player.State.ESCAPE);
                         } else {
+                            model.setState(Model.State.GAMEOVER);
                             view.gameOver();
-                            return;
+                            break;
                         }
                     }
                 }
             }
             if (escape) {
                 setEscape();
+                return;
             }
         }
         nbInondation = 3;

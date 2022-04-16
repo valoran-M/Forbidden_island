@@ -31,6 +31,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     public ArrayList<Image> pawns;
     public ArrayList<Image> temples;
     public Image heliport;
+    public Image gameOver;
 
     final public int widthJpanel;
     final public int heightJpanel;
@@ -53,6 +54,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.control = new ContrGrid(m, view, contrFlooding);
         this.contrFlooding = contrFlooding;
 
+        pawns = new ArrayList<Image>();
         String path = "images/elements/";
         String pawnsPath[] = new String[] { path + "air.png", path + "earth.png", path + "fire.png",
                 path + "water.png" };
@@ -68,13 +70,14 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.heliport = heliport.getScaledInstance(sizeCase + 5, sizeCase + 5, Image.SCALE_DEFAULT);
         this.heliport.getHeight(null);
 
+        this.gameOver = new ImageIcon("images/gameOver.png").getImage();
     }
 
     public void initPawn() {
+        pawns.clear();
         String path = "images/pawns/";
         String pawnsPath[] = new String[] { path + "greenPawn.png", path + "bluePawn.png", path + "redPawn.png",
                 path + "yellowPawn.png" };
-        pawns = new ArrayList<Image>();
         for (int i = 0; i < model.getPlayers().size(); i++) {
             Image img = new ImageIcon(pawnsPath[i]).getImage();
             pawns.add(img);
@@ -96,7 +99,8 @@ public class ViewGrid extends JPanel implements MouseListener {
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
 
                     if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
-                            model.getActPlayer().getState() == Player.State.MOVING && contrFlooding.getEscape() == null) {
+                            model.getActPlayer().getState() == Player.State.MOVING
+                            && contrFlooding.getEscape() == null) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
                 }
@@ -110,6 +114,10 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
         drawImages(g);
         drawPlayers(g);
+
+        if (model.getState() == Model.State.GAMEOVER) {
+            drawGameOver(g);
+        }
     }
 
     private void drawDry(Graphics g) {
@@ -195,6 +203,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
 
         g.drawImage(pawns.get(player), x, y, null);
+    }
+
+    private void drawGameOver(Graphics g) {
+        g.drawImage(this.gameOver, this.widthJpanel / 2 - this.gameOver.getWidth(null) / 2,
+                this.heightJpanel / 2 - this.gameOver.getHeight(null) / 2, null);
     }
 
     private int getAlpha(Zone zone) {

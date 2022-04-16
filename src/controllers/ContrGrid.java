@@ -20,7 +20,7 @@ public class ContrGrid extends Controller {
     }
 
     public void click(int x, int y) {
-        if (model.getIsland().inMap(new Point(x, y))) {
+        if (model.getIsland().inMap(new Point(x, y)) && model.getState() != Model.State.GAMEOVER) {
             if (contrFlooding.getEscape() != null) {
                 clickEscape(x, y);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
@@ -29,6 +29,7 @@ public class ContrGrid extends Controller {
                 clickDry(x, y);
             }
         }
+        this.view.repaint();
     }
 
     private void clickMove(int x, int y) {
@@ -38,7 +39,6 @@ public class ContrGrid extends Controller {
             model.getActPlayer().changePosition(moveZ);
             model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
         }
-        this.view.grid.repaint();
     }
 
     private void clickDry(int x, int y) {
@@ -50,7 +50,6 @@ public class ContrGrid extends Controller {
             if (digZ.getWaterLvl() == 1 && digZones.contains(digZ)) {
                 digZ.dry();
                 model.getActPlayer().dryUp();
-                view.repaint();
             }
         }
     }
@@ -66,7 +65,6 @@ public class ContrGrid extends Controller {
                 if (contrFlooding.getEscape() == null) {
                     contrFlooding.flooding(contrFlooding.nbInondation);
                 }
-                view.repaint();
                 return;
             }
         }
