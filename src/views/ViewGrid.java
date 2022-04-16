@@ -12,6 +12,7 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import controllers.ContrFlooding;
 import controllers.ContrGrid;
 import models.Island;
 import models.Model;
@@ -23,6 +24,7 @@ import models.Zone;
  */
 public class ViewGrid extends JPanel implements MouseListener {
     private ContrGrid control;
+    private ContrFlooding contrFlooding;
 
     private Model model;
 
@@ -35,7 +37,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     final public int sizeCase = 80;
     final public int sizeBorder = 5;
 
-    public ViewGrid(Model m, View view) {
+    public ViewGrid(Model m, View view, ContrFlooding contrFlooding) {
         this.model = m;
         int width = m.getIsland().getGridSize().x;
         int height = m.getIsland().getGridSize().y;
@@ -48,7 +50,8 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.setBackground(new Color(1, 138, 204));
         this.addMouseListener(this);
 
-        this.control = new ContrGrid(m, view);
+        this.control = new ContrGrid(m, view, contrFlooding);
+        this.contrFlooding = contrFlooding;
 
         String path = "images/elements/";
         String pawnsPath[] = new String[] { path + "air.png", path + "earth.png", path + "fire.png",
@@ -93,7 +96,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
 
                     if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
-                            model.getActPlayer().getState() == Player.State.MOVING && model.getEscape() == null) {
+                            model.getActPlayer().getState() == Player.State.MOVING && contrFlooding.getEscape() == null) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
                 }
@@ -102,7 +105,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         if (model.getActPlayer().getState() == Player.State.DIGGING && model.getActPlayer().getNbActions() > 0) {
             drawDry(g);
         }
-        if (model.getEscape() != null) {
+        if (contrFlooding.getEscape() != null) {
             drawEscape(g);
         }
         drawImages(g);
@@ -130,7 +133,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     }
 
     private void drawEscape(Graphics g) {
-        ArrayList<Point> neigbours = model.getEscape().neigbours();
+        ArrayList<Point> neigbours = contrFlooding.getEscape().neigbours();
         for (Point point : neigbours) {
             Zone zone = model.getIsland().getZone(point.x, point.y);
             if (zone != null && zone.getWaterLvl() != zone.getMaxWaterLvl()) {

@@ -10,22 +10,20 @@ import views.View;
 /**
  * ContrEndTurn
  */
-public class ContrEndTurn extends ContrEscape implements ActionListener {
-    private View view;
+public class ContrEndTurn extends Controller implements ActionListener {
+    private ContrFlooding contrEscape;
 
-    public ContrEndTurn(Model model, View view) {
-        super(model);
-        this.view = view;
+    public ContrEndTurn(Model model, View view, ContrFlooding contrEscape) {
+        super(model, view);
+        this.contrEscape = contrEscape;
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (model.getEscape() == null) {
+        if (contrEscape.getEscape() == null) {
             model.nextPlayer();
             model.getActPlayer().setState(Player.State.MOVING);
             model.getActPlayer().setAction(3);
-            if (flooding(3)) {
-                view.gameOver();
-            }
+            contrEscape.flooding(3);
             view.repaint();
         }
     }

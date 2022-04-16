@@ -20,6 +20,7 @@ public class View extends JFrame {
     public ViewGrid grid;
 
     private ContrEndTurn contrEndTurn;
+    private ContrFlooding contrFlooding;
     private ContrDig contrDig;
 
     private JPanel elements;
@@ -32,12 +33,14 @@ public class View extends JFrame {
         super("Players Selection");
         this.model = m;
         setSize(500, 400);
-        this.setup = new ViewSetup(this.model, this);
-        this.grid = new ViewGrid(this.model, this);
 
-        this.contrEndTurn = new ContrEndTurn(model, this);
-        this.contrDig = new ContrDig(model, this);
+        this.contrFlooding = new ContrFlooding(this.model, this);
+        this.contrEndTurn = new ContrEndTurn(this.model, this, this.contrFlooding);
+        this.contrDig = new ContrDig(this.model, this);
         this.background = new Color(55, 55, 55);
+
+        this.setup = new ViewSetup(this.model, this);
+        this.grid = new ViewGrid(this.model, this, this.contrFlooding);
 
         setResizable(false);
         setLocationRelativeTo(null);

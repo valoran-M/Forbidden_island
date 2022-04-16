@@ -11,17 +11,17 @@ import views.View;
 /**
  * ContrGrid
  */
-public class ContrGrid extends ContrEscape {
-    private View view;
+public class ContrGrid extends Controller {
+    private ContrFlooding contrFlooding;
 
-    public ContrGrid(Model model, View view) {
-        super(model);
-        this.view = view;
+    public ContrGrid(Model model, View view, ContrFlooding contrFlooding) {
+        super(model, view);
+        this.contrFlooding = contrFlooding;
     }
 
     public void click(int x, int y) {
         if (model.getIsland().inMap(new Point(x, y))) {
-            if (model.getEscape() != null) {
+            if (contrFlooding.getEscape() != null) {
                 clickEscape(x, y);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
                 clickMove(x, y);
@@ -56,17 +56,15 @@ public class ContrGrid extends ContrEscape {
     }
 
     private void clickEscape(int x, int y) {
-        ArrayList<Point> neigbours = model.getEscape().neigbours();
+        ArrayList<Point> neigbours = contrFlooding.getEscape().neigbours();
         for (Point point : neigbours) {
             Zone zone = model.getIsland().getZone(point.x, point.y);
             if (zone != null && zone.getWaterLvl() != zone.getMaxWaterLvl() && x == zone.getX() && y == zone.getY()) {
-                model.getEscape().setState(Player.State.MOVING);
-                model.getEscape().changePosition(zone);
-                model.setEscape();
-                if (model.getEscape() == null && flooding(nbInondation)) {
-                    view.gameOver();
-                    nbInondation = 3;
-                    return;
+                contrFlooding.getEscape().setState(Player.State.MOVING);
+                contrFlooding.getEscape().changePosition(zone);
+                contrFlooding.setEscape();
+                if (contrFlooding.getEscape() == null) {
+                    contrFlooding.flooding(contrFlooding.nbInondation);
                 }
                 view.repaint();
                 return;

@@ -15,7 +15,7 @@ public class ContrDig extends Controller implements ActionListener {
     private View view;
 
     public ContrDig(Model model, View view) {
-        super(model);
+        super(model, view);
         this.view = view;
     }
 

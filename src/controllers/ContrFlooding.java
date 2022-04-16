@@ -5,13 +5,30 @@ import java.util.ArrayList;
 import models.Model;
 import models.Player;
 import models.Zone;
+import views.View;
 
-public abstract class ContrEscape extends Controller {
-    protected static int nbInondation;
+public class ContrFlooding extends Controller {
+    public int nbInondation;
+    private Player escape;
 
-    public ContrEscape(Model model) {
-        super(model);
+    public ContrFlooding(Model model, View view) {
+        super(model, view);
         nbInondation = 3;
+        this.escape = null;
+    }
+
+    public Player getEscape() {
+        return this.escape;
+    }
+
+    public void setEscape() {
+        Player escape = null;
+        for (Player player : model.getPlayers()) {
+            if (player.getState() == Player.State.ESCAPE) {
+                escape = player;
+            }
+        }
+        this.escape = escape;
     }
 
     private Boolean escape(Zone zone) {
@@ -25,8 +42,7 @@ public abstract class ContrEscape extends Controller {
         return false;
     }
 
-    public Boolean flooding(int nb) {
-        Boolean gameOver = false;
+    public void flooding(int nb) {
         for (int i = 0; i < nb; i++) {
             if (model.getPioche().getNbCarte() == 0) {
                 model.getPioche().resetPioche();
@@ -42,20 +58,16 @@ public abstract class ContrEscape extends Controller {
                             escape = true;
                             p.setState(Player.State.ESCAPE);
                         } else {
-                            gameOver = true;
+                            view.gameOver();
+                            return;
                         }
                     }
                 }
             }
             if (escape) {
-                model.setEscape();
-                return gameOver;
-            }
-            if (gameOver) {
-                return gameOver;
+                setEscape();
             }
         }
         nbInondation = 3;
-        return gameOver;
     }
 }

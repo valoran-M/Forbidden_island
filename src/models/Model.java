@@ -15,7 +15,6 @@ public class Model {
     private ArrayList<Player> players;
     private Pioche pioche;
     private int actPlayer;
-    private Player escape;
     private Zone heliZone;
 
     public Model(String map) {
@@ -31,7 +30,6 @@ public class Model {
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
         this.pioche = new Pioche(this.pileOfZone());
-        this.escape = null;
 
         this.actPlayer = 0;
 
@@ -62,10 +60,6 @@ public class Model {
         return this.actPlayer;
     }
 
-    public Player getEscape() {
-        return this.escape;
-    }
-
     public Player getActPlayer() {
         return this.players.get(actPlayer);
     }
@@ -75,16 +69,6 @@ public class Model {
     }
 
     // Setter
-    public void setEscape() {
-        Player escape = null;
-        for (Player player : players) {
-            if (player.getState() == Player.State.ESCAPE) {
-                escape = player;
-            }
-        }
-        this.escape = escape;
-    }
-
     public void setPlayer(ArrayList<String> names) {
         for (String name : names) {
             Player joueur = new Player(name, this.island.getRandomCase(), this);

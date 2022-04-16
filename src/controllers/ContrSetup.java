@@ -12,11 +12,9 @@ import views.View;
  * ContrSetup
  */
 public class ContrSetup extends Controller implements ActionListener {
-    private View view;
 
     public ContrSetup(Model model, View view) {
-        super(model);
-        this.view = view;
+        super(model, view);
     }
 
     public void actionPerformed(ActionEvent e) {
