@@ -13,13 +13,15 @@ public class Model {
     public static enum State {
         SETUP,
         RUNNING,
-        GAMEOVER
+        LOSE,
+        VICTORY
     }
 
     private String map;
     private State state;
     private Island island;
     private ArrayList<Zone> temple;
+    private ArrayList<Boolean> treasureState;
     private ArrayList<Player> players;
     private Pioche pioche;
     private int actPlayer;
@@ -40,6 +42,10 @@ public class Model {
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
         this.pioche = new Pioche(this.pileOfZone());
+        this.treasureState = new ArrayList<Boolean>();
+        for (int i = 0; i < 4; i++) {
+            treasureState.add(false);
+        }
 
         this.actPlayer = 0;
 
@@ -50,6 +56,14 @@ public class Model {
     }
 
     // Getter
+    public Boolean getTreasureState(int i) {
+        return this.treasureState.get(i);
+    }
+
+    public ArrayList<Boolean> getTreasureState() {
+        return this.treasureState;
+    }
+
     public State getState() {
         return this.state;
     }
@@ -190,6 +204,10 @@ public class Model {
         this.temple.clear();
         this.players.clear();
         this.pioche = new Pioche(this.pileOfZone());
+        this.treasureState = new ArrayList<Boolean>();
+        for (int i = 0; i < 4; i++) {
+            treasureState.add(false);
+        }
 
         this.actPlayer = 0;
 

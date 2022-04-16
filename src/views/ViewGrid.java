@@ -32,6 +32,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     public ArrayList<Image> temples;
     public Image heliport;
     public Image gameOver;
+    public Image victory;
 
     final public int widthJpanel;
     final public int heightJpanel;
@@ -71,6 +72,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.heliport.getHeight(null);
 
         this.gameOver = new ImageIcon("images/gameOver.png").getImage();
+        this.victory = new ImageIcon("images/victory.png").getImage();
     }
 
     public void initPawn() {
@@ -99,7 +101,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
 
                     if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
-                            model.getActPlayer().getState() == Player.State.MOVING
+                            model.getActPlayer().getState() == Player.State.MOVING && model.getState() == Model.State.RUNNING
                             && contrFlooding.getEscape() == null) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
@@ -115,8 +117,10 @@ public class ViewGrid extends JPanel implements MouseListener {
         drawImages(g);
         drawPlayers(g);
 
-        if (model.getState() == Model.State.GAMEOVER) {
+        if (model.getState() == Model.State.LOSE) {
             drawGameOver(g);
+        }else if(model.getState() == Model.State.VICTORY){
+            drawVictory(g);
         }
     }
 
@@ -155,10 +159,12 @@ public class ViewGrid extends JPanel implements MouseListener {
     private void drawImages(Graphics g) {
         int i = 0;
         for (Zone temple : model.getTemple()) {
-            int x = temple.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
-            int y = temple.getCoord().y * (sizeCase + sizeBorder) + sizeBorder;
-            g.drawImage(temples.get(i), x + 5, y + 5, null);
-            i++;
+            if (temple != null) {
+                int x = temple.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
+                int y = temple.getCoord().y * (sizeCase + sizeBorder) + sizeBorder;
+                g.drawImage(temples.get(i), x + 5, y + 5, null);
+                i++;
+            }
         }
         Zone heliport = model.getHeliZone();
         int x = heliport.getCoord().x * (sizeCase + sizeBorder) + sizeBorder;
@@ -208,6 +214,11 @@ public class ViewGrid extends JPanel implements MouseListener {
     private void drawGameOver(Graphics g) {
         g.drawImage(this.gameOver, this.widthJpanel / 2 - this.gameOver.getWidth(null) / 2,
                 this.heightJpanel / 2 - this.gameOver.getHeight(null) / 2, null);
+    }
+
+    private void drawVictory(Graphics g){
+        g.drawImage(this.victory, this.widthJpanel / 2 - this.victory.getWidth(null) / 2,
+                this.heightJpanel / 2 - this.victory.getHeight(null) / 2, null);
     }
 
     private int getAlpha(Zone zone) {

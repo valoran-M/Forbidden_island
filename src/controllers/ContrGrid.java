@@ -20,7 +20,7 @@ public class ContrGrid extends Controller {
     }
 
     public void click(int x, int y) {
-        if (model.getIsland().inMap(new Point(x, y)) && model.getState() != Model.State.GAMEOVER) {
+        if (model.getIsland().inMap(new Point(x, y)) && model.getState() != Model.State.LOSE) {
             if (contrFlooding.getEscape() != null) {
                 clickEscape(x, y);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
@@ -32,12 +32,25 @@ public class ContrGrid extends Controller {
         this.view.repaint();
     }
 
+    private Boolean victoryCheck(){
+        for (Player p : model.getPlayers()) {
+            if (p.getPosition() != model.getHeliZone()) {
+                return false;
+            }
+        }
+        return !model.getTreasureState().contains(false);
+    }
+
     private void clickMove(int x, int y) {
         int[][] action = model.nbActionMove();
         if (action[y][x] <= model.getActPlayer().getNbActions()) {
             Zone moveZ = model.getIsland().getZone(x, y);
             model.getActPlayer().changePosition(moveZ);
             model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
+            if(victoryCheck()){
+                model.setState(Model.State.VICTORY);
+                view.gameOver();
+            }
         }
     }
 

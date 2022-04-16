@@ -19,6 +19,8 @@ public class View extends JFrame {
     private ViewSetup setup;
     public ViewGrid grid;
     public ViewPlayer player;
+    public ViewTreasure treasure;
+
     private JPanel buttons;
     private JPanel gameOverButtons;
 
@@ -30,8 +32,8 @@ public class View extends JFrame {
     private JPanel elements;
     public Color background;
 
-    private int height;
-    private int width;
+    public int height;
+    public int width;
 
     public View(Model m) {
         super();
@@ -50,6 +52,7 @@ public class View extends JFrame {
         this.setup = new ViewSetup(this.model, this);
         this.grid = new ViewGrid(this.model, this, this.contrFlooding);
         this.player = new ViewPlayer(this.model, this, this.contrExchange);
+        this.treasure = new ViewTreasure(this.model, this, this.grid);
 
         this.buttons = new JPanel();
         this.buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width + 30, 100));
@@ -71,12 +74,15 @@ public class View extends JFrame {
         buttons.add(exchange);
         buttons.add(next);
 
+        this.width = this.grid.widthJpanel + this.player.width + 100;
+        this.height = this.grid.heightJpanel + 300;
+
+        treasure.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width, 150));
+
         elements.add(this.grid);
         elements.add(this.player);
         elements.add(this.buttons);
-
-        this.width = this.grid.widthJpanel + this.player.width + 100;
-        this.height = this.grid.heightJpanel + 300;
+        elements.add(this.treasure);
 
         this.gameOverButtons = new JPanel();
         this.gameOverButtons.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width + 30, 100));
@@ -86,18 +92,18 @@ public class View extends JFrame {
         exit.setPreferredSize(new Dimension((this.grid.widthJpanel + this.player.width) / 2, 50));
         exit.addActionListener(e -> {
             this.dispose();
-         });
+        });
         JButton restart = new JButton("Restart");
         restart.setPreferredSize(new Dimension((this.grid.widthJpanel + this.player.width) / 2, 50));
         restart.addActionListener(e -> {
-            model.reset();
-            this.setup();
-         });
+            this.model.reset();
+            this.elements.remove(this.gameOverButtons);
+            this.elements.add(this.buttons);
+            this.elements.add(this.treasure);
+            setup();
+        });
         gameOverButtons.add(restart);
         gameOverButtons.add(exit);
-
-        //elements.add(gameOverButtons);
-
 
         setResizable(false);
         setLocationRelativeTo(null);
@@ -113,21 +119,22 @@ public class View extends JFrame {
     }
 
     public void start() {
-        model.setState(Model.State.RUNNING);
+        this.model.setState(Model.State.RUNNING);
         getContentPane().removeAll();
         setBackground(background);
 
         this.grid.initPawn();
-        setSize(width, height);
+        setSize(this.width, this.height);
 
-        add(elements);
+        add(this.elements);
 
         this.repaint();
     }
 
     public void gameOver() {
-        elements.remove(buttons);
-        elements.add(gameOverButtons);
+        elements.remove(this.buttons);
+        elements.remove(this.treasure);
+        elements.add(this.gameOverButtons);
 
         elements.updateUI();
         this.repaint();

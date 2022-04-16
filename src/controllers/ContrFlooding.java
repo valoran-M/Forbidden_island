@@ -41,6 +41,11 @@ public class ContrFlooding extends Controller {
         return false;
     }
 
+    private Boolean gameOverCase(Zone zone) {
+        return model.getTemple().contains(zone) ||
+                model.getHeliZone() == zone;
+    }
+
     public void flooding(int nb) {
         for (int i = 0; i < nb; i++) {
             if (model.getPioche().getNbCarte() == 0) {
@@ -50,14 +55,21 @@ public class ContrFlooding extends Controller {
             drownZ.drown();
             nbInondation--;
             Boolean escape = false;
-            for (Player p : model.getPlayers()) {
-                if (drownZ == p.getPosition()) {
-                    if (drownZ.getWaterLvl() == drownZ.getMaxWaterLvl()) {
+            if (drownZ.getWaterLvl() == drownZ.getMaxWaterLvl()) {
+                if (gameOverCase(drownZ)) {
+                    model.setState(Model.State.LOSE);
+                    view.gameOver();
+                    break;
+                }
+                for (Player p : model.getPlayers()) {
+                    if (drownZ == p.getPosition()) {
+                        p.setState(Player.State.ESCAPE);
+                        escape = true;
                         if (escape(drownZ)) {
                             escape = true;
                             p.setState(Player.State.ESCAPE);
                         } else {
-                            model.setState(Model.State.GAMEOVER);
+                            model.setState(Model.State.LOSE);
                             view.gameOver();
                             break;
                         }
