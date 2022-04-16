@@ -40,6 +40,7 @@ public class ContrGrid extends Controller {
         }
         return !model.getTreasureState().contains(false);
     }
+    
 
     private void clickMove(int x, int y) {
         int[][] action = model.nbActionMove();
