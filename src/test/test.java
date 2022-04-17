@@ -1,7 +1,5 @@
 package test;
 
-import test.*;
-
 public class test {
     public static void main(String[] args) {
         Player_test j = new Player_test();
@@ -12,5 +10,6 @@ public class test {
         p.test();
         i.test();
         z.test();
+        System.out.println("\ntest global : OK");
     }
 }

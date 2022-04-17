@@ -49,5 +49,6 @@ public class Pioche_test {
         this.testGetter();
         this.testSetter();
         this.testMethod();
+        System.out.println("test Pioche: OK");
     }
 }

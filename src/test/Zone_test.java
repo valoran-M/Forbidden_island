@@ -28,5 +28,6 @@ public class Zone_test {
     public void test(){
         this.testGetter();
         this.testMethod();
+        System.out.print("test Zone : OK");
     }
 }

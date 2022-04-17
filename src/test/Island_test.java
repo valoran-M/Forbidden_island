@@ -8,18 +8,17 @@ import models.Island;
 
 
 public class Island_test {
-    private ArrayList<Island> islands;
+    private Island islands;
 
     public Island_test() {
-        Island ile = new Island();
-        islands.add(ile);
+        this.islands = new Island();
     }
 
     private void testGetter(){
-        assert this.islands.get(0).getWidth() == 6;
-        assert this.islands.get(0).getHeight() == 6;
-        assert this.islands.get(0).getGridSize() == new Point(6,6);
-        assert this.islands.get(0).inMap(this.islands.get(0).getRandomCase().getCoord());
+        assert this.islands.getWidth() == 6;
+        assert this.islands.getHeight() == 6;
+        assert this.islands.getGridSize() == new Point(6,6);
+        assert this.islands.inMap(this.islands.getRandomCase().getCoord());
 
         ArrayList<Integer> tab1 = new ArrayList<Integer>();
         tab1.add(2);
@@ -43,29 +42,31 @@ public class Island_test {
         tab.add(tab3);
 
 
+
         for(int i = 0; i < 3; i++){
-            assert this.islands.get(0).getCoordLine(i) == tab.get(i);
-            assert this.islands.get(0).getCoordLine(i) == tab.get(6 - i);
+            assert this.islands.getCoordLine(i) == tab.get(i);
+            assert this.islands.getCoordLine(5 - i) == tab.get(i);
         }
 
-        for(int x = 0; x < this.islands.get(0).getWidth(); x++){
-            for(int y = 0; y < this.islands.get(0).getHeight(); y++){
-                if(this.islands.get(0).inMap(new Point(x,y))){
-                    assert this.islands.get(0).getZone(x,y) == this.islands.get(0).getGrid().get(x).get(y);
+        for(int x = 0; x < this.islands.getWidth(); x++){
+            for(int y = 0; y < this.islands.getHeight(); y++){
+                if(this.islands.inMap(new Point(x,y))){
+                    assert this.islands.getZone(x,y) == this.islands.getGrid().get(x).get(y);
                 } else {
-                    assert this.islands.get(0).getZone(x, y) == null;
+                    assert this.islands.getZone(x, y) == null;
                 }
             }
         }
     }
 
     private void testMethod(){
-        assert this.islands.get(0).inMap(new Point(3,3));
-        assert !this.islands.get(0).inMap(new Point(0,0));
+        assert this.islands.inMap(new Point(3,3));
+        assert !this.islands.inMap(new Point(0,0));
     }
 
     public void test(){
         this.testGetter();
         this.testMethod();
+        System.out.println("test Island : OK");
     }
 }
