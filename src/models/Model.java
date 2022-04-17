@@ -103,11 +103,8 @@ public class Model {
         this.state = state;
     }
 
-    public void setPlayer(ArrayList<String> names) {
-        for (String name : names) {
-            Player joueur = new Player(name, this.island.getRandomCase());
-            this.players.add(joueur);
-        }
+    public void addPlayer(Player player) {
+        this.players.add(player);
     }
 
     public void nextPlayer() {
@@ -192,7 +189,7 @@ public class Model {
         return cards;
     }
 
-    public void reset(){
+    public void reset() {
         this.state = State.SETUP;
         try {
             this.island = new Island(map);

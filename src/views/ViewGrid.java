@@ -78,10 +78,8 @@ public class ViewGrid extends JPanel implements MouseListener {
     public void initPawn() {
         pawns.clear();
         String path = "images/pawns/";
-        String pawnsPath[] = new String[] { path + "greenPawn.png", path + "bluePawn.png", path + "redPawn.png",
-                path + "yellowPawn.png" };
         for (int i = 0; i < model.getPlayers().size(); i++) {
-            Image img = new ImageIcon(pawnsPath[i]).getImage();
+            Image img = new ImageIcon(path + model.getPlayers().get(i).getRole().getImage()).getImage();
             pawns.add(img);
         }
     }
