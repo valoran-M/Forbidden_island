@@ -11,19 +11,19 @@ import models.roles.Player;
 /**
  * ContlDig
  */
-public class ContrDig extends Controller implements ActionListener {
+public class ContrDry extends Controller implements ActionListener {
     private View view;
 
-    public ContrDig(Model model, View view) {
+    public ContrDry(Model model, View view) {
         super(model, view);
         this.view = view;
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (model.getActPlayer().getState() == Player.State.DIGGING) {
+        if (model.getActPlayer().getState() == Player.State.DRY) {
             model.getActPlayer().setState(Player.State.MOVING);
         } else {
-            model.getActPlayer().setState(Player.State.DIGGING);
+            model.getActPlayer().setState(Player.State.DRY);
         }
         view.repaint();
     }

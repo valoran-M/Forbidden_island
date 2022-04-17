@@ -25,7 +25,7 @@ public class ContrGrid extends Controller {
                 clickEscape(x, y);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
                 clickMove(x, y);
-            } else if (model.getActPlayer().getState() == Player.State.DIGGING) {
+            } else if (model.getActPlayer().getState() == Player.State.DRY) {
                 clickDry(x, y);
             }
         }
@@ -42,7 +42,7 @@ public class ContrGrid extends Controller {
     }
 
     private void clickMove(int x, int y) {
-        int[][] action = model.nbActionMove();
+        int[][] action = model.nbAction();
         if (action[y][x] <= model.getActPlayer().getNbActions()) {
             Zone moveZ = model.getIsland().getZone(x, y);
             model.getActPlayer().changePosition(moveZ);
@@ -57,9 +57,16 @@ public class ContrGrid extends Controller {
     private void clickDry(int x, int y) {
         if (model.getActPlayer().getNbActions() > 0) {
             Zone digZ = model.getIsland().getZone(x, y);
-            Zone actZ = model.getActPlayer().getPosition();
-            ArrayList<Zone> digZones = model.getIsland().neighbours(actZ);
-            digZones.add(model.getActPlayer().getPosition());
+            ArrayList<Zone> digZones = new ArrayList<Zone>();
+            int [][] action = model.nbAction();
+            for (int j = 0; j < action.length; j++) {
+                for (int i = 0; i < action[j].length; i++) {
+                    if (action[j][i] <= 1) {
+                        digZones.add(model.getIsland().getZone(i, j));
+                    }
+                }
+            }
+
             if (digZ.getWaterLvl() == 1 && digZones.contains(digZ)) {
                 digZ.dry();
                 model.getActPlayer().dryUp();

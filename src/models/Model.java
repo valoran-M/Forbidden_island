@@ -145,7 +145,7 @@ public class Model {
         return p;
     }
 
-    public int[][] nbActionMove() {
+    public int[][] nbAction() {
         Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
         int[][] action = new int[island.getHeight()][island.getWidth()];
         for (int j = 0; j < action.length; j++) {

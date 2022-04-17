@@ -14,7 +14,7 @@ import java.lang.Math;
 public class Player {
     public static enum State {
         MOVING,
-        DIGGING,
+        DRY,
         EXCHANGE,
         ESCAPE
     }

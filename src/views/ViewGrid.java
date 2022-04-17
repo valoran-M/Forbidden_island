@@ -89,7 +89,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.setColor(Color.RED);
         Island island = this.model.getIsland();
-        int[][] actionMove = model.nbActionMove();
+        int[][] actionMove = model.nbAction();
         for (int y = 0; y < island.getGridSize().y; y++) {
             for (int x = 0; x < island.getGridSize().x; x++) {
                 if (island.inMap(new Point(x, y))) {
@@ -106,7 +106,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                 }
             }
         }
-        if (model.getActPlayer().getState() == Player.State.DIGGING && model.getActPlayer().getNbActions() > 0) {
+        if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
             drawDry(g);
         }
         if (contrFlooding.getEscape() != null) {

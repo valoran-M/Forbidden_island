@@ -27,7 +27,7 @@ public class View extends JFrame {
     private ContrEndTurn contrEndTurn;
     private ContrFlooding contrFlooding;
     private ContrExchange contrExchange;
-    private ContrDig contrDig;
+    private ContrDry contrDig;
     private ContrSearch contrSearch;
 
     private JPanel elements;
@@ -47,7 +47,7 @@ public class View extends JFrame {
 
         this.contrFlooding = new ContrFlooding(this.model, this);
         this.contrEndTurn = new ContrEndTurn(this.model, this, this.contrFlooding);
-        this.contrDig = new ContrDig(this.model, this);
+        this.contrDig = new ContrDry(this.model, this);
         this.contrExchange = new ContrExchange(this.model, this);
         this.contrSearch = new ContrSearch(model, this);
 
