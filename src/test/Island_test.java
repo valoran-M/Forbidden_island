@@ -10,7 +10,7 @@ import models.Island;
 public class Island_test {
     private ArrayList<Island> islands;
 
-    public Island_test(){
+    public Island_test() {
         Island ile = new Island();
         islands.add(ile);
     }

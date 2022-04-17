@@ -8,7 +8,7 @@ import models.Model;
 
 public class Pioche_test {
     private Pioche pioche;
-    private Model model = new Model("6\n6\n..##..\n.####.\n######\n######\n.####.\n..##..");
+    private Model model = new Model("map/default.map");
 
     public Pioche_test(){
         this.pioche = new Pioche(model.pileOfZone());
