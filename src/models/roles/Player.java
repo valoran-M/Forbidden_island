@@ -1,4 +1,4 @@
-package models.Role;
+package models.roles;
 
 import java.awt.Point;
 

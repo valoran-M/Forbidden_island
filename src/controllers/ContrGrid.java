@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import models.Model;
 import models.Zone;
-import models.Role.Player;
+import models.roles.Player;
 import views.View;
 
 /**

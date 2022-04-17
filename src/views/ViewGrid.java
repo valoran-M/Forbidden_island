@@ -17,7 +17,7 @@ import controllers.ContrGrid;
 import models.Island;
 import models.Model;
 import models.Zone;
-import models.Role.Player;
+import models.roles.Player;
 
 /**
  * Grid

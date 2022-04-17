@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import models.Model;
-import models.Role.Player;
+import models.roles.Player;
 import views.View;
 
 /**

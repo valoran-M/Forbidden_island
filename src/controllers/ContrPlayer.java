@@ -1,7 +1,7 @@
 package controllers;
 
 import models.Model;
-import models.Role.Player;
+import models.roles.Player;
 import views.View;
 
 /**

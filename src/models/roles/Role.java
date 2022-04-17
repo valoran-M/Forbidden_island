@@ -1,4 +1,4 @@
-package models.Role;
+package models.roles;
 
 public enum Role {
     Explorateur("greenPawn.png"),
