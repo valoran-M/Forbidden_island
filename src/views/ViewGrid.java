@@ -16,8 +16,8 @@ import controllers.ContrFlooding;
 import controllers.ContrGrid;
 import models.Island;
 import models.Model;
-import models.Player;
 import models.Zone;
+import models.Role.Player;
 
 /**
  * Grid

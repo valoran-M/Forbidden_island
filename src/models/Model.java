@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.logging.*;
 
+import models.Role.Player;
+
 import java.awt.Point;
 
 /**

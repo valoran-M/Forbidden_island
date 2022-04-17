@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import controllers.ContrExchange;
 import controllers.ContrPlayer;
 import models.Model;
-import models.Player;
+import models.Role.Player;
 
 /**
  * ViewPlayer

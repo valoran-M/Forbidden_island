@@ -1,8 +1,11 @@
-package models;
+package models.Role;
 
 import java.awt.Point;
 
 import java.util.ArrayList;
+
+import models.Zone;
+
 import java.lang.Math;
 
 /**
@@ -23,6 +26,7 @@ public class Player {
     private String name;
     private ArrayList<Integer> card;
     private ArrayList<Integer> artefact;
+    private Role role;
 
     // Constructeur
     public Player(String name, Zone zone) {
@@ -66,7 +70,15 @@ public class Player {
         return this.state;
     }
 
+    public Role getRole() {
+        return this.role;
+    }
+
     // Getter
+    public void setRole(Role r) {
+        this.role = r;
+    }
+
     public Zone getPosition() {
         return this.position;
     }

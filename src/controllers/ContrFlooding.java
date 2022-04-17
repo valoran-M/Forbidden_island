@@ -3,8 +3,8 @@ package controllers;
 import java.util.ArrayList;
 
 import models.Model;
-import models.Player;
 import models.Zone;
+import models.Role.Player;
 import views.View;
 
 public class ContrFlooding extends Controller {
