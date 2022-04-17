@@ -5,9 +5,9 @@ import models.Zone;
 /**
  * Plongeur
  */
-public class Plongeur extends Player {
+public class Diver extends Player {
 
-    public Plongeur(String name, Zone zone) {
+    public Diver(String name, Zone zone) {
         super(name, zone);
         setRole(Role.Plongeur);
     }

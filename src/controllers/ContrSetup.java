@@ -24,26 +24,26 @@ public class ContrSetup extends Controller implements ActionListener {
         Player player = null;
         switch (role) {
             case Explorateur:
-                player = new Explorateur(name, zone);
+                player = new Explorer(name, zone);
                 break;
             case Ingenieur:
-                player = new Ingenieur(name, zone);
+                player = new Engineer(name, zone);
                 break;
 
             case Messager:
-                player = new Messager(name, zone);
+                player = new Messenger(name, zone);
                 break;
 
             case Pilote:
-                player = new Pilote(name, model.getHeliZone());
+                player = new Pilot(name, model.getHeliZone());
                 break;
 
             case Navigateur:
-                player = new Navigateur(name, zone);
+                player = new Navigator(name, zone);
                 break;
 
             case Plongeur:
-                player = new Plongeur(name, zone);
+                player = new Diver(name, zone);
                 break;
             default:
                 break;

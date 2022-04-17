@@ -5,9 +5,9 @@ import models.Zone;
 /**
  * Navigateur
  */
-public class Navigateur extends Player {
+public class Navigator extends Player {
 
-    public Navigateur(String name, Zone zone) {
+    public Navigator(String name, Zone zone) {
         super(name, zone);
         setRole(Role.Navigateur);
     }
