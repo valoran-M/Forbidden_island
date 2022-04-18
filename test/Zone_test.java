@@ -1,4 +1,5 @@
-package test;
+import static org.junit.Assert.*;
+import org.junit.*;
 
 import models.Zone;
 import java.awt.Point;
