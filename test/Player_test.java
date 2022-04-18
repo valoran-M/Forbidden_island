@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
 import org.junit.*;
 
-import javax.management.relation.Role;
-
 import models.Zone;
 import models.roles.Player;
 import models.roles.Player.State;

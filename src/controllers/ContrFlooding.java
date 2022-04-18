@@ -31,8 +31,9 @@ public class ContrFlooding extends Controller {
         this.escape = escape;
     }
 
-    private Boolean escape(Zone zone) {
+    private Boolean escape(Zone zone, Player player) {
         ArrayList<Zone> neighbours = model.getIsland().neighbours(zone);
+        
         for (Zone neigZ : neighbours) {
             if (neigZ != null && neigZ.getWaterLvl() < neigZ.getMaxWaterLvl()) {
                 return true;
@@ -65,7 +66,7 @@ public class ContrFlooding extends Controller {
                     if (drownZ == p.getPosition()) {
                         p.setState(Player.State.ESCAPE);
                         escape = true;
-                        if (escape(drownZ)) {
+                        if (escape(drownZ, p)) {
                             escape = true;
                             p.setState(Player.State.ESCAPE);
                         } else {

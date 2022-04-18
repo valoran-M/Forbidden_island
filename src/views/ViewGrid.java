@@ -89,7 +89,7 @@ public class ViewGrid extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.setColor(Color.RED);
         Island island = this.model.getIsland();
-        int[][] actionMove = model.nbAction();
+        int[][] actionMove = model.nbAction(model.getActPlayer());
         for (int y = 0; y < island.getGridSize().y; y++) {
             for (int x = 0; x < island.getGridSize().x; x++) {
                 if (island.inMap(new Point(x, y))) {

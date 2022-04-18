@@ -42,7 +42,7 @@ public class ContrGrid extends Controller {
     }
 
     private void clickMove(int x, int y) {
-        int[][] action = model.nbAction();
+        int[][] action = model.nbAction(model.getActPlayer());
         if (action[y][x] <= model.getActPlayer().getNbActions()) {
             Zone moveZ = model.getIsland().getZone(x, y);
             model.getActPlayer().changePosition(moveZ);
@@ -58,7 +58,7 @@ public class ContrGrid extends Controller {
         if (model.getActPlayer().getNbActions() > 0) {
             Zone digZ = model.getIsland().getZone(x, y);
             ArrayList<Zone> digZones = new ArrayList<Zone>();
-            int [][] action = model.nbAction();
+            int [][] action = model.nbAction(model.getActPlayer());
             for (int j = 0; j < action.length; j++) {
                 for (int i = 0; i < action[j].length; i++) {
                     if (action[j][i] <= 1) {

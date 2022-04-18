@@ -145,7 +145,7 @@ public class Model {
         return p;
     }
 
-    public int[][] nbAction() {
+    public int[][] nbAction(Player player) {
         Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
         int[][] action = new int[island.getHeight()][island.getWidth()];
         for (int j = 0; j < action.length; j++) {
@@ -166,7 +166,7 @@ public class Model {
             for (int j = -1; j <= 1; j++) {
                 for (int i = -1; i <= 1; i++) {
                     if (island.getZone(p.x + i, p.y + j) != null) {
-                        if (getActPlayer().isNeight(island.getZone(p.x + i, p.y + j),
+                        if (player.isNeight(island.getZone(p.x + i, p.y + j),
                                 island.getZone(p.x, p.y)) &&
                                 action[p.y + j][p.x + i] > action[p.y][p.x] + 1) {
                             action[p.y + j][p.x + i] = action[p.y][p.x] + 1;

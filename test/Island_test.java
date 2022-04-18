@@ -45,7 +45,6 @@ public class Island_test {
 
 
         for(int i = 0; i < 3; i++){
-            System.out.println(i);
             assertEquals(this.islands.getCoordLine(i), tab.get(i));
             assertEquals(this.islands.getCoordLine(5 - i), tab.get(i));
         }
