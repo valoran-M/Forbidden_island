@@ -89,6 +89,10 @@ public class Player {
     }
 
     // Getter
+    public boolean getPower() {
+        return this.power;
+    }
+
     public Zone getPosition() {
         return this.position;
     }

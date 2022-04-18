@@ -10,4 +10,14 @@ public class Engineer extends Player {
         super(name, zone);
         setRole(Role.Ingenieur);
     }
+
+    @Override
+    public void dryUp() {
+        if (getPower()) {
+            this.nbActions -= 1;
+            powerDown();
+        } else {
+            powerUp();
+        }
+    }
 }

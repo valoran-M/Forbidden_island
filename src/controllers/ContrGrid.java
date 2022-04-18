@@ -53,6 +53,9 @@ public class ContrGrid extends Controller {
             if (model.getActPlayer().getRole() == Role.Pilote) {
                 model.getActPlayer().powerDown();
             }
+            else if(model.getActPlayer().getRole() == Role.Ingenieur && !model.getActPlayer().getPower()) {
+                model.getActPlayer().dryUp();
+            }
             if (victoryCheck()) {
                 model.setState(Model.State.VICTORY);
                 view.gameOver();
