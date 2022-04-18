@@ -33,7 +33,7 @@ public class Player {
         this.name = name;
         this.card = new ArrayList<Integer>();
         this.nbActions = 3;
-        position = zone;
+        this.position = zone;
         this.state = State.MOVING;
     }
 
@@ -74,11 +74,11 @@ public class Player {
         return this.role;
     }
 
-    // Getter
     public void setRole(Role r) {
         this.role = r;
     }
 
+    // Getter
     public Zone getPosition() {
         return this.position;
     }
