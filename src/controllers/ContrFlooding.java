@@ -1,5 +1,8 @@
 package controllers;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import models.Model;
 import models.Zone;
 import models.roles.Player;
@@ -30,17 +33,9 @@ public class ContrFlooding extends Controller {
     }
 
     private Boolean escape(Zone zone, Player player) {
-        int [][]action = model.nbAction(player);
+        ArrayList<Point> action = player.neigboursMove(this.model);
         
-        for (int y = 0; y < action.length; y++) {
-            for (int x = 0; x < action[y].length; x++) {
-                Zone neigZ = model.getIsland().getZone(x, y);
-                if(action[y][x] < 2 && neigZ != null && neigZ.getWaterLvl() < neigZ.getMaxWaterLvl()){
-                    return true;
-                }
-            }
-        }
-        return false;
+        return !action.isEmpty();
     }
 
     private Boolean gameOverCase(Zone zone) {

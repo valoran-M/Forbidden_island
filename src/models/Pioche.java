@@ -38,6 +38,9 @@ public class Pioche {
 
     // Méthode
     public Zone draw() {
+        if(this.pioche.size() == 0) {
+            resetPioche();
+        }
         Zone z = this.getPioche().get(0);
         if (z.getWaterLvl() != z.getMaxWaterLvl()) {
             this.addCardDefausse(z);

@@ -56,6 +56,6 @@ public class Pilot extends Player {
 
     @Override
     public ArrayList<Point> neigboursDry(Model model) {
-        return neigboursMove(model);
+        return super.neigboursMove(model);
     }
 }

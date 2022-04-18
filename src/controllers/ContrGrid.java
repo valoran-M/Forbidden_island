@@ -45,7 +45,8 @@ public class ContrGrid extends Controller {
     private void clickMove(int x, int y) {
         int[][] action = model.nbAction(model.getActPlayer());
         if (action[y][x] <= model.getActPlayer().getNbActions()
-                && action[y][x] != 0) {
+                && action[y][x] != 0
+                && model.getIsland().getZone(x, y).getWaterLvl() < model.getIsland().getZone(x, y).getMaxWaterLvl()) {
             Zone moveZ = model.getIsland().getZone(x, y);
             model.getActPlayer().changePosition(moveZ);
             model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);

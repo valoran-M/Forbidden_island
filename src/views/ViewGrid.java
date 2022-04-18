@@ -97,9 +97,11 @@ public class ViewGrid extends JPanel implements MouseListener {
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
-
-                    if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0 &&
-                            model.getActPlayer().getState() == Player.State.MOVING && model.getState() == Model.State.RUNNING
+                    Zone z = island.getZone(x, y);
+                    if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0
+                            && z.getWaterLvl() < z.getMaxWaterLvl()
+                            && model.getActPlayer().getState() == Player.State.MOVING
+                            && model.getState() == Model.State.RUNNING
                             && contrFlooding.getEscape() == null) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
@@ -117,7 +119,7 @@ public class ViewGrid extends JPanel implements MouseListener {
 
         if (model.getState() == Model.State.LOSE) {
             drawGameOver(g);
-        }else if(model.getState() == Model.State.VICTORY){
+        } else if (model.getState() == Model.State.VICTORY) {
             drawVictory(g);
         }
     }
@@ -214,7 +216,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                 this.heightJpanel / 2 - this.gameOver.getHeight(null) / 2, null);
     }
 
-    private void drawVictory(Graphics g){
+    private void drawVictory(Graphics g) {
         g.drawImage(this.victory, this.widthJpanel / 2 - this.victory.getWidth(null) / 2,
                 this.heightJpanel / 2 - this.victory.getHeight(null) / 2, null);
     }
