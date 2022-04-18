@@ -158,8 +158,13 @@ public class Model {
                 }
             }
         }
-
-        action[getActPlayer().getPosition().getY()][getActPlayer().getPosition().getX()] = 0;
+        Player playerForZ = this.getActPlayer();
+        for (Player p : this.players) {
+            if (p.getState() == Player.State.ESCAPE) {
+                playerForZ = p;
+            }
+        }
+        action[playerForZ.getPosition().getY()][playerForZ.getPosition().getX()] = 0;
         while (!allTraveled(visitedCase)) {
             Point p = getMinCase(visitedCase, action);
             visitedCase[p.y][p.x] = true;
@@ -167,9 +172,9 @@ public class Model {
                 for (int i = -1; i <= 1; i++) {
                     if (island.getZone(p.x + i, p.y + j) != null) {
                         if (player.isNeight(island.getZone(p.x + i, p.y + j),
-                                island.getZone(p.x, p.y)) &&
-                                action[p.y + j][p.x + i] > action[p.y][p.x] + 1) {
-                            action[p.y + j][p.x + i] = action[p.y][p.x] + 1;
+                                island.getZone(p.x, p.y))) {
+                            action[p.y + j][p.x + i] = player.getWeightNeight(action[p.y][p.x],
+                                    action[p.y + j][p.x + i], island.getZone(p.x + i, p.y + j));
                         }
                     }
                 }

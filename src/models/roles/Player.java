@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import java.util.ArrayList;
 
+import models.Model;
 import models.Zone;
 
 import java.lang.Math;
@@ -19,14 +20,15 @@ public class Player {
         ESCAPE
     }
 
-    private Zone position;
+    protected Zone position;
 
-    private int nbActions;
-    private State state;
-    private String name;
-    private ArrayList<Integer> card;
-    private ArrayList<Integer> artefact;
-    private Role role;
+    protected int nbActions;
+    protected State state;
+    protected String name;
+    protected ArrayList<Integer> card;
+    protected ArrayList<Integer> artefact;
+    protected Role role;
+    protected boolean power;
 
     // Constructeur
     public Player(String name, Zone zone) {
@@ -38,6 +40,14 @@ public class Player {
     }
 
     // Setter
+    public void powerDown() {
+        power = false;
+    }
+
+    public void powerUp() {
+        power = true;
+    }
+
     public void setPosition(Zone z) {
         this.position = z;
     }
@@ -121,12 +131,24 @@ public class Player {
                 Math.abs(move.getY() - base.getY()) < 2;
     }
 
-    public ArrayList<Point> neigbours() {
+    public int getWeightNeight(int weightNeight, int lastWeight, Zone z) {
+        if (weightNeight + 1 < lastWeight) {
+            return weightNeight + 1;
+        } else {
+            return lastWeight;
+        }
+    }
+
+    public ArrayList<Point> neigboursMove(Model model) {
         ArrayList<Point> neigbours = new ArrayList<Point>();
         neigbours.add(new Point(getPosition().getX() - 1, getPosition().getY()));
         neigbours.add(new Point(getPosition().getX() + 1, getPosition().getY()));
         neigbours.add(new Point(getPosition().getX(), getPosition().getY() - 1));
         neigbours.add(new Point(getPosition().getX(), getPosition().getY() + 1));
         return neigbours;
+    }
+
+    public ArrayList<Point> neigboursDry(Model model) {
+        return neigboursMove(model);
     }
 }

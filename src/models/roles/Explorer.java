@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import models.Zone;
+import models.Model;
 
 /**
  * Explorateur
@@ -21,7 +22,7 @@ public class Explorer extends Player {
     }
 
     @Override
-    public ArrayList<Point> neigbours() {
+    public ArrayList<Point> neigboursMove(Model model) {
         ArrayList<Point> neigbours = new ArrayList<Point>();
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {

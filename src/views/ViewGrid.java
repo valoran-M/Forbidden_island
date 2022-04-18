@@ -123,7 +123,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     }
 
     private void drawDry(Graphics g) {
-        ArrayList<Point> neigbours = model.getActPlayer().neigbours();
+        ArrayList<Point> neigbours = model.getActPlayer().neigboursDry(this.model);
         neigbours.add(new Point(model.getActPlayer().getPosition().getX(), model.getActPlayer().getPosition().getY()));
         for (Point p : neigbours) {
             Zone zone = model.getIsland().getZone(p.x, p.y);
@@ -143,7 +143,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     }
 
     private void drawEscape(Graphics g) {
-        ArrayList<Point> neigbours = contrFlooding.getEscape().neigbours();
+        ArrayList<Point> neigbours = contrFlooding.getEscape().neigboursMove(this.model);
         for (Point point : neigbours) {
             Zone zone = model.getIsland().getZone(point.x, point.y);
             if (zone != null && zone.getWaterLvl() != zone.getMaxWaterLvl()) {
