@@ -3,7 +3,7 @@ package models.roles;
 public enum Role {
     Explorateur("greenPawn.png"),
     Ingenieur("redPawn.png"),
-    Messager("grayPawn.png"),
+    Messager("purplePawn.png"),
     Pilote("bluePawn.png"),
     Navigateur("yellowPawn.png"),
     Plongeur("blackPawn.png");

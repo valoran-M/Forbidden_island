@@ -46,14 +46,13 @@ public class Model {
         this.pioche = new Pioche(this.pileOfZone());
         this.treasureState = new ArrayList<Boolean>();
         for (int i = 0; i < 4; i++) {
-            treasureState.add(true);
+            treasureState.add(false);
         }
 
         this.actPlayer = 0;
 
         for (int i = 0; i < 4; i++) {
-            this.temple.add(null);
-            //this.temple.add(this.getRandomValideCase());
+            this.temple.add(this.getRandomValideCase());
         }
         this.heliZone = this.getRandomValideCase();
     }
