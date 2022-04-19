@@ -89,7 +89,6 @@ public class ViewGrid extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.setColor(Color.RED);
         Island island = this.model.getIsland();
-        int[][] actionMove = model.nbAction(model.getActPlayer());
         for (int y = 0; y < island.getGridSize().y; y++) {
             for (int x = 0; x < island.getGridSize().x; x++) {
                 if (island.inMap(new Point(x, y))) {
@@ -97,22 +96,19 @@ public class ViewGrid extends JPanel implements MouseListener {
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                     g.fillRect(x_case, y_case, sizeCase, sizeCase);
-                    Zone z = island.getZone(x, y);
-                    if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0
-                            && z.getWaterLvl() < z.getMaxWaterLvl()
-                            && model.getActPlayer().getState() == Player.State.MOVING
-                            && model.getState() == Model.State.RUNNING
-                            && contrFlooding.getEscape() == null) {
-                        drawOutline(g, x_case, y_case, new Color(176, 242, 182));
-                    }
                 }
             }
         }
-        if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
-            drawDry(g);
-        }
-        if (contrFlooding.getEscape() != null) {
-            drawEscape(g);
+        if (model.getState() == Model.State.RUNNING) {
+            if(model.getActPlayer().getState() == Player.State.MOVING){
+                drawMove(g);
+            }
+            else if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
+                drawDry(g);
+            }
+            else if (contrFlooding.getEscape() != null) {
+                drawEscape(g);
+            }
         }
         drawImages(g);
         drawPlayers(g);
@@ -121,6 +117,23 @@ public class ViewGrid extends JPanel implements MouseListener {
             drawGameOver(g);
         } else if (model.getState() == Model.State.VICTORY) {
             drawVictory(g);
+        }
+    }
+
+    private void drawMove(Graphics g) {
+        int[][] actionMove = model.nbAction(model.getActPlayer());
+        Island island = this.model.getIsland();
+        for (int y = 0; y < actionMove.length; y++) {
+            for (int x = 0; x < actionMove[y].length; x++) {
+                Zone z = island.getZone(x, y);
+                int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
+                int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
+                if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0
+                        && z.getWaterLvl() < z.getMaxWaterLvl()
+                        && contrFlooding.getEscape() == null) {
+                    drawOutline(g, x_case, y_case, new Color(176, 242, 182));
+                }
+            }
         }
     }
 
@@ -226,11 +239,6 @@ public class ViewGrid extends JPanel implements MouseListener {
         int act = zone.getWaterLvl();
         int alpha = (int) (255 * (double) (max - act) / max);
         return alpha;
-    }
-
-    @Override
-    public void repaint() {
-        super.repaint();
     }
 
     public void mouseClicked(MouseEvent e) {
