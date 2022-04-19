@@ -48,7 +48,7 @@ public class ContrFlooding extends Controller {
             if (model.getPioche().getNbCarte() == 0) {
                 model.getPioche().resetPioche();
             }
-            Zone drownZ = model.getPioche().draw();
+            Zone drownZ = model.getPioche().pick();
             drownZ.drown();
             nbInondation--;
             Boolean escape = false;

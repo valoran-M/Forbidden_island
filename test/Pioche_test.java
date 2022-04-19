@@ -42,7 +42,7 @@ public class Pioche_test {
         card.add(new Zone(1, 1));
         this.pioche.setPioche(card);
         Zone p = card.get(0);
-        assertEquals(this.pioche.draw(), p);
+        assertEquals(this.pioche.pick(), p);
 
         this.pioche.resetPioche();
         assertEquals(this.pioche.getNbCarte(), 23);

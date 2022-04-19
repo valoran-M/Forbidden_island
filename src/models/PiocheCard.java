@@ -46,7 +46,7 @@ public class PiocheCard {
         this.defausse.clear();
     }
 
-    public Card draw() {
+    public Card pick() {
         if(this.pioche.size() == 0) {
             resetPioche();
         }
