@@ -28,7 +28,7 @@ public class Model {
     private PiocheInnondation piocheWater;
     private int actPlayer;
     private Zone heliZone;
-    private PiocheCard piocheCard; 
+    private PiocheCard piocheCard;
 
     public Model(String map) {
         try {
@@ -101,7 +101,7 @@ public class Model {
         return this.piocheWater;
     }
 
-    public PiocheCard getPiocheCard(){
+    public PiocheCard getPiocheCard() {
         return this.piocheCard;
     }
 

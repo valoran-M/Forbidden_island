@@ -16,11 +16,12 @@ public class Player_test {
         this.p = new Engineer("Joueur-1", this.z);
     }
 
+    @Test
     private void testGetter(){
         assertEquals(this.p.getName(), "Joueur-1");
-        assert this.p.getNbActions() == 3;
-        assert this.p.getPosition() == this.z;
-        assert this.p.getState() == State.MOVING;
+        assertEquals(this.p.getNbActions(),3);
+        assertEquals(this.p.getPosition(),this.z);
+        assertEquals(this.p.getState(),State.MOVING);
     }
 
     private void testSetter(){
@@ -30,12 +31,5 @@ public class Player_test {
     }
 
     private void testMethod(){
-    }
-
-    public void test(){
-        this.testGetter();
-        this.testSetter();
-        this.testMethod();
-        System.out.println("test Player : OK");
     }
 } 

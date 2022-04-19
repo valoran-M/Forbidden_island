@@ -7,19 +7,19 @@ public class PiocheCard {
     private ArrayList<Card> pioche;
     private ArrayList<Card> defausse;
 
-    public PiocheCard(){
+    public PiocheCard() {
         this.pioche = new ArrayList<Card>();
         this.defausse = new ArrayList<Card>();
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             this.pioche.add(Card.AIR);
             this.pioche.add(Card.FEU);
             this.pioche.add(Card.EAU);
             this.pioche.add(Card.TERRE);
-            if (i>1){
+            if (i > 1) {
                 this.pioche.add(Card.DELUGE);
                 this.pioche.add(Card.HELICOPTERE);
             }
-            if (i > 2){
+            if (i > 2) {
                 this.pioche.add(Card.SAC);
             }
         }
@@ -38,16 +38,16 @@ public class PiocheCard {
         this.pioche = cards;
     }
 
-    public void addDefausse(){
+    public void addDefausse() {
         Collections.shuffle(this.defausse);
-        for(int i = 0; i < this.defausse.size(); i++){
+        for (int i = 0; i < this.defausse.size(); i++) {
             this.pioche.add(this.defausse.get(0));
         }
         this.defausse.clear();
     }
 
     public Card pick() {
-        if(this.pioche.size() == 0) {
+        if (this.pioche.size() == 0) {
             resetPioche();
         }
         Card c = this.getPioche().get(0);

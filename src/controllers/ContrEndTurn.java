@@ -21,9 +21,11 @@ public class ContrEndTurn extends Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (contrEscape.getEscape() == null) {
             model.getActPlayer().powerUp();
-            /*for(int i = 0; i < 2; i++){
-                model.getActPlayer().addcard(model.getPiocheCard().pick());
-            }*/
+            /*
+             * for(int i = 0; i < 2; i++){
+             * model.getActPlayer().addcard(model.getPiocheCard().pick());
+             * }
+             */
             model.nextPlayer();
             model.getActPlayer().setState(Player.State.MOVING);
             model.getActPlayer().setAction(3);

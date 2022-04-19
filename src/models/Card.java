@@ -9,7 +9,7 @@ public enum Card {
     HELICOPTERE,
     DELUGE;
 
-    public int getTempleID(Card card){
+    public int getTempleID(Card card) {
         switch (card) {
             case AIR:
                 return 0;
@@ -24,7 +24,7 @@ public enum Card {
         }
     }
 
-    public static Card getCardTemple(int id){
+    public static Card getCardTemple(int id) {
         switch (id) {
             case 0:
                 return AIR;

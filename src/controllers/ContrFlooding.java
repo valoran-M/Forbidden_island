@@ -34,7 +34,7 @@ public class ContrFlooding extends Controller {
 
     private Boolean escape(Zone zone, Player player) {
         ArrayList<Point> action = player.neigboursMove(this.model);
-        
+
         return !action.isEmpty();
     }
 

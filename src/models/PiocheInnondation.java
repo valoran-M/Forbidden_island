@@ -38,7 +38,7 @@ public class PiocheInnondation {
 
     // Méthode
     public Zone pick() {
-        if(this.pioche.size() == 0) {
+        if (this.pioche.size() == 0) {
             resetPioche();
         }
         Zone z = this.getPioche().get(0);
