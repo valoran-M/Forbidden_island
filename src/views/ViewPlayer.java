@@ -143,6 +143,11 @@ public class ViewPlayer extends JPanel implements MouseListener {
         if (player != null) {
             int index = model.getPlayers().indexOf(player);
             g.drawImage(pawns.get(index), 20, minY + 20, null);
+            g.drawString("" + player.getName(), 30 + pawns.get(index).getWidth(null),
+                    minY + 20 + pawns.get(index).getHeight(null) - g.getFontMetrics().getHeight());
+            g.drawString("" + player.getRole().toString(), 30 + pawns.get(index).getWidth(null),
+                    minY + 20 + pawns.get(index).getHeight(null));
+
             int space = (this.width - minY - 60) / 4;
             for (int i = 0; i < temples.size(); i++) {
                 int y = minY + 100 + (space + temples.get(i).getHeight(null)) * i;
@@ -157,7 +162,8 @@ public class ViewPlayer extends JPanel implements MouseListener {
                             + g.getFontMetrics().getAscent() / 2);
 
             g.drawImage(helicopter, this.width / 2, minY + 100 + (space + helicopter.getHeight(null)) * 2, null);
-            g.drawString("x " + contrPlayer.selectedPlayer.getCards(Card.HELICOPTERE), this.width / 2 + helicopter.getWidth(null),
+            g.drawString("x " + contrPlayer.selectedPlayer.getCards(Card.HELICOPTERE),
+                    this.width / 2 + helicopter.getWidth(null),
                     minY + 100 + (space + helicopter.getHeight(null)) * 2 + helicopter.getHeight(null) / 2
                             + g.getFontMetrics().getAscent() / 2);
         }
