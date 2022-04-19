@@ -23,4 +23,19 @@ public enum Card {
                 return -1;
         }
     }
+
+    public static Card getCardTemple(int id){
+        switch (id) {
+            case 0:
+                return AIR;
+            case 1:
+                return TERRE;
+            case 2:
+                return FEU;
+            case 3:
+                return EAU;
+            default:
+                return null;
+        }
+    }
 }
