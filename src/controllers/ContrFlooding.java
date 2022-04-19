@@ -45,10 +45,10 @@ public class ContrFlooding extends Controller {
 
     public void flooding(int nb) {
         for (int i = 0; i < nb; i++) {
-            if (model.getPioche().getNbCarte() == 0) {
-                model.getPioche().resetPioche();
+            if (model.getPiocheWater().getNbCarte() == 0) {
+                model.getPiocheWater().resetPioche();
             }
-            Zone drownZ = model.getPioche().pick();
+            Zone drownZ = model.getPiocheWater().pick();
             drownZ.drown();
             nbInondation--;
             Boolean escape = false;

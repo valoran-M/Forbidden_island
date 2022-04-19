@@ -25,9 +25,10 @@ public class Model {
     private ArrayList<Zone> temple;
     private ArrayList<Boolean> treasureState;
     private ArrayList<Player> players;
-    private PiocheInnondation pioche;
+    private PiocheInnondation piocheWater;
     private int actPlayer;
     private Zone heliZone;
+    private PiocheCard piocheCard; 
 
     public Model(String map) {
         try {
@@ -44,7 +45,8 @@ public class Model {
         this.state = State.SETUP;
         this.temple = new ArrayList<Zone>();
         this.players = new ArrayList<Player>();
-        this.pioche = new PiocheInnondation(this.pileOfZone());
+        this.piocheWater = new PiocheInnondation(this.pileOfZone());
+        this.piocheCard = new PiocheCard();
         this.treasureState = new ArrayList<Boolean>();
         for (int i = 0; i < 4; i++) {
             treasureState.add(false);
@@ -95,8 +97,12 @@ public class Model {
         return this.players.get(actPlayer);
     }
 
-    public PiocheInnondation getPioche() {
-        return this.pioche;
+    public PiocheInnondation getPiocheWater() {
+        return this.piocheWater;
+    }
+
+    public PiocheCard getPiocheCard(){
+        return this.piocheCard;
     }
 
     // Setter
@@ -208,7 +214,8 @@ public class Model {
         }
         this.temple.clear();
         this.players.clear();
-        this.pioche = new PiocheInnondation(this.pileOfZone());
+        this.piocheWater = new PiocheInnondation(this.pileOfZone());
+        this.piocheCard = new PiocheCard();
         this.treasureState = new ArrayList<Boolean>();
         for (int i = 0; i < 4; i++) {
             treasureState.add(false);
