@@ -3,6 +3,7 @@ import org.junit.*;
 
 import models.Zone;
 import models.roles.Player;
+import models.roles.Engineer;
 import models.roles.Player.State;
 
 public class Player_test {
@@ -12,16 +13,14 @@ public class Player_test {
 
     public Player_test(){
         this.z = new Zone(3, 3);
-        this.p = new Player("Joueur-1", this.z);
+        this.p = new Engineer("Joueur-1", this.z);
     }
 
     private void testGetter(){
-        assert this.p.getName() == "Joueur-1";
+        assertEquals(this.p.getName(), "Joueur-1");
         assert this.p.getNbActions() == 3;
         assert this.p.getPosition() == this.z;
         assert this.p.getState() == State.MOVING;
-        this.p.addcard(2);
-        assert this.p.getcard(2) == 2;
     }
 
     private void testSetter(){

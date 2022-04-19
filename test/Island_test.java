@@ -1,9 +1,10 @@
 import static org.junit.Assert.*;
-import org.junit.*;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.awt.Point;
+
+import org.junit.*;
 
 import models.Island;
 

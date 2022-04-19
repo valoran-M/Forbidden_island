@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 import models.Model;
 import models.Zone;
+import models.Card;
 
 import java.lang.Math;
 
 /**
  * Players
  */
-public class Player {
+public abstract class Player {
     public static enum State {
         MOVING,
         DRY,
@@ -21,19 +22,16 @@ public class Player {
     }
 
     protected Zone position;
-
     protected int nbActions;
     protected State state;
     protected String name;
-    protected ArrayList<Integer> card;
-    protected ArrayList<Integer> artefact;
+    protected ArrayList<Card> cards;
     protected Role role;
     protected boolean power;
-
     // Constructeur
-    public Player(String name, Zone zone) {
+    public Player (String name, Zone zone) {
         this.name = name;
-        this.card = new ArrayList<Integer>();
+        this.cards = new ArrayList<Card>();
         this.nbActions = 3;
         this.position = zone;
         this.state = State.MOVING;
@@ -56,12 +54,8 @@ public class Player {
         this.name = name;
     }
 
-    public void addcard(int x) {
-        this.card.add(x);
-    }
-
-    public void addArtefact(int x) {
-        this.artefact.add(x);
+    public void addcard(Card x) {
+        this.cards.add(x);
     }
 
     public void resetAction() {
@@ -101,12 +95,8 @@ public class Player {
         return this.name;
     }
 
-    public int getcard(int num) {
-        return this.card.get(num);
-    }
-
-    public ArrayList<Integer> getAllCards() {
-        return this.card;
+    public ArrayList<Card> getAllCards() {
+        return this.cards;
     }
 
     public int getNbActions() {
@@ -116,14 +106,6 @@ public class Player {
     // méthode
     public void changePosition(Zone z) {
         this.position = z;
-    }
-
-    public void takeArtefact(int x) {
-        for (int i = 0; i < 2; i++) {
-            this.card.remove(x);
-        }
-        this.addArtefact(x);
-        this.nbActions -= 1;
     }
 
     public void dryUp() {
