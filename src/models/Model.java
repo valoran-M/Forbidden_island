@@ -39,6 +39,7 @@ public class Model {
             logger.warning(map + " not found default map used");
             this.island = new Island();
         }
+
         this.map = map;
         this.state = State.SETUP;
         this.temple = new ArrayList<Zone>();
