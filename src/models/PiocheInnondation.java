@@ -3,12 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Pioche {
+public class PiocheInnondation {
     private ArrayList<Zone> pioche;
     private ArrayList<Zone> defausse;
     private int nbCartePioche;
 
-    public Pioche(ArrayList<Zone> p) {
+    public PiocheInnondation(ArrayList<Zone> p) {
         this.pioche = p;
         Collections.shuffle(this.pioche);
         this.defausse = new ArrayList<Zone>();

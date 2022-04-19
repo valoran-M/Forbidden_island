@@ -3,17 +3,17 @@ import org.junit.*;
 
 import java.util.ArrayList;
 
-import models.Pioche;
+import models.PiocheInnondation;
 import models.Zone;
 import models.Model;
 
 public class Pioche_test {
-    private Pioche pioche;
+    private PiocheInnondation pioche;
     private Model model = new Model("map/default.map");
 
     @Before
     public void Pioche_init() {
-        this.pioche = new Pioche(model.pileOfZone());
+        this.pioche = new PiocheInnondation(model.pileOfZone());
     }
 
     @Test
