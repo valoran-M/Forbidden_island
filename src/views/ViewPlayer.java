@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseListener;
@@ -25,6 +26,8 @@ public class ViewPlayer extends JPanel implements MouseListener {
     public int width, height;
     public int sizeCase;
 
+    private int pawnsSapcing;
+
     private ArrayList<Image> pawns;
 
     public ViewPlayer(Model model, View view, ContrExchange contrExchange) {
@@ -35,6 +38,8 @@ public class ViewPlayer extends JPanel implements MouseListener {
         this.pawns = view.grid.pawns;
 
         this.contrPlayer = new ContrPlayer(model, view, contrExchange);
+
+        this.pawnsSapcing = (this.width - 60) / 4;
 
         setPreferredSize(new java.awt.Dimension(width, height));
         setBackground(view.background);
@@ -51,17 +56,18 @@ public class ViewPlayer extends JPanel implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawOutline(g, 0, 0, this.width, this.height, new Color(124, 78, 40));
+        drawOutline(g, 0, 0, this.width, 140, new Color(124, 78, 40));
+        drawOutline(g, 0, 145, this.width, this.height - 145, new Color(124, 78, 40));
         if (this.pawns != null) {
             drawPlayer(g);
         }
         if (model.getActPlayer().getState() == Player.State.EXCHANGE) {
             drawExchange(g);
         }
+        drawActPlayer(g);
     }
 
     private void drawPawnOutline(Graphics g, int player, Color color) {
-        int pawnsSapcing = (this.width - 60) / this.model.getPlayers().size();
         int midX = 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player
                 + this.pawns.get(player).getWidth(null) / 2;
         int midY = 15 + this.pawns.get(player).getHeight(null) / 2;
@@ -70,11 +76,30 @@ public class ViewPlayer extends JPanel implements MouseListener {
     }
 
     private void drawPlayer(Graphics g) {
-        int pawnsSapcing = (this.width - 60) / this.model.getPlayers().size();
-        for (int i = 0; i < this.model.getPlayers().size(); i++) {
-            g.drawImage(this.pawns.get(i), 30 + (pawnsSapcing + this.pawns.get(i).getWidth(null) / 2) * i, 15, null);
+        for (int player = 0; player < this.model.getPlayers().size(); player++) {
+            g.drawImage(this.pawns.get(player),
+                    30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player, 15, null);
+
+            if (model.getPlayers().get(player) == contrPlayer.selectedPlayer) {
+                int midX = 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player
+                        + this.pawns.get(player).getWidth(null) / 2;
+                int midY = 15 + this.pawns.get(player).getHeight(null) / 2;
+                g.setColor(new Color(185, 5, 26));
+                g.fillOval(midX - 5, midY * 2, 10, 10);
+            }
         }
         drawPawnOutline(g, model.getActPlayerId(), new Color(255, 255, 255));
+    }
+
+    private void drawActPlayer(Graphics g) {
+        g.setColor(new Color(200, 200, 200));
+        Font currentFont = g.getFont();
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+        g.drawString("" + model.getActPlayer().getNbActions(), this.width - 50, 130);
+        g.setFont(currentFont);
+        g.drawString(model.getActPlayer().getName(), 20,
+                130 - g.getFontMetrics().getHeight());
+        g.drawString(model.getActPlayer().getRole().toString(), 20, 130);
     }
 
     private void drawExchange(Graphics g) {
@@ -87,7 +112,18 @@ public class ViewPlayer extends JPanel implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        contrPlayer.playerClick(model.getActPlayer());
+        if (e.getY() >= 15 && e.getY() <= 15 + this.pawns.get(0).getHeight(null)) {
+            for (int player = 0; player < model.getPlayers().size(); player++) {
+                int size = this.pawns.get(player).getHeight(null) + 10;
+                if (e.getX() >= 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player - size / 2
+                        && e.getX() <= 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * (player + 1)
+                                - size / 2) {
+                    contrPlayer.playerClick(model.getPlayers().get(player));
+                    return;
+                }
+            }
+            contrPlayer.playerClick(null);
+        }
     }
 
     public void mouseEntered(MouseEvent e) {

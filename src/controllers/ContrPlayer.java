@@ -9,6 +9,7 @@ import views.View;
  */
 public class ContrPlayer extends Controller {
     public ContrExchange contrExchange;
+    public Player selectedPlayer;
 
     public ContrPlayer(Model model, View view, ContrExchange contrExchange) {
         super(model, view);
@@ -16,5 +17,7 @@ public class ContrPlayer extends Controller {
     }
 
     public void playerClick(Player player) {
+        this.selectedPlayer = player; 
+        view.repaint();
     }
 }
