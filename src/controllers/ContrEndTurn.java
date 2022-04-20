@@ -15,6 +15,7 @@ import views.View;
 public class ContrEndTurn extends Controller implements ActionListener {
     public ContrFlooding contrEscape;
     public ContrPlayer contrPlayer;
+    public int maxCard;
 
     public ContrEndTurn(Model model, View view, ContrFlooding contrEscape) {
         super(model, view);
@@ -42,7 +43,7 @@ public class ContrEndTurn extends Controller implements ActionListener {
                     model.getActPlayer().addcard(actualCard);
                 }
             }
-            if (model.getActPlayer().getNbCards() > 5) {
+            if (model.getActPlayer().getNbCards() > maxCard) {
                 model.getActPlayer().setState(Player.State.THROW);
                 contrPlayer.selectedPlayer = model.getActPlayer();
             } else {

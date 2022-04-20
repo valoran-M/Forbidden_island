@@ -49,7 +49,7 @@ public class ContrPlayer extends Controller {
         this.selectedCard = null;
         if(model.getActPlayer().getCards(card) >= 1){
             model.getActPlayer().useCard(card);
-            if(model.getActPlayer().getNbCards() <= 5){
+            if(model.getActPlayer().getNbCards() <= maxCard){
                 contrEndTurn.nexTurn();
             }
         }
