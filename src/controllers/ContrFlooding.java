@@ -74,6 +74,5 @@ public class ContrFlooding extends Controller {
             }
         }
         nbInondation = model.getDelugeLvl().innondationRate();
-        System.out.println("OK" + nbInondation);
     }
 }

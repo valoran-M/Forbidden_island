@@ -71,7 +71,7 @@ public class View extends JFrame {
         JButton exchange = new JButton("Exchange");
         exchange.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         exchange.addActionListener(this.contrExchange);
-        JButton use = new JButton("Use");
+        JButton use = new JButton("Use Card");
         use.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.player.width, 50));
