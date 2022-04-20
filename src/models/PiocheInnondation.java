@@ -50,6 +50,14 @@ public class PiocheInnondation {
         return z;
     }
 
+    public void addDefausse() {
+        Collections.shuffle(this.defausse);
+        for (int i = 0; i < this.defausse.size(); i++) {
+            this.pioche.add(this.defausse.get(0));
+        }
+        this.defausse.clear();
+    }
+
     public void resetPioche() {
         this.setPioche(new ArrayList<Zone>(defausse));
         Collections.shuffle(this.pioche);

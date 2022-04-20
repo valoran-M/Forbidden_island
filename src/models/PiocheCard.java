@@ -43,21 +43,13 @@ public class PiocheCard {
         this.pioche.remove(c);
     }
 
-    public void addDefausse() {
-        Collections.shuffle(this.defausse);
-        for (int i = 0; i < this.defausse.size(); i++) {
-            this.pioche.add(this.defausse.get(0));
-        }
-        this.defausse.clear();
-    }
-
     public Card pick() {
         if (this.pioche.size() == 0) {
             resetPioche();
         }
         Card c = this.getPioche().get(0);
-        this.pioche.remove(0);
         this.defausse.add(c);
+        this.pioche.remove(this.pioche.get(0));
         return c;
     }
 

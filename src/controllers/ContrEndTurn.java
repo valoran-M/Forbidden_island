@@ -30,7 +30,7 @@ public class ContrEndTurn extends Controller implements ActionListener {
                 Card actualCard = model.getPiocheCard().pick();
                 if(actualCard.equals(Card.DELUGE)){
                     model.getDelugeLvl().incrementLvl();
-                    model.getPiocheCard().addDefausse();
+                    model.getPiocheWater().addDefausse();    
                     model.getPiocheCard().sendToDefausse(actualCard);
                 } else if(model.getActPlayer().getAllCards().size() == 5) {
                     model.getActPlayer().setState(State.THROW);
