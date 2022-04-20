@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import controllers.*;
 import models.Model;
+import models.roles.Player;
 
 /**
  * View
@@ -27,7 +28,6 @@ public class View extends JFrame {
 
     public ContrEndTurn contrEndTurn;
     public ContrFlooding contrFlooding;
-    public ContrExchange contrExchange;
     public ContrDry contrDig;
     public ContrSearch contrSearch;
 
@@ -49,12 +49,11 @@ public class View extends JFrame {
         this.contrFlooding = new ContrFlooding(this.model, this);
         this.contrEndTurn = new ContrEndTurn(this.model, this, this.contrFlooding);
         this.contrDig = new ContrDry(this.model, this);
-        this.contrExchange = new ContrExchange(this.model, this);
         this.contrSearch = new ContrSearch(model, this);
 
         this.setup = new ViewSetup(this.model, this);
         this.grid = new ViewGrid(this.model, this, this.contrFlooding);
-        this.player = new ViewPlayer(this.model, this, this.contrExchange);
+        this.player = new ViewPlayer(this.model, this);
         this.treasure = new ViewTreasure(this.model, this, this.grid);
 
         this.inondationLevel = new ViewLevel(this.model, this);
@@ -62,17 +61,30 @@ public class View extends JFrame {
         this.buttons = new JPanel();
         this.buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width + 300, 100));
         this.buttons.setBackground(background);
+
         JButton search = new JButton("Search");
         search.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         search.addActionListener(this.contrSearch);
+
         JButton dig = new JButton("Dry up");
         dig.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         dig.addActionListener(this.contrDig);
+
         JButton exchange = new JButton("Exchange");
         exchange.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
-        exchange.addActionListener(this.contrExchange);
+        exchange.addActionListener(e -> {
+            if (model.getActPlayer().getState() == Player.State.EXCHANGE) {
+                model.getActPlayer().setState(Player.State.MOVING);
+            } else {
+                model.getActPlayer().setState(Player.State.EXCHANGE);
+                player.contrPlayer.selectedPlayer = model.getActPlayer();
+            }
+            this.repaint();
+        });
+
         JButton use = new JButton("Use Card");
         use.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
+
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.player.width, 50));
         next.addActionListener(this.contrEndTurn);

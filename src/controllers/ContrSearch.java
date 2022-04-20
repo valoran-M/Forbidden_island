@@ -3,6 +3,7 @@ package controllers;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import models.Card;
 import models.Model;
 import views.View;
 
@@ -29,10 +30,12 @@ public class ContrSearch extends Controller implements ActionListener {
             model.getActPlayer().setAction(
                     model.getActPlayer().getNbActions() - 1);
             int index = model.getTemple().indexOf(model.getActPlayer().getPosition());
-            model.getTemple().set(index, null);
-            model.getTreasureState().set(index, true);
-            view.repaint();
+            if(model.getActPlayer().getCards(Card.getCardTemple(index)) >= 4){
+                model.getTemple().set(index, null);
+                model.getTreasureState().set(index, true);
+                view.repaint();
+                model.getActPlayer().getAllCards().replace(Card.getCardTemple(index), model.getActPlayer().getCards(Card.getCardTemple(index)) - 4);
+            }
         }
     }
-
 }

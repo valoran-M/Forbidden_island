@@ -11,11 +11,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import controllers.ContrExchange;
 import controllers.ContrPlayer;
 import models.Card;
 import models.Model;
 import models.roles.Player;
+import models.roles.Role;
 
 /**
  * ViewPlayer
@@ -23,7 +23,7 @@ import models.roles.Player;
 public class ViewPlayer extends JPanel implements MouseListener {
     private Model model;
 
-    private ContrPlayer contrPlayer;
+    public ContrPlayer contrPlayer;
 
     public int width, height;
     public int sizeCase;
@@ -35,14 +35,14 @@ public class ViewPlayer extends JPanel implements MouseListener {
     private Image sandbag;
     private Image helicopter;
 
-    public ViewPlayer(Model model, View view, ContrExchange contrExchange) {
+    public ViewPlayer(Model model, View view) {
         this.model = model;
         this.width = 300;
         this.height = view.grid.heightJpanel;
         this.sizeCase = view.grid.sizeCase;
         this.pawns = view.grid.pawns;
 
-        this.contrPlayer = new ContrPlayer(model, view, contrExchange);
+        this.contrPlayer = new ContrPlayer(model, view);
         view.grid.control.setContrPlayer(contrPlayer);
         view.grid.contrPlayer = contrPlayer;
 
@@ -87,7 +87,7 @@ public class ViewPlayer extends JPanel implements MouseListener {
         if (this.pawns != null) {
             drawPlayer(g);
         }
-        if (model.getActPlayer().getState() == Player.State.EXCHANGE) {
+        if (model.getActPlayer().getState() == Player.State.EXCHANGE && contrPlayer.selectedCard != null) {
             drawExchange(g);
         }
         drawActPlayer(g);
@@ -131,15 +131,18 @@ public class ViewPlayer extends JPanel implements MouseListener {
 
     private void drawExchange(Graphics g) {
         for (int i = 0; i < this.model.getPlayers().size(); i++) {
-            if (model.getActPlayer().getPosition() == model.getPlayers().get(i).getPosition() &&
-                    model.getActPlayerId() != i) {
+            if ((model.getActPlayer().getPosition() == model.getPlayers().get(i).getPosition() &&
+                    model.getActPlayerId() != i)
+                    || (model.getActPlayer().getRole() == Role.Messager
+                            && model.getActPlayer() != model.getPlayers().get(i))) {
                 drawPawnOutline(g, i, new Color(255, 0, 0));
             }
         }
     }
 
     private void drawSelectedPlayer(Graphics g) {
-        g.setColor(new Color(200, 200, 200));
+        Color colorT = new Color(200, 200, 200);
+        g.setColor(colorT);
         Player player = contrPlayer.selectedPlayer;
         int minY = 145;
         if (player != null) {
@@ -157,6 +160,11 @@ public class ViewPlayer extends JPanel implements MouseListener {
                 Card card = Card.getCardTemple(i);
                 g.drawString("x " + contrPlayer.selectedPlayer.getCards(card), 30 + temples.get(i).getWidth(null),
                         y + temples.get(i).getHeight(null) / 2 + g.getFontMetrics().getAscent() / 2);
+                if (contrPlayer.selectedCard == card) {
+                    g.setColor(new Color(185, 5, 26));
+                    g.fillOval(5, y + temples.get(i).getWidth(null) / 2 - 5, 10, 10);
+                    g.setColor(colorT);
+                }
             }
             g.drawImage(sandbag, this.width / 2, minY + 100 + (space + sandbag.getHeight(null)), null);
             g.drawString("x " + contrPlayer.selectedPlayer.getCards(Card.SAC), this.width / 2 + sandbag.getWidth(null),
@@ -168,6 +176,21 @@ public class ViewPlayer extends JPanel implements MouseListener {
                     this.width / 2 + helicopter.getWidth(null),
                     minY + 100 + (space + helicopter.getHeight(null)) * 2 + helicopter.getHeight(null) / 2
                             + g.getFontMetrics().getAscent() / 2);
+            if (Card.SAC == contrPlayer.selectedCard || Card.HELICOPTERE == contrPlayer.selectedCard) {
+                int i = 0;
+                if (Card.SAC == contrPlayer.selectedCard) {
+                    i = 1;
+                } else if (Card.HELICOPTERE == contrPlayer.selectedCard) {
+                    i = 2;
+                }
+                if (i != 0) {
+                    g.setColor(new Color(185, 5, 26));
+                    g.fillOval(this.width / 2 - 10,
+                            minY + 100 + (space + helicopter.getHeight(null)) * i + helicopter.getHeight(null) / 2 - 5,
+                            10, 10);
+                    g.setColor(colorT);
+                }
+            }
         }
     }
 
@@ -183,6 +206,27 @@ public class ViewPlayer extends JPanel implements MouseListener {
                 }
             }
             contrPlayer.playerClick(null);
+        } else if (e.getY() >= 145) {
+            contrPlayer.selectedCard = null;
+            int minY = 145;
+            int space = (this.width - minY - 60) / 4;
+            for (int i = 0; i < 4; i++) {
+                int y = minY + 100 + (space + temples.get(i).getHeight(null)) * i;
+                if (y <= e.getY() && y + temples.get(i).getHeight(null) >= e.getY() && e.getX() >= 20
+                        && e.getX() <= 20 + temples.get(i).getWidth(null)) {
+                    contrPlayer.cardClick(Card.getCardTemple(i));
+                    return;
+                }
+            }
+            if (e.getX() >= this.width / 2 && e.getX() <= this.width / 2 + sandbag.getWidth(null)
+                    && e.getY() >= minY + 100 + space + sandbag.getHeight(null)
+                    && e.getY() <= minY + 100 + space + sandbag.getHeight(null) + sandbag.getHeight(null)) {
+                contrPlayer.cardClick(Card.SAC);
+            } else if (e.getX() >= this.width / 2 && e.getX() <= this.width / 2 + helicopter.getWidth(null)
+                    && e.getY() >= minY + 100 + (space + helicopter.getHeight(null)) * 2
+                    && e.getY() <= minY + 100 + (space + helicopter.getHeight(null)) * 2 + helicopter.getHeight(null)) {
+                contrPlayer.cardClick(Card.HELICOPTERE);
+            }
         }
     }
 
