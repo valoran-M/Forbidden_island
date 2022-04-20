@@ -53,7 +53,7 @@ public class PiocheInnondation {
     public void addDefausse() {
         Collections.shuffle(this.defausse);
         for (int i = 0; i < this.defausse.size(); i++) {
-            this.pioche.add(this.defausse.get(0));
+            this.pioche.add(0, this.defausse.get(i));
         }
         this.defausse.clear();
     }
