@@ -38,6 +38,10 @@ public class PiocheCard {
         this.pioche = cards;
     }
 
+    public void sendToDefausse(Card c){
+        this.defausse.add(c);
+    }
+
     public void addDefausse() {
         Collections.shuffle(this.defausse);
         for (int i = 0; i < this.defausse.size(); i++) {
@@ -52,6 +56,7 @@ public class PiocheCard {
         }
         Card c = this.getPioche().get(0);
         this.pioche.remove(0);
+        this.defausse.add(c);
         return c;
     }
 

@@ -158,6 +158,7 @@ public class Model {
         return p;
     }
 
+
     public int[][] nbAction(Player player) {
         Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
         int[][] action = new int[island.getHeight()][island.getWidth()];
