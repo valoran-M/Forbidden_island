@@ -191,6 +191,38 @@ public class Model {
         return action;
     }
 
+    public int[][] nbActionWithoutPower(int x, int y) {
+        Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
+        int[][] action = new int[island.getHeight()][island.getWidth()];
+        for (int j = 0; j < action.length; j++) {
+            for (int i = 0; i < action[j].length; i++) {
+                action[j][i] = 999;
+                if (island.getZone(i, j) == null) {
+                    visitedCase[j][i] = true;
+                } else {
+                    visitedCase[j][i] = false;
+                }
+            }
+        }
+        action[y][x] = 0;
+        while (!allTraveled(visitedCase)) {
+            Point p = getMinCase(visitedCase, action);
+            visitedCase[p.y][p.x] = true;
+            for (int j = -1; j <= 1; j++) {
+                for (int i = -1; i <= 1; i++) {
+                    if (island.getZone(p.x + i, p.y + j) != null) {
+                        if (Math.abs(i) + Math.abs(j) == 1) {
+                            if (action[p.y + j][p.x + i] > action[p.y][p.x] + 1) {
+                                action[p.y + j][p.x + i] = action[p.y][p.x] + 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return action;
+    }
+
     public ArrayList<Zone> pileOfZone() {
         ArrayList<Zone> cards = new ArrayList<Zone>();
         for (int y = 0; y < this.getIsland().getHeight(); y++) {

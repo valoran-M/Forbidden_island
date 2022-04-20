@@ -14,17 +14,20 @@ import javax.swing.JPanel;
 
 import controllers.ContrFlooding;
 import controllers.ContrGrid;
+import controllers.ContrPlayer;
 import models.Island;
 import models.Model;
 import models.Zone;
 import models.roles.Player;
+import models.roles.Role;
 
 /**
  * Grid
  */
 public class ViewGrid extends JPanel implements MouseListener {
-    private ContrGrid control;
-    private ContrFlooding contrFlooding;
+    public ContrGrid control;
+    public ContrFlooding contrFlooding;
+    public ContrPlayer contrPlayer;
 
     private Model model;
 
@@ -100,13 +103,15 @@ public class ViewGrid extends JPanel implements MouseListener {
             }
         }
         if (model.getState() == Model.State.RUNNING) {
-            if(model.getActPlayer().getState() == Player.State.MOVING){
-                drawMove(g);
-            }
-            else if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
+            if (model.getActPlayer().getState() == Player.State.MOVING) {
+                if (model.getActPlayer().getRole() == Role.Navigateur) {
+                    drawNavigatorMove(g);
+                } else {
+                    drawMove(g);
+                }
+            } else if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
                 drawDry(g);
-            }
-            else if (contrFlooding.getEscape() != null) {
+            } else if (contrFlooding.getEscape() != null) {
                 drawEscape(g);
             }
         }
@@ -132,6 +137,29 @@ public class ViewGrid extends JPanel implements MouseListener {
                         && z.getWaterLvl() < z.getMaxWaterLvl()
                         && contrFlooding.getEscape() == null) {
                     drawOutline(g, x_case, y_case, new Color(176, 242, 182));
+                }
+            }
+        }
+    }
+
+    private void drawNavigatorMove(Graphics g) {
+        if (contrPlayer.selectedPlayer == null || contrPlayer.selectedPlayer == model.getActPlayer()
+                || model.getActPlayer().getNbActions() <= 0) {
+            drawMove(g);
+        } else {
+            int[][] action = model.nbActionWithoutPower(contrPlayer.selectedPlayer.getPosition().getX(),
+                    contrPlayer.selectedPlayer.getPosition().getY());
+            Island island = this.model.getIsland();
+            for (int y = 0; y < action.length; y++) {
+                for (int x = 0; x < action[y].length; x++) {
+                    Zone z = island.getZone(x, y);
+                    int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
+                    int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
+                    if (action[y][x] <= 2 && action[y][x] != 0
+                            && z.getWaterLvl() < z.getMaxWaterLvl()
+                            && contrFlooding.getEscape() == null) {
+                        drawOutline(g, x_case, y_case, new Color(176, 242, 182));
+                    }
                 }
             }
         }

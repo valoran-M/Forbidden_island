@@ -43,6 +43,8 @@ public class ViewPlayer extends JPanel implements MouseListener {
         this.pawns = view.grid.pawns;
 
         this.contrPlayer = new ContrPlayer(model, view, contrExchange);
+        view.grid.control.setContrPlayer(contrPlayer);
+        view.grid.contrPlayer = contrPlayer;
 
         this.pawnsSapcing = (this.width - 60) / 4;
 

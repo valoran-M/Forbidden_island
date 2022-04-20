@@ -14,6 +14,7 @@ import views.View;
  */
 public class ContrGrid extends Controller {
     private ContrFlooding contrFlooding;
+    private ContrPlayer contrPlayer;
 
     public ContrGrid(Model model, View view, ContrFlooding contrFlooding) {
         super(model, view);
@@ -25,12 +26,20 @@ public class ContrGrid extends Controller {
             if (contrFlooding.getEscape() != null) {
                 clickEscape(x, y);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
-                clickMove(x, y);
+                if (model.getActPlayer().getRole() == Role.Navigateur) {
+                    clickNavigator(x, y);
+                } else {
+                    clickMove(x, y);
+                }
             } else if (model.getActPlayer().getState() == Player.State.DRY) {
                 clickDry(x, y);
             }
         }
         this.view.repaint();
+    }
+
+    public void setContrPlayer(ContrPlayer contrPlayer) {
+        this.contrPlayer = contrPlayer;
     }
 
     private Boolean victoryCheck() {
@@ -52,13 +61,26 @@ public class ContrGrid extends Controller {
             model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
             if (model.getActPlayer().getRole() == Role.Pilote) {
                 model.getActPlayer().powerDown();
-            }
-            else if(model.getActPlayer().getRole() == Role.Ingenieur && !model.getActPlayer().getPower()) {
+            } else if (model.getActPlayer().getRole() == Role.Ingenieur && !model.getActPlayer().getPower()) {
                 model.getActPlayer().dryUp();
             }
             if (victoryCheck()) {
                 model.setState(Model.State.VICTORY);
                 view.gameOver();
+            }
+        }
+    }
+
+    private void clickNavigator(int x, int y) {
+        if (contrPlayer.selectedPlayer == null || contrPlayer.selectedPlayer == null
+                || contrPlayer.selectedPlayer == model.getActPlayer()) {
+            clickMove(x, y);
+        } else {
+            int[][] action = model.nbActionWithoutPower(contrPlayer.selectedPlayer.getPosition().getX(),
+                    contrPlayer.selectedPlayer.getPosition().getY());
+            if (action[y][x] <= 2 && model.getActPlayer().getNbActions() > 0){
+                model.getActPlayer().setAction(model.getActPlayer().getNbActions() - 1);
+                contrPlayer.selectedPlayer.changePosition(model.getIsland().getZone(x, y));
             }
         }
     }

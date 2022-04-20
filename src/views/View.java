@@ -24,11 +24,11 @@ public class View extends JFrame {
     private JPanel buttons;
     private JPanel gameOverButtons;
 
-    private ContrEndTurn contrEndTurn;
-    private ContrFlooding contrFlooding;
-    private ContrExchange contrExchange;
-    private ContrDry contrDig;
-    private ContrSearch contrSearch;
+    public ContrEndTurn contrEndTurn;
+    public ContrFlooding contrFlooding;
+    public ContrExchange contrExchange;
+    public ContrDry contrDig;
+    public ContrSearch contrSearch;
 
     private JPanel elements;
     public Color background;
