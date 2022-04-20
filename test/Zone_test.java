@@ -6,12 +6,13 @@ import models.Zone;
 public class Zone_test {
     private Zone z;
 
-    public Zone_test() {
+    @Before
+    public void initZone() {
         this.z = new Zone(2, 1);
     }
 
     @Test
-    private void testGetter() {
+    public void testGetter() {
         assertEquals((int) this.z.getCoord().getX(), 2);
         assertEquals((int) this.z.getCoord().getY(), 1);
         assertEquals(this.z.getMaxWaterLvl(), 2);
@@ -19,7 +20,7 @@ public class Zone_test {
     }
 
     @Test
-    private void testMethod() {
+    public void testMethod() {
         this.z.drown();
         assertEquals(this.z.getWaterLvl(), 1);
         this.z.dry();
