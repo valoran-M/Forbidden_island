@@ -14,7 +14,7 @@ public class Deluge {
     }
 
     public int getLvl() {
-        return delugeLvl.indexOf(false);
+        return delugeLvl.indexOf(true);
     }
 
     public void incrementLvl() {

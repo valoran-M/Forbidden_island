@@ -20,6 +20,7 @@ public class View extends JFrame {
     public ViewGrid grid;
     public ViewPlayer player;
     public ViewTreasure treasure;
+    private ViewLevel inondationLevel;
 
     private JPanel buttons;
     private JPanel gameOverButtons;
@@ -56,31 +57,37 @@ public class View extends JFrame {
         this.player = new ViewPlayer(this.model, this, this.contrExchange);
         this.treasure = new ViewTreasure(this.model, this, this.grid);
 
+        this.inondationLevel = new ViewLevel(this.model, this);
+
         this.buttons = new JPanel();
-        this.buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width + 30, 100));
+        this.buttons.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width + 300, 100));
         this.buttons.setBackground(background);
         JButton search = new JButton("Search");
-        search.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
+        search.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         search.addActionListener(this.contrSearch);
         JButton dig = new JButton("Dry up");
-        dig.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
+        dig.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         dig.addActionListener(this.contrDig);
         JButton exchange = new JButton("Exchange");
-        exchange.setPreferredSize(new Dimension(this.grid.widthJpanel / 3, 50));
+        exchange.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         exchange.addActionListener(this.contrExchange);
+        JButton use = new JButton("Use");
+        use.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.player.width, 50));
         next.addActionListener(this.contrEndTurn);
         buttons.add(search);
         buttons.add(dig);
         buttons.add(exchange);
+        buttons.add(use);
         buttons.add(next);
 
-        this.width = this.grid.widthJpanel + this.player.width + 100;
+        this.width = this.grid.widthJpanel + this.player.width + 300;
         this.height = this.grid.heightJpanel + 300;
 
         treasure.setPreferredSize(new Dimension(this.grid.widthJpanel + this.player.width, 150));
 
+        elements.add(this.inondationLevel);
         elements.add(this.grid);
         elements.add(this.player);
         elements.add(this.buttons);
