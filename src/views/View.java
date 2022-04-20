@@ -56,6 +56,8 @@ public class View extends JFrame {
         this.player = new ViewPlayer(this.model, this);
         this.treasure = new ViewTreasure(this.model, this, this.grid);
 
+        this.contrEndTurn.contrPlayer = this.player.contrPlayer;
+
         this.inondationLevel = new ViewLevel(this.model, this);
 
         this.buttons = new JPanel();

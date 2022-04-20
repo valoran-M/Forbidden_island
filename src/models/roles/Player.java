@@ -115,6 +115,14 @@ public abstract class Player {
         return this.cards.get(c);
     }
 
+    public int getNbCards(){
+        int total = 0;
+        for (Integer nbCard : this.cards.values()){
+            total += nbCard;
+        }
+        return total;
+    }
+
 
     // méthode
     public void changePosition(Zone z) {

@@ -12,6 +12,7 @@ import views.View;
 public class ContrPlayer extends Controller {
     public Player selectedPlayer;
     public Card selectedCard;
+    public ContrEndTurn contrEndTurn;
 
     public ContrPlayer(Model model, View view) {
         super(model, view);
@@ -30,10 +31,8 @@ public class ContrPlayer extends Controller {
 
             if (this.selectedCard != null && this.model.getActPlayer().getCards(this.selectedCard) >= 1) {
 
-                this.model.getActPlayer().getAllCards().replace(this.selectedCard,
-                        this.model.getActPlayer().getCards(this.selectedCard) - 1);
-                this.selectedPlayer.getAllCards().replace(this.selectedCard,
-                        this.selectedPlayer.getCards(this.selectedCard) + 1);
+                this.model.getActPlayer().useCard(this.selectedCard);;
+                this.selectedPlayer.addcard(this.selectedCard);
 
                 this.model.getActPlayer().setState(Player.State.MOVING);
                 this.selectedCard = null;
@@ -46,8 +45,21 @@ public class ContrPlayer extends Controller {
         view.repaint();
     }
 
+    private void throwClick(Card card){
+        this.selectedCard = null;
+        if(model.getActPlayer().getCards(card) >= 1){
+            model.getActPlayer().useCard(card);
+            if(model.getActPlayer().getNbCards() <= 5){
+                contrEndTurn.nexTurn();
+            }
+        }
+    }
+
     public void cardClick(Card card) {
         this.selectedCard = card;
+        if(model.getActPlayer().getState() == Player.State.THROW){
+            throwClick(card);
+        }
         view.repaint();
     }
 }
