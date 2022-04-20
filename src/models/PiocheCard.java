@@ -40,6 +40,7 @@ public class PiocheCard {
 
     public void sendToDefausse(Card c){
         this.defausse.add(c);
+        this.pioche.remove(c);
     }
 
     public void addDefausse() {
