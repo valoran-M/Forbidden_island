@@ -10,26 +10,28 @@ public class Player_test {
     private Player p;
     private Zone z;
 
-
-    public Player_test(){
+    @Before
+    public void player_setup() {
         this.z = new Zone(3, 3);
         this.p = new Engineer("Joueur-1", this.z);
     }
 
     @Test
-    private void testGetter(){
+    public void testGetter() {
         assertEquals(this.p.getName(), "Joueur-1");
-        assertEquals(this.p.getNbActions(),3);
-        assertEquals(this.p.getPosition(),this.z);
-        assertEquals(this.p.getState(),State.MOVING);
+        assertEquals(this.p.getNbActions(), 3);
+        assertEquals(this.p.getPosition(), this.z);
+        assertEquals(this.p.getState(), State.MOVING);
     }
 
-    private void testSetter(){
+    @Test
+    public void testSetter() {
         this.p.setName("gravil");
         this.p.setPosition(new Zone(2, 3));
-        //this.p.setRole(new Role("Pilote", Role.Pilote));
+        // this.p.setRole(new Role("Pilote", Role.Pilote));
     }
 
-    private void testMethod(){
+    @Test
+    public void testMethod() {
     }
-} 
+}
