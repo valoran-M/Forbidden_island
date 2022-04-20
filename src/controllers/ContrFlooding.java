@@ -14,7 +14,7 @@ public class ContrFlooding extends Controller {
 
     public ContrFlooding(Model model, View view) {
         super(model, view);
-        nbInondation = 3;
+        nbInondation = model.getDelugeLvl().innondationRate();
         this.escape = null;
     }
 
@@ -43,14 +43,10 @@ public class ContrFlooding extends Controller {
                 model.getHeliZone() == zone;
     }
 
-    public void flooding(int nb) {
-        for (int i = 0; i < nb; i++) {
-            if (model.getPiocheWater().getNbCarte() == 0) {
-                model.getPiocheWater().resetPioche();
-            }
+    public void flooding() {
+        for (; nbInondation > 0; nbInondation--) {
             Zone drownZ = model.getPiocheWater().pick();
             drownZ.drown();
-            nbInondation--;
             Boolean escape = false;
             if (drownZ.getWaterLvl() == drownZ.getMaxWaterLvl()) {
                 if (gameOverCase(drownZ)) {
@@ -61,7 +57,6 @@ public class ContrFlooding extends Controller {
                 for (Player p : model.getPlayers()) {
                     if (drownZ == p.getPosition()) {
                         p.setState(Player.State.ESCAPE);
-                        escape = true;
                         if (escape(drownZ, p)) {
                             escape = true;
                             p.setState(Player.State.ESCAPE);
@@ -78,6 +73,7 @@ public class ContrFlooding extends Controller {
                 return;
             }
         }
-        nbInondation = 3;
+        nbInondation = model.getDelugeLvl().innondationRate();
+        System.out.println("OK" + nbInondation);
     }
 }

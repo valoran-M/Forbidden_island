@@ -117,7 +117,7 @@ public class ContrGrid extends Controller {
                         view.gameOver();
                         return;
                     }
-                    contrFlooding.flooding(contrFlooding.nbInondation);
+                    contrFlooding.flooding();
                 }
                 return;
             }

@@ -29,7 +29,7 @@ public class ContrEndTurn extends Controller implements ActionListener {
             model.nextPlayer();
             model.getActPlayer().setState(Player.State.MOVING);
             model.getActPlayer().setAction(3);
-            contrEscape.flooding(3);
+            contrEscape.flooding();
             view.repaint();
         }
     }

@@ -19,7 +19,8 @@ public abstract class Player {
         MOVING,
         DRY,
         EXCHANGE,
-        ESCAPE
+        ESCAPE,
+        THROW
     }
 
     protected Zone position;

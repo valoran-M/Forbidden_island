@@ -22,6 +22,7 @@ public class Model {
     private String map;
     private State state;
     private Island island;
+    private Deluge delugeLvl;
     private ArrayList<Zone> temple;
     private ArrayList<Boolean> treasureState;
     private ArrayList<Player> players;
@@ -41,6 +42,7 @@ public class Model {
             this.island = new Island();
         }
 
+        this.delugeLvl = new Deluge(0);
         this.map = map;
         this.state = State.SETUP;
         this.temple = new ArrayList<Zone>();
@@ -61,6 +63,10 @@ public class Model {
     }
 
     // Getter
+    public Deluge getDelugeLvl() {
+        return this.delugeLvl;
+    }
+
     public Boolean getTreasureState(int i) {
         return this.treasureState.get(i);
     }

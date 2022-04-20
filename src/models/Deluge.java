@@ -10,15 +10,11 @@ public class Deluge {
         for (int i = 0; i < 10; i++) {
             this.delugeLvl.add(false);
         }
-        this.delugeLvl.add(niv, true);
+        this.delugeLvl.set(niv, true);
     }
 
     public int getLvl() {
-        int cpt = 0;
-        while (this.delugeLvl.get(cpt) == false) {
-            cpt++;
-        }
-        return cpt;
+        return delugeLvl.indexOf(false);
     }
 
     public void incrementLvl() {
