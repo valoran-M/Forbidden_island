@@ -18,7 +18,11 @@ public class Deluge {
     }
 
     public void incrementLvl() {
-        this.delugeLvl.set(this.getLvl() + 1, true);
+        setLvl(getLvl() + 1);
+    }
+
+    public void setLvl(int i) {
+        this.delugeLvl.set(i, true);
         this.delugeLvl.set(this.getLvl(), false);
     }
 

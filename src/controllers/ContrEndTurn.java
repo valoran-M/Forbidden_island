@@ -20,9 +20,10 @@ public class ContrEndTurn extends Controller implements ActionListener {
     public ContrEndTurn(Model model, View view, ContrFlooding contrEscape) {
         super(model, view);
         this.contrEscape = contrEscape;
+        this.maxCard = 5;
     }
 
-    public void nexTurn(){
+    public void nexTurn() {
         model.nextPlayer();
         model.getActPlayer().setState(Player.State.MOVING);
         model.getActPlayer().setAction(3);
@@ -32,15 +33,16 @@ public class ContrEndTurn extends Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (contrEscape.getEscape() == null) {
             model.getActPlayer().powerUp();
-
-            for (int i = 0; i < 2; i++) {
-                Card actualCard = model.getPiocheCard().pick();
-                if (actualCard.equals(Card.DELUGE)) {
-                    model.getDelugeLvl().incrementLvl();
-                    model.getPiocheWater().addDefausse();
-                    model.getPiocheCard().sendToDefausse(actualCard);
-                } else {
-                    model.getActPlayer().addcard(actualCard);
+            if (model.getActPlayer().getState() != Player.State.THROW) {
+                for (int i = 0; i < 2; i++) {
+                    Card actualCard = model.getPiocheCard().pick();
+                    if (actualCard.equals(Card.DELUGE)) {
+                        model.getDelugeLvl().incrementLvl();
+                        model.getPiocheWater().addDefausse();
+                        model.getPiocheCard().sendToDefausse(actualCard);
+                    } else {
+                        model.getActPlayer().addcard(actualCard);
+                    }
                 }
             }
             if (model.getActPlayer().getNbCards() > maxCard) {

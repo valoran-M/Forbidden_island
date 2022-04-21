@@ -17,11 +17,11 @@ import models.roles.Player;
 public class View extends JFrame {
     private Model model;
 
-    private ViewSetup setup;
+    public ViewSetup setup;
     public ViewGrid grid;
     public ViewPlayer player;
     public ViewTreasure treasure;
-    private ViewLevel inondationLevel;
+    public ViewLevel inondationLevel;
 
     private JPanel buttons;
     private JPanel gameOverButtons;

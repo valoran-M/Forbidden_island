@@ -23,6 +23,7 @@ public class ViewSetup extends JPanel {
 	private ContrSetup control;
 
 	private JSlider slider;
+	public JSlider levelSlider;
 
 	private ArrayList<String> names;
 	private ArrayList<JLabel> labels;
@@ -34,7 +35,6 @@ public class ViewSetup extends JPanel {
 	 */
 	public ViewSetup(Model model, View view) {
 		this.control = new ContrSetup(model, view);
-
 		setUpMenu();
 	}
 
@@ -85,10 +85,30 @@ public class ViewSetup extends JPanel {
 		// Start button
 		JPanel StartB = new JPanel();
 
-		add(StartB, BorderLayout.SOUTH);
 		JButton start = new JButton("Start");
 		start.addActionListener(control);
 		StartB.add(start);
+		add(StartB, BorderLayout.CENTER);
+
+		// Level
+		JPanel level = new JPanel();
+		
+		this.levelSlider = new JSlider(1, 4);
+		levelSlider.setValue(1);
+		levelSlider.setPaintTrack(true);
+		levelSlider.setPaintTicks(true);
+		levelSlider.setPaintLabels(true);
+		levelSlider.setSnapToTicks(true);
+		levelSlider.setMinorTickSpacing(1);
+		levelSlider.setLabelTable(levelSlider.createStandardLabels(1));
+
+		JLabel difficultyLabel = new JLabel("Difficulty : ");
+		difficultyLabel.setLabelFor(levelSlider);
+		level.add(difficultyLabel);
+		level.add(this.levelSlider);
+
+		add(level);
+
 	}
 
 	private void drawInName(int nb) {
