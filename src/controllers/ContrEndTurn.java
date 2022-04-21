@@ -1,7 +1,6 @@
 package controllers;
 
 import java.awt.event.ActionListener;
-
 import java.awt.event.ActionEvent;
 
 import models.Model;
@@ -38,6 +37,10 @@ public class ContrEndTurn extends Controller implements ActionListener {
                     Card actualCard = model.getPiocheCard().pick();
                     if (actualCard.equals(Card.DELUGE)) {
                         model.getDelugeLvl().incrementLvl();
+                        if(model.getDelugeLvl().getLvl() == 9) {
+                            model.setState(Model.State.LOSE);
+                            view.gameOver();
+                        }
                         model.getPiocheWater().addDefausse();
                         model.getPiocheCard().sendToDefausse(actualCard);
                     } else {

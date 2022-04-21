@@ -16,7 +16,8 @@ public class Model {
         SETUP,
         RUNNING,
         LOSE,
-        VICTORY
+        VICTORY,
+        SPE_CARD
     }
 
     private String map;

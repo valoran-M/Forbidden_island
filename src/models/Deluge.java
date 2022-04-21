@@ -22,8 +22,8 @@ public class Deluge {
     }
 
     public void setLvl(int i) {
-        this.delugeLvl.set(i, true);
         this.delugeLvl.set(this.getLvl(), false);
+        this.delugeLvl.set(i, true);
     }
 
     public int innondationRate() {

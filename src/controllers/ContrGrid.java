@@ -3,6 +3,7 @@ package controllers;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import models.Card;
 import models.Model;
 import models.Zone;
 import models.roles.Player;
@@ -23,7 +24,10 @@ public class ContrGrid extends Controller {
 
     public void click(int x, int y) {
         if (model.getIsland().inMap(new Point(x, y)) && model.getState() != Model.State.LOSE) {
-            if (contrFlooding.getEscape() != null) {
+            if (this.model.getState() == Model.State.SPE_CARD
+                    && this.contrPlayer.selectedCard == Card.HELICOPTERE) {
+                clickHeliCard(x, y);
+            } else if (contrFlooding.getEscape() != null) {
                 clickEscape(x, y);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
                 if (model.getActPlayer().getRole() == Role.Navigateur) {
@@ -42,13 +46,18 @@ public class ContrGrid extends Controller {
         this.contrPlayer = contrPlayer;
     }
 
-    private Boolean victoryCheck() {
-        for (Player p : model.getPlayers()) {
-            if (p.getPosition() != model.getHeliZone()) {
-                return false;
+    private void clickHeliCard(int x, int y) {
+        if (this.model.getIsland().inMap(new Point(x, y))) {
+            Zone move = this.model.getIsland().getZone(x, y);
+            if (move.getWaterLvl() < move.getMaxWaterLvl()) {
+                for (Player p : this.contrPlayer.playersHeli) {
+                    p.changePosition(move);
+                }
+                this.contrPlayer.selectedPlayer.useCard(Card.HELICOPTERE);
+                this.model.setState(Model.State.RUNNING);
             }
         }
-        return !model.getTreasureState().contains(false);
+
     }
 
     private void clickMove(int x, int y) {
@@ -64,10 +73,6 @@ public class ContrGrid extends Controller {
             } else if (model.getActPlayer().getRole() == Role.Ingenieur && !model.getActPlayer().getPower()) {
                 model.getActPlayer().dryUp();
             }
-            if (victoryCheck()) {
-                model.setState(Model.State.VICTORY);
-                view.gameOver();
-            }
         }
     }
 
@@ -78,7 +83,7 @@ public class ContrGrid extends Controller {
         } else {
             int[][] action = model.nbActionWithoutPower(contrPlayer.selectedPlayer.getPosition().getX(),
                     contrPlayer.selectedPlayer.getPosition().getY());
-            if (action[y][x] <= 2 && model.getActPlayer().getNbActions() > 0){
+            if (action[y][x] <= 2 && model.getActPlayer().getNbActions() > 0) {
                 model.getActPlayer().setAction(model.getActPlayer().getNbActions() - 1);
                 contrPlayer.selectedPlayer.changePosition(model.getIsland().getZone(x, y));
             }
@@ -112,11 +117,6 @@ public class ContrGrid extends Controller {
                 contrFlooding.getEscape().changePosition(zone);
                 contrFlooding.setEscape();
                 if (contrFlooding.getEscape() == null) {
-                    if (victoryCheck()) {
-                        model.setState(Model.State.VICTORY);
-                        view.gameOver();
-                        return;
-                    }
                     contrFlooding.flooding();
                 }
                 return;

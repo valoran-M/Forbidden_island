@@ -86,6 +86,16 @@ public class View extends JFrame {
 
         JButton use = new JButton("Use Card");
         use.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
+        use.addActionListener(e -> {
+            if (model.getState() == Model.State.SPE_CARD) {
+                model.setState(Model.State.RUNNING);
+                this.player.contrPlayer.playersHeli.clear();
+                this.player.contrPlayer.selectedCard = null;
+            } else {
+                model.setState(Model.State.SPE_CARD);
+            }
+            this.repaint();
+        });
 
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.player.width, 50));

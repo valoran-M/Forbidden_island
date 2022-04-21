@@ -28,12 +28,12 @@ public class ViewPlayer extends JPanel implements MouseListener {
     public int width, height;
     public int sizeCase;
 
-    private int pawnsSapcing;
+    public int pawnsSapcing;
 
-    private ArrayList<Image> pawns;
-    private ArrayList<Image> temples;
-    private Image sandbag;
-    private Image helicopter;
+    public ArrayList<Image> pawns;
+    public ArrayList<Image> temples;
+    public Image sandbag;
+    public Image helicopter;
 
     public ViewPlayer(Model model, View view) {
         this.model = model;
@@ -45,6 +45,7 @@ public class ViewPlayer extends JPanel implements MouseListener {
         this.contrPlayer = new ContrPlayer(model, view);
         view.grid.control.setContrPlayer(contrPlayer);
         view.grid.contrPlayer = contrPlayer;
+        this.contrPlayer.selectedPlayer = null;
         contrPlayer.contrEndTurn = view.contrEndTurn;
 
         this.pawnsSapcing = (this.width - 60) / 4;
@@ -108,7 +109,10 @@ public class ViewPlayer extends JPanel implements MouseListener {
             g.drawImage(this.pawns.get(player),
                     30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player, 15, null);
 
-            if (model.getPlayers().get(player) == contrPlayer.selectedPlayer) {
+            if ((model.getPlayers().get(player) == contrPlayer.selectedPlayer
+                    && model.getState() != Model.State.SPE_CARD)
+                    || (model.getState() == Model.State.SPE_CARD
+                            && contrPlayer.playersHeli.contains(model.getPlayers().get(player)))) {
                 int midX = 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player
                         + this.pawns.get(player).getWidth(null) / 2;
                 int midY = 15 + this.pawns.get(player).getHeight(null) / 2;
@@ -146,9 +150,9 @@ public class ViewPlayer extends JPanel implements MouseListener {
         g.setColor(colorT);
         Player player = contrPlayer.selectedPlayer;
         int minY = 145;
-        if (player != null) {
+        if (player != null && model.getPlayers().indexOf(player) != -1) {
             int index = model.getPlayers().indexOf(player);
-            g.drawImage(pawns.get(index), 20, minY + 20, null);
+            g.drawImage(this.pawns.get(index), 20, minY + 20, null);
             g.drawString("" + player.getName(), 30 + pawns.get(index).getWidth(null),
                     minY + 20 + pawns.get(index).getHeight(null) - g.getFontMetrics().getHeight());
             g.drawString("" + player.getRole().toString(), 30 + pawns.get(index).getWidth(null),

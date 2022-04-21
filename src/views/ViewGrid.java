@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import controllers.ContrFlooding;
 import controllers.ContrGrid;
 import controllers.ContrPlayer;
+import models.Card;
 import models.Island;
 import models.Model;
 import models.Zone;
@@ -103,16 +104,20 @@ public class ViewGrid extends JPanel implements MouseListener {
             }
         }
         if (model.getState() == Model.State.RUNNING) {
-            if (model.getActPlayer().getState() == Player.State.MOVING) {
+            if (contrFlooding.getEscape() != null) {
+                drawEscape(g);
+            } else if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
+                drawDry(g);
+            } else if (model.getActPlayer().getState() == Player.State.MOVING) {
                 if (model.getActPlayer().getRole() == Role.Navigateur) {
                     drawNavigatorMove(g);
                 } else {
                     drawMove(g);
                 }
-            } else if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
-                drawDry(g);
-            } else if (contrFlooding.getEscape() != null) {
-                drawEscape(g);
+            }
+        } else if (model.getState() == Model.State.SPE_CARD) {
+            if (this.contrPlayer.selectedCard == Card.HELICOPTERE && this.contrPlayer.playersHeli.size() > 0) {
+                drawHeli(g);
             }
         }
         drawImages(g);
@@ -137,6 +142,24 @@ public class ViewGrid extends JPanel implements MouseListener {
                         && z.getWaterLvl() < z.getMaxWaterLvl()
                         && contrFlooding.getEscape() == null) {
                     drawOutline(g, x_case, y_case, new Color(176, 242, 182));
+                }
+            }
+        }
+    }
+
+    private void drawHeli(Graphics g) {
+        Island island = this.model.getIsland();
+        for (int y = 0; y < this.model.getIsland().getHeight(); y++) {
+            for (int x = 0; x < model.getIsland().getWidth(); x++) {
+                if (island.inMap(new Point(x, y))
+                        && this.contrPlayer.playersHeli.get(0).getPosition() != island.getZone(x, y)) {
+                    Zone z = island.getZone(x, y);
+                    int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
+                    int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
+
+                    if (z.getWaterLvl() < z.getMaxWaterLvl()) {
+                        drawOutline(g, x_case, y_case, new Color(176, 242, 182));
+                    }
                 }
             }
         }
