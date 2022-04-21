@@ -8,6 +8,7 @@ import models.Model;
 import models.Zone;
 import models.roles.Player;
 import models.roles.Role;
+import models.roles.Player.State;
 import views.View;
 
 /**
@@ -47,17 +48,19 @@ public class ContrGrid extends Controller {
     }
 
     private void clickHeliCard(int x, int y) {
-        if (this.model.getIsland().inMap(new Point(x, y))) {
-            Zone move = this.model.getIsland().getZone(x, y);
-            if (move.getWaterLvl() < move.getMaxWaterLvl()) {
-                for (Player p : this.contrPlayer.playersHeli) {
-                    p.changePosition(move);
-                }
-                this.contrPlayer.selectedPlayer.useCard(Card.HELICOPTERE);
-                this.model.setState(Model.State.RUNNING);
+        Zone move = this.model.getIsland().getZone(x, y);
+        if (move.getWaterLvl() < move.getMaxWaterLvl()) {
+            for (Player p : this.contrPlayer.playersHeli) {
+                p.changePosition(move);
             }
+            this.contrPlayer.selectedPlayer.useCard(Card.HELICOPTERE);
+            if(this.contrPlayer.selectedPlayer.getNbCards() < 2){
+                this.contrPlayer.selectedPlayer.setState(State.MOVING);
+                this.model.nextPlayer();
+                this.view.repaint();
+            }
+            this.model.setState(Model.State.RUNNING);
         }
-
     }
 
     private void clickMove(int x, int y) {

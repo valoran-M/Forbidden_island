@@ -24,6 +24,7 @@ public class ContrPlayer extends Controller {
 
     public void playerClick(Player player) {
         if (this.model.getState() == Model.State.SPE_CARD) {
+            System.out.print("OK");
             selectedPlayerHeli(player);
             return;
         }

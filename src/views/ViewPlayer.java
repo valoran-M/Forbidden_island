@@ -201,7 +201,8 @@ public class ViewPlayer extends JPanel implements MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         if ((e.getY() >= 15 && e.getY() <= 15 + this.pawns.get(0).getHeight(null))
-                && model.getActPlayer().getState() != Player.State.THROW) {
+                && (model.getActPlayer().getState() != Player.State.THROW
+                        || model.getState() == Model.State.SPE_CARD)) {
             for (int player = 0; player < model.getPlayers().size(); player++) {
                 int size = this.pawns.get(player).getHeight(null) + 10;
                 if (e.getX() >= 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player - size / 2

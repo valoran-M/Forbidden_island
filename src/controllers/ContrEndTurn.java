@@ -19,7 +19,7 @@ public class ContrEndTurn extends Controller implements ActionListener {
     public ContrEndTurn(Model model, View view, ContrFlooding contrEscape) {
         super(model, view);
         this.contrEscape = contrEscape;
-        this.maxCard = 5;
+        this.maxCard = 1;
     }
 
     public void nexTurn() {
