@@ -18,3 +18,19 @@
 ## Rules
 
 [rules](rules.pdf)
+
+## Win
+![victory](images/victory.png)
+
+To win you must have collected all the temples and use the 
+helicopter card when everyone is on the heliport space
+
+
+## Lose
+![victory](images/gameOver.png)
+
+
+You lose if :
+  - A temple sinks and this key has not been recovered
+  - If a player sinks and cannot recover on a space next to
+  - If the helipad sinks
