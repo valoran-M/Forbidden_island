@@ -192,7 +192,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                 || model.getActPlayer().getNbActions() <= 0) {
             drawMove(g);
         } else {
-            int[][] action = model.nbActionWithoutPower(contrPlayer.selectedPlayer.getPosition().getX(),
+            int[][] action = model.nbActionNormal(contrPlayer.selectedPlayer.getPosition().getX(),
                     contrPlayer.selectedPlayer.getPosition().getY());
             Island island = this.model.getIsland();
             for (int y = 0; y < action.length; y++) {

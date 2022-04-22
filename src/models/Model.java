@@ -199,7 +199,7 @@ public class Model {
         return action;
     }
 
-    public int[][] nbActionWithoutPower(int x, int y) {
+    public int[][] nbActionNormal(int x, int y) {
         Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
         int[][] action = new int[island.getHeight()][island.getWidth()];
         for (int j = 0; j < action.length; j++) {

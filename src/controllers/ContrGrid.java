@@ -103,7 +103,7 @@ public class ContrGrid extends Controller {
                 || contrPlayer.selectedPlayer == model.getActPlayer()) {
             clickMove(x, y);
         } else {
-            int[][] action = model.nbActionWithoutPower(contrPlayer.selectedPlayer.getPosition().getX(),
+            int[][] action = model.nbActionNormal(contrPlayer.selectedPlayer.getPosition().getX(),
                     contrPlayer.selectedPlayer.getPosition().getY());
             if (action[y][x] <= 2 && model.getActPlayer().getNbActions() > 0) {
                 model.getActPlayer().setAction(model.getActPlayer().getNbActions() - 1);
