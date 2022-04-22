@@ -28,7 +28,6 @@ public class View extends JFrame {
 
     public ContrEndTurn contrEndTurn;
     public ContrFlooding contrFlooding;
-    public ContrDry contrDig;
     public ContrSearch contrSearch;
 
     private JPanel elements;
@@ -48,7 +47,6 @@ public class View extends JFrame {
 
         this.contrFlooding = new ContrFlooding(this.model, this);
         this.contrEndTurn = new ContrEndTurn(this.model, this, this.contrFlooding);
-        this.contrDig = new ContrDry(this.model, this);
         this.contrSearch = new ContrSearch(model, this);
 
         this.setup = new ViewSetup(this.model, this);
@@ -70,7 +68,14 @@ public class View extends JFrame {
 
         JButton dig = new JButton("Dry up");
         dig.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
-        dig.addActionListener(this.contrDig);
+        dig.addActionListener(e -> {
+            if (model.getActPlayer().getState() == Player.State.DRY) {
+                model.getActPlayer().setState(Player.State.MOVING);
+            } else {
+                model.getActPlayer().setState(Player.State.DRY);
+            }
+            this.repaint();
+        });
 
         JButton exchange = new JButton("Exchange");
         exchange.setPreferredSize(new Dimension((this.grid.widthJpanel + 200) / 4, 50));
