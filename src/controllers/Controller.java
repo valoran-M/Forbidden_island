@@ -14,8 +14,4 @@ public abstract class Controller {
         this.model = model;
         this.view = view;
     }
-
-    public Model getModel() {
-        return model;
-    }
 }
