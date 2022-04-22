@@ -129,7 +129,12 @@ public class ViewPlayer extends JPanel implements MouseListener {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
         g.drawString("" + model.getActPlayer().getNbActions(), this.width - 50, 130);
         g.setFont(currentFont);
-        g.drawString(model.getActPlayer().getName(), 20,
+        String action = "Use Card";
+        if (model.getState() == Model.State.RUNNING) {
+            action = model.getActPlayer().getState().toString();
+            action = action.substring(0, 1) + action.substring(1).toLowerCase();
+        }
+        g.drawString(model.getActPlayer().getName() + "        " + action, 20,
                 130 - g.getFontMetrics().getHeight());
         g.drawString(model.getActPlayer().getRole().toString(), 20, 130);
     }

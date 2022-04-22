@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import models.Card;
 import models.Model;
 import models.roles.Player;
-import models.roles.Role;
 import views.View;
 
 /**
@@ -31,14 +30,9 @@ public class ContrPlayer extends Controller {
         Player lastPlayer = this.selectedPlayer;
         this.selectedPlayer = player;
 
-        if (this.selectedPlayer != null
-                && this.model.getActPlayer().getState() == Player.State.EXCHANGE
-                && this.selectedPlayer.getPosition() == this.model.getActPlayer().getPosition()
-                && this.selectedPlayer != this.model.getActPlayer()
-                || (this.selectedPlayer.getRole() == Role.Messager
-                        && this.selectedPlayer != this.model.getActPlayer())) {
-            if (this.selectedCard != null && this.model.getActPlayer().getCards(this.selectedCard) >= 1) {
-
+        if (this.selectedPlayer != null && this.selectedCard != null
+                && this.model.getActPlayer().possibleExchange(this.selectedPlayer, this.selectedCard)) {
+            if (this.model.getActPlayer().getCards(this.selectedCard) >= 1) {
                 this.model.getActPlayer().useCard(this.selectedCard);
                 this.selectedPlayer.addcard(this.selectedCard);
 

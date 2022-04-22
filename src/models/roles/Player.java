@@ -30,8 +30,9 @@ public abstract class Player {
     protected HashMap<Card, Integer> cards;
     protected Role role;
     protected boolean power;
+
     // Constructeur
-    public Player (String name, Zone zone) {
+    public Player(String name, Zone zone) {
         this.name = name;
         this.cards = new HashMap<Card, Integer>();
         this.cards.put(Card.AIR, 0);
@@ -111,20 +112,26 @@ public abstract class Player {
         return this.nbActions;
     }
 
-    public Integer getCards(Card c){
+    public Integer getCards(Card c) {
         return this.cards.get(c);
     }
 
-    public int getNbCards(){
+    public int getNbCards() {
         int total = 0;
-        for (Integer nbCard : this.cards.values()){
+        for (Integer nbCard : this.cards.values()) {
             total += nbCard;
         }
         return total;
     }
 
-
     // méthode
+    public boolean possibleExchange(Player player, Card card) {
+        return getState() == State.EXCHANGE
+                && player.getPosition() == getPosition()
+                && player != this
+                && getCards(card) > 0;
+    }
+
     public void changePosition(Zone z) {
         this.position = z;
     }
@@ -133,7 +140,7 @@ public abstract class Player {
         this.nbActions -= 1;
     }
 
-    public void useCard(Card c){
+    public void useCard(Card c) {
         this.cards.put(c, this.cards.get(c) - 1);
     }
 
