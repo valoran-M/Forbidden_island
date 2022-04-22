@@ -24,7 +24,6 @@ public class ContrPlayer extends Controller {
 
     public void playerClick(Player player) {
         if (this.model.getState() == Model.State.SPE_CARD) {
-            System.out.print("OK");
             selectedPlayerHeli(player);
             return;
         }
@@ -34,8 +33,8 @@ public class ContrPlayer extends Controller {
 
         if (this.selectedPlayer != null
                 && this.model.getActPlayer().getState() == Player.State.EXCHANGE
-                && (this.selectedPlayer.getPosition() == this.model.getActPlayer().getPosition()
-                        && this.selectedPlayer != this.model.getActPlayer())
+                && this.selectedPlayer.getPosition() == this.model.getActPlayer().getPosition()
+                && this.selectedPlayer != this.model.getActPlayer()
                 || (this.selectedPlayer.getRole() == Role.Messager
                         && this.selectedPlayer != this.model.getActPlayer())) {
             if (this.selectedCard != null && this.model.getActPlayer().getCards(this.selectedCard) >= 1) {

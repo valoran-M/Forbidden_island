@@ -36,6 +36,14 @@ public class Zone {
         return maxWaterLvl;
     }
 
+    public boolean moove(){
+        return maxWaterLvl > this.waterLvl;
+    }
+
+    public boolean dryable(){
+        return moove() && this.waterLvl > 0;
+    }
+
     public void dry() {
         if (waterLvl > 0)
             this.waterLvl -= 1;

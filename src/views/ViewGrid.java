@@ -91,18 +91,8 @@ public class ViewGrid extends JPanel implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.RED);
-        Island island = this.model.getIsland();
-        for (int y = 0; y < island.getGridSize().y; y++) {
-            for (int x = 0; x < island.getGridSize().x; x++) {
-                if (island.inMap(new Point(x, y))) {
-                    g.setColor(new Color(200, 200, 200, getAlpha(island.getZone(x, y))));
-                    int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
-                    int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
-                    g.fillRect(x_case, y_case, sizeCase, sizeCase);
-                }
-            }
-        }
+        drawIsland(g);
+
         if (model.getState() == Model.State.RUNNING) {
             if (contrFlooding.getEscape() != null) {
                 drawEscape(g);
@@ -118,6 +108,8 @@ public class ViewGrid extends JPanel implements MouseListener {
         } else if (model.getState() == Model.State.SPE_CARD) {
             if (this.contrPlayer.selectedCard == Card.HELICOPTERE && this.contrPlayer.playersHeli.size() > 0) {
                 drawHeli(g);
+            } else if (this.contrPlayer.selectedCard == Card.SAC) {
+                drawSandBag(g);
             }
         }
         drawImages(g);
@@ -130,6 +122,20 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    private void drawIsland(Graphics g) {
+        Island island = this.model.getIsland();
+        for (int y = 0; y < island.getGridSize().y; y++) {
+            for (int x = 0; x < island.getGridSize().x; x++) {
+                if (island.inMap(new Point(x, y))) {
+                    g.setColor(new Color(200, 200, 200, getAlpha(island.getZone(x, y))));
+                    int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
+                    int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
+                    g.fillRect(x_case, y_case, sizeCase, sizeCase);
+                }
+            }
+        }
+    }
+
     private void drawMove(Graphics g) {
         int[][] actionMove = model.nbAction(model.getActPlayer());
         Island island = this.model.getIsland();
@@ -139,8 +145,7 @@ public class ViewGrid extends JPanel implements MouseListener {
                 int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                 int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                 if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0
-                        && z.getWaterLvl() < z.getMaxWaterLvl()
-                        && contrFlooding.getEscape() == null) {
+                        && z.moove()) {
                     drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                 }
             }
@@ -157,8 +162,25 @@ public class ViewGrid extends JPanel implements MouseListener {
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
 
-                    if (z.getWaterLvl() < z.getMaxWaterLvl()) {
+                    if (z.moove()) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
+                    }
+                }
+            }
+        }
+    }
+
+    private void drawSandBag(Graphics g) {
+        Island island = this.model.getIsland();
+        for (int y = 0; y < this.model.getIsland().getHeight(); y++) {
+            for (int x = 0; x < model.getIsland().getWidth(); x++) {
+                if (island.inMap(new Point(x, y))) {
+                    Zone z = island.getZone(x, y);
+                    int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
+                    int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
+
+                    if (z.dryable()) {
+                        drawOutline(g, x_case, y_case, new Color(124, 78, 40));
                     }
                 }
             }
