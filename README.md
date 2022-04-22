@@ -8,3 +8,13 @@
 
 # Interface
 
+## Setup
+![](pictures/setup.png)
+
+## Game
+
+![](pictures/interface.png)
+
+## Rules
+
+[rules](rules.pdf)
