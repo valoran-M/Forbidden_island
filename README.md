@@ -59,4 +59,4 @@ You lose if :
 
 ### Views
 
-![Views](pictures/)
+![Views](pictures/view.png)
