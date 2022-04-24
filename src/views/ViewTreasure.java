@@ -20,7 +20,7 @@ public class ViewTreasure extends ViewPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int pawnsSapcing = (this.getWidth() - 60) / this.model.getTemple().size();
         for (int i = 0; i < this.model.getTemple().size(); i++) {
