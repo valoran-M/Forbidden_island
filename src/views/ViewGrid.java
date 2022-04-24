@@ -159,7 +159,7 @@ public class ViewGrid extends ViewPanel implements MouseListener {
                 int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                 int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
                 if (actionMove[y][x] <= model.getActPlayer().getNbActions() && actionMove[y][x] != 0
-                        && z.moove()) {
+                        && z.move()) {
                     drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                 }
             }
@@ -181,7 +181,7 @@ public class ViewGrid extends ViewPanel implements MouseListener {
                     int x_case = x * (sizeCase + sizeBorder) + sizeBorder;
                     int y_case = y * (sizeCase + sizeBorder) + sizeBorder;
 
-                    if (z.moove()) {
+                    if (z.move()) {
                         drawOutline(g, x_case, y_case, new Color(176, 242, 182));
                     }
                 }

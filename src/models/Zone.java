@@ -68,7 +68,7 @@ public class Zone {
      * 
      * @return
      */
-    public boolean moove(){
+    public boolean move(){
         return maxWaterLvl > this.waterLvl;
     }
 
@@ -78,7 +78,7 @@ public class Zone {
      * @return
      */
     public boolean dryable(){
-        return moove() && this.waterLvl > 0;
+        return move() && this.waterLvl > 0;
     }
 
     /**

@@ -63,7 +63,7 @@ public class ContrGrid extends Controller {
      */
     private void clickHeliCard(int x, int y) {
         Zone move = this.model.getIsland().getZone(x, y);
-        if (move.moove()) {
+        if (move.move()) {
             for (Player p : this.contrPlayer.playersHeli) {
                 p.changePosition(move);
             }
@@ -108,7 +108,7 @@ public class ContrGrid extends Controller {
         Zone moveZ = model.getIsland().getZone(x, y);
 
         if (action[y][x] <= model.getActPlayer().getNbActions()
-                && moveZ.moove()) {
+                && moveZ.move()) {
             model.getActPlayer().changePosition(moveZ);
             model.getActPlayer().setAction(model.getActPlayer().getNbActions() - action[y][x]);
             if (model.getActPlayer().getRole() == Role.Pilote) {
