@@ -149,6 +149,9 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * put all the elements for the setup
+     */
     public void setup() {
         setSize(500, 400);
         getContentPane().removeAll();
@@ -156,6 +159,9 @@ public class View extends JFrame {
         repaint();
     }
 
+    /**
+     * put all the elements for the game
+     */
     public void start() {
         this.model.setState(Model.State.RUNNING);
         getContentPane().removeAll();
@@ -169,6 +175,9 @@ public class View extends JFrame {
         this.repaint();
     }
 
+    /**
+     * put all the elements for the game over screen
+     */
     public void gameOver() {
         elements.remove(this.buttons);
         elements.remove(this.treasure);
@@ -177,9 +186,5 @@ public class View extends JFrame {
 
         elements.updateUI();
         this.repaint();
-    }
-
-    public ViewSetup getViewSetup() {
-        return this.setup;
     }
 }

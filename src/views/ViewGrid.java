@@ -79,6 +79,9 @@ public class ViewGrid extends JPanel implements MouseListener {
         this.victory = new ImageIcon("images/victory.png").getImage();
     }
 
+    /**
+     * save pawns image in arraylist
+     */
     public void initPawn() {
         pawns.clear();
         String path = "images/pawns/";
@@ -125,6 +128,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Draw Zone of the island
+     * 
+     * @param Grahics g
+     */
     private void drawIsland(Graphics g) {
         Island island = this.model.getIsland();
         for (int y = 0; y < island.getGridSize().y; y++) {
@@ -139,6 +147,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * drawings a rectangle for the squares where the player can move
+     * 
+     * @param g
+     */
     private void drawMove(Graphics g) {
         int[][] actionMove = model.nbAction(model.getActPlayer());
         Island island = this.model.getIsland();
@@ -155,6 +168,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * draw moov for helicopter card
+     * 
+     * @param g
+     */
     private void drawHeli(Graphics g) {
         Island island = this.model.getIsland();
         for (int y = 0; y < this.model.getIsland().getHeight(); y++) {
@@ -173,6 +191,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * draw dry for sandBag card
+     * 
+     * @param g
+     */
     private void drawSandBag(Graphics g) {
         Island island = this.model.getIsland();
         for (int y = 0; y < this.model.getIsland().getHeight(); y++) {
@@ -190,6 +213,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * spacial draw for navigator player move
+     * 
+     * @param g
+     */
     private void drawNavigatorMove(Graphics g) {
         if (contrPlayer.selectedPlayer == null || contrPlayer.selectedPlayer == model.getActPlayer()
                 || model.getActPlayer().getNbActions() <= 0) {
@@ -213,6 +241,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * draw dryable case
+     * 
+     * @param g
+     */
     private void drawDry(Graphics g) {
         ArrayList<Point> neigbours = model.getActPlayer().neigboursDry(this.model);
         neigbours.add(new Point(model.getActPlayer().getPosition().getX(), model.getActPlayer().getPosition().getY()));
@@ -226,6 +259,14 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * draw rect in case
+     * 
+     * @param g
+     * @param x
+     * @param y
+     * @param color
+     */
     private void drawOutline(Graphics g, int x, int y, Color color) {
         g.setColor(color);
         for (int i = 0; i < 3; i++) {
@@ -233,6 +274,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * drawings of the boxes where you can escape
+     * 
+     * @param g
+     */
     private void drawEscape(Graphics g) {
         ArrayList<Point> neigbours = contrFlooding.getEscape().neigboursMove(this.model);
         for (Point point : neigbours) {
@@ -245,6 +291,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * draw temples
+     * 
+     * @param g
+     */
     private void drawImages(Graphics g) {
         int i = 0;
         for (Zone temple : model.getTemple()) {
@@ -261,6 +312,11 @@ public class ViewGrid extends JPanel implements MouseListener {
         g.drawImage(this.heliport, x, y, null);
     }
 
+    /**
+     * draw Pawns
+     * 
+     * @param g
+     */
     private void drawPlayers(Graphics g) {
         int playerIter = 0;
         for (Player player : model.getPlayers()) {
@@ -270,6 +326,15 @@ public class ViewGrid extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * draw pawns in good position
+     * 
+     * @param g
+     * @param x
+     * @param y
+     * @param i
+     * @param player
+     */
     private void draw_pawn(Graphics g, int x, int y, int i, int player) {
         x = x * (sizeCase + sizeBorder) + sizeBorder;
         y = y * (sizeCase + sizeBorder) + sizeBorder;
@@ -300,16 +365,32 @@ public class ViewGrid extends JPanel implements MouseListener {
         g.drawImage(pawns.get(player), x, y, null);
     }
 
+    /**
+     * draw game over Image
+     * 
+     * @param g
+     */
     private void drawGameOver(Graphics g) {
         g.drawImage(this.gameOver, this.widthJpanel / 2 - this.gameOver.getWidth(null) / 2,
                 this.heightJpanel / 2 - this.gameOver.getHeight(null) / 2, null);
     }
 
+    /**
+     * draw victory Image
+     * 
+     * @param g
+     */
     private void drawVictory(Graphics g) {
         g.drawImage(this.victory, this.widthJpanel / 2 - this.victory.getWidth(null) / 2,
                 this.heightJpanel / 2 - this.victory.getHeight(null) / 2, null);
     }
 
+    /**
+     * gives the alpha depending on the flooding of the area
+     * 
+     * @param zone
+     * @return
+     */
     private int getAlpha(Zone zone) {
         int max = zone.getMaxWaterLvl();
         int act = zone.getWaterLvl();

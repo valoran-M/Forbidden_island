@@ -75,6 +75,16 @@ public class ViewPlayer extends JPanel implements MouseListener {
         addMouseListener(this);
     }
 
+    /**
+     * draw outline like viewGrid outline
+     * 
+     * @param g
+     * @param x
+     * @param y
+     * @param sizeW
+     * @param sizeH
+     * @param color
+     */
     private void drawOutline(Graphics g, int x, int y, int sizeW, int sizeH, Color color) {
         g.setColor(color);
         for (int i = 0; i < 3; i++) {
@@ -97,6 +107,13 @@ public class ViewPlayer extends JPanel implements MouseListener {
         drawSelectedPlayer(g);
     }
 
+    /**
+     * draw the contours around a pawn
+     * 
+     * @param g
+     * @param player
+     * @param color
+     */
     private void drawPawnOutline(Graphics g, int player, Color color) {
         int midX = 30 + (pawnsSapcing + this.pawns.get(player).getWidth(null) / 2) * player
                 + this.pawns.get(player).getWidth(null) / 2;
@@ -105,6 +122,11 @@ public class ViewPlayer extends JPanel implements MouseListener {
         drawOutline(g, midX - size / 2, midY - size / 2, size, size, color);
     }
 
+    /**
+     * draw pawns
+     * 
+     * @param g
+     */
     private void drawPlayer(Graphics g) {
         for (int player = 0; player < this.pawns.size(); player++) {
             g.drawImage(this.pawns.get(player),
@@ -124,6 +146,10 @@ public class ViewPlayer extends JPanel implements MouseListener {
         drawPawnOutline(g, model.getActPlayerId(), new Color(255, 255, 255));
     }
 
+    /**
+     * Draw actual Player
+     * @param g
+     */
     private void drawActPlayer(Graphics g) {
         g.setColor(new Color(200, 200, 200));
         Font currentFont = g.getFont();
@@ -140,6 +166,11 @@ public class ViewPlayer extends JPanel implements MouseListener {
         g.drawString(model.getActPlayer().getRole().toString(), 20, 130);
     }
 
+    /**
+     * draw outline for Exchange
+     * 
+     * @param g
+     */
     private void drawExchange(Graphics g) {
         for (int i = 0; i < this.model.getPlayers().size(); i++) {
             if ((model.getActPlayer().getPosition() == model.getPlayers().get(i).getPosition() &&
@@ -151,6 +182,11 @@ public class ViewPlayer extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Draw Selected Player with his cards
+     * 
+     * @param g
+     */
     private void drawSelectedPlayer(Graphics g) {
         Color colorT = new Color(200, 200, 200);
         g.setColor(colorT);

@@ -87,7 +87,7 @@ public class ContrSetup extends Controller implements ActionListener {
      * @param ActionEvent e
      */
     public void actionPerformed(ActionEvent e) {
-        ArrayList<String> names = view.getViewSetup().getNamePlayer();
+        ArrayList<String> names = view.setup.getNamePlayer();
         setPlayer(names);
         model.getDelugeLvl().setLvl(this.view.setup.levelSlider.getValue() - 1);
         view.start();

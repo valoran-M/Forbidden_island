@@ -39,7 +39,7 @@ public class ViewSetup extends JPanel {
 	}
 
 	/**
-	 * 
+	 * set up start menu
 	 */
 	private void setUpMenu() {
 
@@ -111,6 +111,10 @@ public class ViewSetup extends JPanel {
 
 	}
 
+	/**
+	 * add JTextFields and JLabels to the namePlayers panel
+	 * @param nb
+	 */
 	private void drawInName(int nb) {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.anchor = GridBagConstraints.WEST;
@@ -126,6 +130,11 @@ public class ViewSetup extends JPanel {
 		namePlayers.repaint();
 	}
 
+	/**
+	 * get Names in JTextField
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getNamePlayer() {
 		names = new ArrayList<String>();
 		for (int i = 0; i < slider.getValue(); i++) {
