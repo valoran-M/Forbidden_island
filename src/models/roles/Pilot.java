@@ -8,7 +8,7 @@ import models.Model;
 import models.Zone;
 
 /**
- * Pilote
+ * Pilote model
  */
 public class Pilot extends Player {
 

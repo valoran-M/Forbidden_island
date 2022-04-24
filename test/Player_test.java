@@ -27,7 +27,7 @@ public class Player_test {
     @Test
     public void testSetter() {
         this.p.setName("gravil");
-        this.p.setPosition(new Zone(2, 3));
+        this.p.changePosition(z);
         // this.p.setRole(new Role("Pilote", Role.Pilote));
     }
 

@@ -1,5 +1,8 @@
 package models.roles;
 
+/**
+ * enum for all Role
+ */
 public enum Role {
     Explorateur("greenPawn.png"),
     Ingenieur("redPawn.png"),
