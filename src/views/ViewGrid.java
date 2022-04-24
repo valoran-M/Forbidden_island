@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.Point;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import controllers.ContrFlooding;
 import controllers.ContrGrid;
@@ -25,12 +24,10 @@ import models.roles.Role;
 /**
  * Grid
  */
-public class ViewGrid extends JPanel implements MouseListener {
+public class ViewGrid extends ViewPanel implements MouseListener {
     public ContrGrid control;
     public ContrFlooding contrFlooding;
     public ContrPlayer contrPlayer;
-
-    private Model model;
 
     public ArrayList<Image> pawns;
     public ArrayList<Image> temples;
@@ -44,6 +41,7 @@ public class ViewGrid extends JPanel implements MouseListener {
     final public int sizeBorder = 5;
 
     public ViewGrid(Model m, View view, ContrFlooding contrFlooding) {
+        super(m);
         this.model = m;
         int width = m.getIsland().getGridSize().x;
         int height = m.getIsland().getGridSize().y;

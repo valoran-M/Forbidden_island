@@ -55,7 +55,7 @@ You lose if :
 
 ### Controllers
 
-![controllers](pictures/)
+![controllers](pictures/controller.png)
 
 ### Views
 

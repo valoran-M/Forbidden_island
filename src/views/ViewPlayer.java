@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import controllers.ContrPlayer;
 import models.Card;
@@ -20,9 +19,7 @@ import models.roles.Role;
 /**
  * ViewPlayer
  */
-public class ViewPlayer extends JPanel implements MouseListener {
-    private Model model;
-
+public class ViewPlayer extends ViewPanel implements MouseListener {
     public ContrPlayer contrPlayer;
 
     public int width, height;
@@ -36,7 +33,7 @@ public class ViewPlayer extends JPanel implements MouseListener {
     public Image helicopter;
 
     public ViewPlayer(Model model, View view) {
-        this.model = model;
+        super(model);
         this.width = 300;
         this.height = view.grid.heightJpanel;
         this.sizeCase = view.grid.sizeCase;

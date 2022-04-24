@@ -5,19 +5,16 @@ import java.util.ArrayList;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import javax.swing.JPanel;
-
 import models.Model;
 
 /**
  * ViewTreasure
  */
-public class ViewTreasure extends JPanel {
-    public Model model;
+public class ViewTreasure extends ViewPanel {
     public ArrayList<Image> temples;
 
     public ViewTreasure(Model model, View view, ViewGrid viewGrid) {
-        this.model = model;
+        super(model);
         this.temples = viewGrid.temples;
         setBackground(view.background);
     }

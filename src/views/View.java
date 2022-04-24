@@ -104,7 +104,7 @@ public class View extends JFrame {
 
         JButton next = new JButton("End of turn");
         next.setPreferredSize(new Dimension(this.player.width, 50));
-        next.addActionListener(this.contrEndTurn);
+        next.addActionListener(contrEndTurn);
         buttons.add(search);
         buttons.add(dig);
         buttons.add(exchange);

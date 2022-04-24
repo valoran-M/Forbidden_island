@@ -5,22 +5,19 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import models.Model;
 
 /**
  * ViewLevel
  */
-public class ViewLevel extends JPanel {
-    public Model model;
+public class ViewLevel extends ViewPanel {
 
     public Image Stick;
     public Image Level;
 
     public ViewLevel(Model model, View view) {
-        super();
-        this.model= model;
+        super(model);
         this.setBackground(view.background);
         this.setPreferredSize(new Dimension(200, view.grid.heightJpanel));
 
