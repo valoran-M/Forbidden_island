@@ -42,3 +42,21 @@ You lose if :
   - Java
   - Swing
   - Junit (for tests)
+
+## UML
+
+### MVC
+
+![MVC](pictures/mvc.png)
+
+### Models
+
+![Models](pictures/model.png)
+
+### Controllers
+
+![controllers](pictures/)
+
+### Views
+
+![Views](pictures/)

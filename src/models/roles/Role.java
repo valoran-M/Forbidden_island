@@ -17,37 +17,4 @@ public enum Role {
     public String getImage() {
         return this.image;
     }
-
-    public String getString(Role role) {
-        
-        switch (role) {
-            case Explorateur:
-
-                break;
-
-            case Ingenieur:
-
-                break;
-
-            case Messager:
-
-                break;
-
-            case Pilote:
-
-                break;
-
-            case Navigateur:
-
-                break;
-
-            case Plongeur:
-
-                break;
-
-            default:
-                break;
-        }
-        return role.toString();
-    }
 }

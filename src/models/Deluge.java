@@ -1,29 +1,22 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Deluge {
-    private ArrayList<Boolean> delugeLvl;
+    private int delugeLvl;
 
     public Deluge(int niv) {
-        this.delugeLvl = new ArrayList<Boolean>(10);
-        for (int i = 0; i < 10; i++) {
-            this.delugeLvl.add(false);
-        }
-        this.delugeLvl.set(niv, true);
+        delugeLvl = niv;
     }
 
     public int getLvl() {
-        return delugeLvl.indexOf(true);
+        return delugeLvl;
     }
 
     public void incrementLvl() {
-        setLvl(getLvl() + 1);
+        delugeLvl++;
     }
 
     public void setLvl(int i) {
-        this.delugeLvl.set(this.getLvl(), false);
-        this.delugeLvl.set(i, true);
+        this.delugeLvl = i;
     }
 
     public int innondationRate() {
