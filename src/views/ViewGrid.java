@@ -96,7 +96,10 @@ public class ViewGrid extends JPanel implements MouseListener {
         if (model.getState() == Model.State.RUNNING) {
             if (contrFlooding.getEscape() != null) {
                 drawEscape(g);
-            } else if (model.getActPlayer().getState() == Player.State.DRY && model.getActPlayer().getNbActions() > 0) {
+            } else if (model.getActPlayer().getState() == Player.State.DRY &&
+                    (model.getActPlayer().getNbActions() > 0
+                            || (model.getActPlayer().getRole() == Role.Ingenieur
+                                    && !model.getActPlayer().getPower()))) {
                 drawDry(g);
             } else if (model.getActPlayer().getState() == Player.State.MOVING) {
                 if (model.getActPlayer().getRole() == Role.Navigateur) {

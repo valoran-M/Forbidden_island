@@ -9,6 +9,9 @@ import models.Zone;
 import models.roles.Player;
 import views.View;
 
+/**
+ * class for case flooding
+ */
 public class ContrFlooding extends Controller {
     public int nbInondation;
     private Player escape;
@@ -19,10 +22,18 @@ public class ContrFlooding extends Controller {
         this.escape = null;
     }
 
+    /**
+     * Geter for escape player
+     * 
+     * @return Player
+     */
     public Player getEscape() {
         return this.escape;
     }
 
+    /**
+     * Put a pawn that is on a flooded square in escape
+     */
     public void setEscape() {
         Player escape = null;
         for (Player player : model.getPlayers()) {
@@ -33,17 +44,33 @@ public class ContrFlooding extends Controller {
         this.escape = escape;
     }
 
+    /**
+     * To know if a player can escape
+     * 
+     * @param zone
+     * @param player
+     * @return Boolean
+     */
     private Boolean escape(Zone zone, Player player) {
         ArrayList<Point> action = player.neigboursMove(this.model);
 
         return !action.isEmpty();
     }
 
+    /**
+     * Check if the square that has just been flooded is a temple or a helicopter
+     * 
+     * @param Zone
+     * @return Boolean
+     */
     private Boolean gameOverCase(Zone zone) {
         return model.getTemple().contains(zone) ||
                 model.getHeliZone() == zone;
     }
 
+    /**
+     * flooding case
+     */
     public void flooding() {
         for (; nbInondation > 0; nbInondation--) {
             Zone drownZ = model.getPiocheWater().pick();

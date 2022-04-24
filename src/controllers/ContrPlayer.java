@@ -8,7 +8,7 @@ import models.roles.Player;
 import views.View;
 
 /**
- * ContrPlayer
+ * Use for viewPlayer
  */
 public class ContrPlayer extends Controller {
     public Player selectedPlayer;
@@ -21,6 +21,14 @@ public class ContrPlayer extends Controller {
         this.playersHeli = new ArrayList<Player>();
     }
 
+    /**
+     * Call the method of the model when player click on a pawn
+     * 
+     * The function is used to interpret 
+     * the click according to the state of the game
+     * 
+     * @param player
+     */
     public void playerClick(Player player) {
         if (this.model.getState() == Model.State.SPE_CARD) {
             selectedPlayerHeli(player);
@@ -47,6 +55,12 @@ public class ContrPlayer extends Controller {
         view.repaint();
     }
 
+    /**
+     * Handles player selection for the helicopter 
+     * card when players click on a pawn
+     *
+     * @param player
+     */
     private void selectedPlayerHeli(Player player) {
         if (this.playersHeli.contains(player)) {
             this.playersHeli.remove(player);
@@ -61,7 +75,12 @@ public class ContrPlayer extends Controller {
         }
         view.repaint();
     }
-
+    /**
+     * Discard a select card when the 
+     * player has too many cards
+     * 
+     * @param card
+     */
     private void throwClick(Card card) {
         this.selectedCard = null;
         if (model.getActPlayer().getCards(card) >= 1) {
@@ -72,6 +91,11 @@ public class ContrPlayer extends Controller {
         }
     }
 
+    /**
+     * Check if the victory conditions are met
+     * 
+     * @return
+     */
     private Boolean victoryCheck() {
         boolean ownH = false;
         for (Player p : model.getPlayers()) {
@@ -85,6 +109,12 @@ public class ContrPlayer extends Controller {
         return !model.getTreasureState().contains(false) && ownH;
     }
 
+    /**
+     * Called when a map is clicked and manages 
+     * the map according to game state
+     * 
+     * @param card
+     */
     public void cardClick(Card card) {
         this.selectedCard = card;
         if (model.getState() == Model.State.SPE_CARD) {

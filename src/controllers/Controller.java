@@ -4,7 +4,7 @@ import models.Model;
 import views.View;
 
 /**
- * Controllers
+ * 1bstract class for controllers
  */
 public abstract class Controller {
     protected Model model;

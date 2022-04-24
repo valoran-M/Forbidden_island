@@ -9,7 +9,7 @@ import models.Card;
 import views.View;
 
 /**
- * ContrEndTurn
+ * class for end turn buttons
  */
 public class ContrEndTurn extends Controller implements ActionListener {
     public ContrFlooding contrEscape;
@@ -22,6 +22,9 @@ public class ContrEndTurn extends Controller implements ActionListener {
         this.maxCard = 5;
     }
 
+    /**
+     * update the model
+     */
     public void nexTurn() {
         model.nextPlayer();
         model.getActPlayer().setState(Player.State.MOVING);
@@ -29,6 +32,10 @@ public class ContrEndTurn extends Controller implements ActionListener {
         contrEscape.flooding();
     }
 
+    /**
+     * Manages all events after 
+     * the use of the 3 actions put in the rule
+     */
     public void actionPerformed(ActionEvent e) {
         if (contrEscape.getEscape() == null) {
             model.getActPlayer().powerUp();

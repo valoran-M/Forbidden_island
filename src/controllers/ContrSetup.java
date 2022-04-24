@@ -13,6 +13,7 @@ import views.View;
 
 /**
  * ContrSetup
+ * setup model when start button was clicked
  */
 public class ContrSetup extends Controller implements ActionListener {
 
@@ -20,6 +21,14 @@ public class ContrSetup extends Controller implements ActionListener {
         super(model, view);
     }
 
+    /**
+     * return Player object with correct role
+     * 
+     * @param role
+     * @param name
+     * @param zone
+     * @return Player
+     */
     private Player createPlayer(Role role, String name, Zone zone) {
         Player player = null;
         switch (role) {
@@ -51,6 +60,11 @@ public class ContrSetup extends Controller implements ActionListener {
         return player;
     }
 
+    /**
+     * create players and add them to model
+     * 
+     * @param players player name
+     */
     private void setPlayer(ArrayList<String> names) {
         ArrayList<Role> roles = new ArrayList<Role>();
         roles.add(Role.Explorateur);
@@ -60,13 +74,18 @@ public class ContrSetup extends Controller implements ActionListener {
         roles.add(Role.Pilote);
         roles.add(Role.Plongeur);
         Collections.shuffle(roles);
-        for (String name: names){
+        for (String name : names) {
             Player player = createPlayer(roles.get(0), name, model.getIsland().getRandomCase());
             model.addPlayer(player);
             roles.remove(0);
         }
     }
 
+    /**
+     * function called when start button was clicked
+     * 
+     * @param ActionEvent e
+     */
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> names = view.getViewSetup().getNamePlayer();
         setPlayer(names);

@@ -13,17 +13,24 @@ import models.roles.Player.State;
 import views.View;
 
 /**
- * ContrGrid
+ * Use for viewGrid
  */
 public class ContrGrid extends Controller {
-    private ContrFlooding contrFlooding;
-    private ContrPlayer contrPlayer;
+    public ContrFlooding contrFlooding;
+    public ContrPlayer contrPlayer;
 
     public ContrGrid(Model model, View view, ContrFlooding contrFlooding) {
         super(model, view);
         this.contrFlooding = contrFlooding;
     }
 
+    /**
+     * Manage clicks on the island
+     * 
+     * @param x
+     * @param y
+     * 
+     */
     public void click(int x, int y) {
         if (model.getIsland().inMap(new Point(x, y)) && model.getState() != Model.State.LOSE) {
             if (this.model.getState() == Model.State.SPE_CARD) {
@@ -48,10 +55,12 @@ public class ContrGrid extends Controller {
         this.view.repaint();
     }
 
-    public void setContrPlayer(ContrPlayer contrPlayer) {
-        this.contrPlayer = contrPlayer;
-    }
-
+    /**
+     * Manages the click of the helicopter cards
+     * 
+     * @param x
+     * @param y
+     */
     private void clickHeliCard(int x, int y) {
         Zone move = this.model.getIsland().getZone(x, y);
         if (move.moove()) {
@@ -68,9 +77,15 @@ public class ContrGrid extends Controller {
         }
     }
 
+    /**
+     * Manages the click of the sandBag cards
+     * 
+     * @param x
+     * @param y
+     */
     private void clickSandBag(int x, int y) {
         Zone caseC = this.model.getIsland().getZone(x, y);
-        if(caseC.getWaterLvl() > 0 && caseC.getWaterLvl() < caseC.getMaxWaterLvl()){
+        if (caseC.getWaterLvl() > 0 && caseC.getWaterLvl() < caseC.getMaxWaterLvl()) {
             caseC.dry();
             this.contrPlayer.selectedPlayer.useCard(Card.SAC);
             this.model.getPiocheCard().getDefausse().add(Card.SAC);
@@ -82,6 +97,12 @@ public class ContrGrid extends Controller {
         }
     }
 
+    /**
+     * Manages move action
+     * 
+     * @param x
+     * @param y
+     */
     private void clickMove(int x, int y) {
         int[][] action = model.nbAction(model.getActPlayer());
         Zone moveZ = model.getIsland().getZone(x, y);
@@ -98,6 +119,12 @@ public class ContrGrid extends Controller {
         }
     }
 
+    /**
+     * Special function for Navigator role
+     * 
+     * @param x
+     * @param y
+     */
     private void clickNavigator(int x, int y) {
         if (contrPlayer.selectedPlayer == null || contrPlayer.selectedPlayer == null
                 || contrPlayer.selectedPlayer == model.getActPlayer()) {
@@ -112,8 +139,16 @@ public class ContrGrid extends Controller {
         }
     }
 
+    /**
+     * Handles the click for drying
+     * 
+     * @param x
+     * @param y
+     */
     private void clickDry(int x, int y) {
-        if (model.getActPlayer().getNbActions() > 0) {
+        if (model.getActPlayer().getNbActions() > 0
+                || (model.getActPlayer().getRole() == Role.Ingenieur
+                        && !model.getActPlayer().getPower())) {
             Zone digZ = model.getIsland().getZone(x, y);
             ArrayList<Zone> digZones = new ArrayList<Zone>();
             ArrayList<Point> action = model.getActPlayer().neigboursDry(this.model);
@@ -130,6 +165,12 @@ public class ContrGrid extends Controller {
         }
     }
 
+    /**
+     * Handles the clique if a pawn is drowning
+     * 
+     * @param x
+     * @param y
+     */
     private void clickEscape(int x, int y) {
         ArrayList<Point> neigbours = contrFlooding.getEscape().neigboursMove(this.model);
         for (Point point : neigbours) {

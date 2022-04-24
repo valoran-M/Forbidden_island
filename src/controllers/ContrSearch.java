@@ -8,7 +8,8 @@ import models.Model;
 import views.View;
 
 /**
- * ContrSearch
+ * ContrSearch 
+ * use if the search button was clicked
  */
 public class ContrSearch extends Controller implements ActionListener {
 
@@ -16,7 +17,12 @@ public class ContrSearch extends Controller implements ActionListener {
         super(model, view);
     }
 
-    public Boolean canTakeTresure() {
+    /**
+     * test if a player was on temple zone
+     * 
+     * @return Boolean
+     */
+    public Boolean checkPosition() {
         int index = model.getTemple().indexOf(model.getActPlayer().getPosition());
         if (index != -1) {
             return true;
@@ -25,8 +31,15 @@ public class ContrSearch extends Controller implements ActionListener {
 
     }
 
+    /**
+     * call the search method of the model when 
+     * the search button was clicked
+     * 
+     * @param ActionEvent
+     * 
+     */
     public void actionPerformed(ActionEvent e) {
-        if (model.getActPlayer().getNbActions() > 0 && canTakeTresure()) {
+        if (model.getActPlayer().getNbActions() > 0 && checkPosition()) {
             model.getActPlayer().setAction(
                     model.getActPlayer().getNbActions() - 1);
             int index = model.getTemple().indexOf(model.getActPlayer().getPosition());
