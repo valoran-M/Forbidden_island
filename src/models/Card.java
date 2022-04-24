@@ -1,5 +1,8 @@
 package models;
 
+/**
+ * Card enum
+ */
 public enum Card {
     AIR,
     EAU,
@@ -9,6 +12,12 @@ public enum Card {
     HELICOPTERE,
     DELUGE;
 
+    /**
+     * retun temple Id when is key for temple
+     * 
+     * @param card
+     * @return
+     */
     public int getTempleID(Card card) {
         switch (card) {
             case AIR:
@@ -24,6 +33,12 @@ public enum Card {
         }
     }
 
+    /**
+     * return temple card with temple id
+     * 
+     * @param id
+     * @return
+     */
     public static Card getCardTemple(int id) {
         switch (id) {
             case 0:

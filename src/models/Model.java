@@ -32,6 +32,11 @@ public class Model {
     private Zone heliZone;
     private PiocheCard piocheCard;
 
+    /**
+     * Constructor
+     * 
+     * @param map
+     */
     public Model(String map) {
         try {
             this.island = new Island(map);
@@ -64,68 +69,143 @@ public class Model {
     }
 
     // Getter
+    /**
+     * get deluge level
+     * @return
+     */
     public Deluge getDelugeLvl() {
         return this.delugeLvl;
     }
 
+    /**
+     * get i th treasure state
+     * 
+     * @param i
+     * @return
+     */
     public Boolean getTreasureState(int i) {
         return this.treasureState.get(i);
     }
 
+    /**
+     * get every treasure state
+     * 
+     * @return
+     */
     public ArrayList<Boolean> getTreasureState() {
         return this.treasureState;
     }
 
+    /**
+     * get actual state
+     * 
+     * @return
+     */
     public State getState() {
         return this.state;
     }
 
+    /**
+     * get island
+     * 
+     * @return
+     */
     public Island getIsland() {
         return this.island;
     }
 
+    /**
+     * get temples
+     * 
+     * @return
+     */
     public ArrayList<Zone> getTemple() {
         return this.temple;
     }
 
+    /**
+     * get Players
+     */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
 
+    /**
+     * get  helicopter zone
+     * 
+     */
     public Zone getHeliZone() {
         return this.heliZone;
     }
 
+    /**
+     * get act player id
+     * @return
+     */
     public int getActPlayerId() {
         return this.actPlayer;
     }
 
+    /**
+     * get Act player
+     * 
+     * @return
+     */
     public Player getActPlayer() {
         return this.players.get(actPlayer);
     }
 
+    /**
+     * get Pioche Water
+     * @return
+     */
     public PiocheInnondation getPiocheWater() {
         return this.piocheWater;
     }
 
+    /**
+     * get Pioche Card
+     * 
+     * @return
+     */
     public PiocheCard getPiocheCard() {
         return this.piocheCard;
     }
 
     // Setter
+
+    /**
+     * set State
+     * 
+     * @param state
+     */
     public void setState(State state) {
         this.state = state;
     }
 
+    /**
+     * add player
+     * 
+     * @param player
+     */
     public void addPlayer(Player player) {
         this.players.add(player);
     }
 
+    /**
+     * change player
+     * 
+     */
     public void nextPlayer() {
         this.actPlayer = (this.actPlayer + 1) % this.players.size();
         getActPlayer().resetAction();
     }
 
+    /**
+     * get random valide case
+     * 
+     * @return
+     */
     public Zone getRandomValideCase() {
         Zone pos;
         do {
@@ -134,6 +214,12 @@ public class Model {
         return pos;
     }
 
+    /**
+     * check if alle Case was visited
+     * 
+     * @param Boolean[][
+     * @return Boolean
+     */
     private Boolean allTraveled(Boolean[][] visitedCase) {
         for (int i = 0; i < visitedCase.length; i++) {
             for (int j = 0; j < visitedCase[i].length; j++) {
@@ -145,6 +231,13 @@ public class Model {
         return true;
     }
 
+    /**
+     * get min case not visited
+     * 
+     * @param visitedCase
+     * @param action
+     * @return
+     */
     private Point getMinCase(Boolean[][] visitedCase, int[][] action) {
         Point p = new Point(0, 0);
         int min = 999;
@@ -160,6 +253,12 @@ public class Model {
     }
 
 
+    /**
+     * return action case with player power
+     * 
+     * @param player
+     * @return
+     */
     public int[][] nbAction(Player player) {
         Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
         int[][] action = new int[island.getHeight()][island.getWidth()];
@@ -199,6 +298,12 @@ public class Model {
         return action;
     }
 
+    /**
+     * get nb action without player power
+     * @param x
+     * @param y
+     * @return
+     */
     public int[][] nbActionNormal(int x, int y) {
         Boolean[][] visitedCase = new Boolean[island.getHeight()][island.getWidth()];
         int[][] action = new int[island.getHeight()][island.getWidth()];
@@ -231,6 +336,10 @@ public class Model {
         return action;
     }
 
+    /**
+     * stacked zone
+     * @return
+     */
     public ArrayList<Zone> pileOfZone() {
         ArrayList<Zone> cards = new ArrayList<Zone>();
         for (int y = 0; y < this.getIsland().getHeight(); y++) {
@@ -241,6 +350,10 @@ public class Model {
         return cards;
     }
 
+    /**
+     * reset model
+     * 
+     */
     public void reset() {
         this.state = State.SETUP;
         try {

@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Ile
+ * Island model
  */
 public class Island {
 
@@ -19,6 +19,12 @@ public class Island {
     private final int width;
     private final int height;
 
+    /**
+     * Constructor with map
+     * 
+     * @param map
+     * @throws IOException
+     */
     public Island(String map) throws IOException {
         BufferedReader lecteur = new BufferedReader(new FileReader(map));
 
@@ -43,6 +49,10 @@ public class Island {
         rand = new Random();
     }
 
+    /**
+     * Contructor with diamond
+     * 
+     */
     public Island() {
         this.width = 6;
         this.height = 6;
@@ -62,6 +72,13 @@ public class Island {
         rand = new Random();
     }
 
+    /**
+     * get Zone
+     * 
+     * @param x
+     * @param y
+     * @return
+     */
     public Zone getZone(int x, int y) {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             return null;
@@ -69,22 +86,48 @@ public class Island {
         return grid.get(y).get(x);
     }
 
+    /**
+     * get Grid Size
+     * 
+     * @return Point
+     */
     public Point getGridSize() {
         return new Point(this.width, this.height);
     }
 
+    /**
+     * get Grid
+     * 
+     * @return
+     */
     public ArrayList<ArrayList<Zone>> getGrid() {
         return this.grid;
     }
 
+    /**
+     * get height
+     * 
+     * @return
+     */
     public int getHeight() {
         return this.height;
     }
 
+    /**
+     * get Width
+     * 
+     * @return
+     */
     public int getWidth() {
         return this.width;
     }
 
+    /**
+     * get coord line on line
+     * 
+     * @param y
+     * @return
+     */
     public ArrayList<Integer> getCoordLine(int y) {
         ArrayList<Integer> s = new ArrayList<Integer>();
         for (int index = 0; index < grid.get(y).size(); index++) {
@@ -95,12 +138,22 @@ public class Island {
         return s;
     }
 
+    /**
+     * get a random case
+     * @return
+     */
     public Zone getRandomCase() {
         int y = rand.nextInt(this.getGridSize().y);
         int x = this.getCoordLine(y).get(rand.nextInt(this.getCoordLine(y).size()));
         return this.getZone(x, y);
     }
 
+    /**
+     * get zone'n naigbours 
+     * 
+     * @param p
+     * @return
+     */
     public ArrayList<Zone> neighbours(Zone p) {
         ArrayList<Zone> neighbours = new ArrayList<Zone>();
         neighbours.add(this.getZone(p.getCoord().x, p.getCoord().y + 1));
@@ -110,6 +163,12 @@ public class Island {
         return neighbours;
     }
 
+    /**
+     * check if Zone in map
+     * 
+     * @param pos
+     * @return
+     */
     public boolean inMap(Point pos) {
         return pos.y >= 0 && pos.y < getGridSize().y && pos.x >= 0 &&
                 pos.x < getGridSize().x &&
