@@ -43,6 +43,36 @@ You lose if :
   - Swing
   - Junit (for tests)
 
+#### Run
+
+```bash
+java -jar firbidenIsland.jar [map.map]
+```
+
+#### Map
+
+```
+weight
+height
+. : empty
+# : case
+```
+
+##### exemple
+```
+default.map:
+6
+6
+..##..
+.####.
+######
+######
+.####.
+..##..
+
+java -jar firbidenIsland.jar default.map
+```
+
 ## UML
 
 ### MVC
